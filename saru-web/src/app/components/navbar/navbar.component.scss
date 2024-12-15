@@ -1,0 +1,16 @@
+$primary : #F43;
+
+
+
+mat-toolbar{
+    background-color: $primary;
+    text-align: center;
+    align-content: center;
+
+    span{
+        align-content: center;
+        text-align: center;
+        flex: 1 1 auto;
+          
+    }
+}
