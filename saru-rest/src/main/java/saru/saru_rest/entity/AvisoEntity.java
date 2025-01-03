@@ -1,8 +1,8 @@
-package saru.saru_rest.model;
+package saru.saru_rest.entity;
 
 import java.sql.Date;
 
-public class Aviso {
+public class AvisoEntity {
     private int idAviso;
     private String texto;
     private String cpfFuncionario;

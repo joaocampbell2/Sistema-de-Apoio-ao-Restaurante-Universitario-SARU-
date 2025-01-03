@@ -1,6 +1,6 @@
-package saru.saru_rest.model;
+package saru.saru_rest.entity;
 
-public class Funcionario {
+public class FuncionarioEntity {
     private String nome;
     private String cpf;
     private String cargo;

@@ -1,7 +1,7 @@
 package saru.saru_rest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import saru.saru_rest.model.Cliente;
+import saru.saru_rest.entity.ClienteEntity;
 
-public interface ClienteRepository extends JpaRepository<Cliente, String> {
+public interface ClienteRepository extends JpaRepository<ClienteEntity, String> {
 }
