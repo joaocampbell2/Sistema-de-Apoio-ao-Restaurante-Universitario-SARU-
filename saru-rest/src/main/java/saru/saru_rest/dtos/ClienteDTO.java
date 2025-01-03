@@ -1,38 +1,29 @@
-package saru.saru_rest.entity;
+package saru.saru_rest.dtos;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import saru.saru_rest.dtos.ClienteDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
 import saru.saru_rest.entity.enums.Clientes;
 
-@Data
-@Entity
-@Table(name = "CLIENTE")
+@Getter
 
-public class ClienteEntity {
-    @Id
+
+public class ClienteDTO {
+    @JsonProperty("cpf")
     private String cpf;
+    @JsonProperty("nome")
     private String nome;
+    @JsonProperty("email")
     private String email;
+    @JsonProperty("saldo")
     private float saldo;
-    @Enumerated(EnumType.STRING)
+    @JsonProperty("tipoCliente")
     private Clientes tipoCliente;
 
 
-
-    public ClienteEntity(ClienteDTO usuario) {
-        this.cpf =  usuario.getCpf();
-        this.nome = usuario.getNome();
-        this.email = usuario.getEmail();
-        this.saldo = usuario.getSaldo();
-        this.tipoCliente = usuario.getTipoCliente();
-
-    }
-    public ClienteEntity() {}
-
     @Override
     public String toString() {
-        return "ClienteEntity{" +
+        return "ClienteDTO{" +
                 "cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
@@ -40,6 +31,7 @@ public class ClienteEntity {
                 ", tipoCliente=" + tipoCliente +
                 '}';
     }
+
 
     public String getCpf() {
         return cpf;
@@ -61,3 +53,4 @@ public class ClienteEntity {
         return tipoCliente;
     }
 }
+
