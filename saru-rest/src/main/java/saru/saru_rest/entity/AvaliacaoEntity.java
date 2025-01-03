@@ -1,6 +1,6 @@
-package saru.saru_rest.model;
+package saru.saru_rest.entity;
 
-public class Avaliacao {
+public class AvaliacaoEntity {
     private int idAvaliacao;
     private int nota;
     private String feedback;

@@ -1,8 +1,10 @@
-package saru.saru_rest.model;
+package saru.saru_rest.entity;
+
+import saru.saru_rest.entity.enums.Turno;
 
 import java.sql.Date;
 
-public class Refeicao {
+public class RefeicaoEntity {
     private int id;
     private String cpfCliente;
     private Date data;

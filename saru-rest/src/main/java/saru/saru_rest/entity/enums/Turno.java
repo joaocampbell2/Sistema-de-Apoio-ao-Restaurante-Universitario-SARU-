@@ -1,4 +1,4 @@
-package saru.saru_rest.model;
+package saru.saru_rest.entity.enums;
 
 public enum Turno {
     ALMOÇO, JANTAR
