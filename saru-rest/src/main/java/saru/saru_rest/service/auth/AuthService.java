@@ -4,6 +4,9 @@ import saru.saru_rest.dtos.ClienteDTO;
 
 public interface AuthService {
 
-    public void fazerCadastro(ClienteDTO cliente);
+    public String fazerCadastro(ClienteDTO cliente);
+
+
+    public String pegarCPF(String token);
 
 }
