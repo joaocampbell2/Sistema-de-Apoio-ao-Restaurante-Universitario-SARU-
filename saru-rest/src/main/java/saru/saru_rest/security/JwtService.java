@@ -35,10 +35,10 @@ public class JwtService {
             "X/aF0riJEnWy03q/bJGa9C7iMWXTA9GiOt4rPUGu9GRFVRdfYRG4MiE2cnOQaWxN" +
             "//ALRmbJPLCqzBQ5hksGusoO";
     
-    public String gerarTokenCliente(ClienteDTO cliente) {
+    public String gerarTokenAluno(String cpf) {
 
         Algorithm algorithm = Algorithm.HMAC256(PRIVATE_KEY);
-        return JWT.create().withSubject(cliente.getCpf()).withClaim("role",  cliente.getTipoCliente().toString()).sign(algorithm);
+        return JWT.create().withSubject(cpf).withClaim("role", "ALUNO" ).sign(algorithm);
 
     }
 
