@@ -2,13 +2,14 @@ package saru.saru_rest.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import saru.saru_rest.dtos.CadastroDTO;
 import saru.saru_rest.dtos.ClienteDTO;
 import saru.saru_rest.entity.enums.Clientes;
 
 @Data
 @Entity
 @Table(name = "CLIENTE")
-
 public class ClienteEntity {
     @Id
     private String cpf;
@@ -17,16 +18,16 @@ public class ClienteEntity {
     private float saldo;
     @Enumerated(EnumType.STRING)
     private Clientes tipoCliente;
+    private String senha;
 
 
-
-    public ClienteEntity(ClienteDTO usuario) {
-        this.cpf =  usuario.getCpf();
-        this.nome = usuario.getNome();
-        this.email = usuario.getEmail();
-        this.saldo = usuario.getSaldo();
-        this.tipoCliente = usuario.getTipoCliente();
-
+    public ClienteEntity(CadastroDTO cadastro) {
+        this.cpf =  cadastro.getCpf();
+        this.nome = cadastro.getNome();
+        this.email = cadastro.getEmail();
+        this.saldo = 0.0F;
+        this.tipoCliente = cadastro.getTipoCliente();
+        this.senha = cadastro.getSenha();
     }
     public ClienteEntity() {}
 
@@ -59,5 +60,33 @@ public class ClienteEntity {
 
     public Clientes getTipoCliente() {
         return tipoCliente;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
+
+    public void setTipoCliente(Clientes tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
