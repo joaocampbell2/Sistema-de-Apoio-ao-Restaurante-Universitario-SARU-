@@ -65,4 +65,28 @@ public class ClienteEntity {
     public String getSenha() {
         return senha;
     }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
+
+    public void setTipoCliente(Clientes tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

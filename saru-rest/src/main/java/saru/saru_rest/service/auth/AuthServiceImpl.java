@@ -1,11 +1,11 @@
 package saru.saru_rest.service.auth;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestHeader;
 import saru.saru_rest.dtos.CadastroDTO;
-import saru.saru_rest.dtos.ClienteDTO;
 import saru.saru_rest.dtos.LoginDTO;
 import saru.saru_rest.entity.ClienteEntity;
 import saru.saru_rest.exceptions.CpfInexistenteException;
@@ -13,8 +13,8 @@ import saru.saru_rest.exceptions.SenhaIncorretaException;
 import saru.saru_rest.exceptions.UsuarioJaCadastradoException;
 import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.security.JwtService;
-import java.util.Optional;
 
+import java.util.Optional;
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -25,7 +25,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private JwtService jwtService;
-@Autowired
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -48,23 +49,26 @@ public class AuthServiceImpl implements AuthService {
             throw new SenhaIncorretaException();
         }
     }
-}
 
-public String fazerCadastro(CadastroDTO cadastro) throws UsuarioJaCadastradoException {
-    Optional<ClienteEntity> entidade = clienteRepository.findById(cadastro.getCpf());
-    if(entidade.isPresent()){
-        throw new UsuarioJaCadastradoException(cadastro.getCpf());
+    public String fazerCadastro(CadastroDTO cadastro) throws UsuarioJaCadastradoException {
+        Optional<ClienteEntity> entidade = clienteRepository.findById(cadastro.getCpf());
+        if(entidade.isPresent()){
+            throw new UsuarioJaCadastradoException(cadastro.getCpf());
+        }
+        else {
+            ClienteEntity novoCliente = new ClienteEntity(cadastro);
+            novoCliente.setSenha(hashSenha(novoCliente.getSenha()));
+            clienteRepository.save(novoCliente);
+            return jwtService.gerarTokenAluno(novoCliente.getCpf());
+        }
+
     }
-    else {
-        ClienteEntity novoCliente = new ClienteEntity(cadastro);
-        novoCliente.setSenha(hashSenha(novoCliente.getSenha()));
-        clienteRepository.save(novoCliente);
-        return jwtService.gerarTokenAluno(novoCliente.getCpf());
+
+    private String hashSenha(String senha) {
+        return bCryptPasswordEncoder.encode(senha);
     }
 
+
+
+
 }
-
-
-}
-
-
