@@ -3,7 +3,12 @@ package saru.saru_rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import saru.saru_rest.dtos.CadastroDTO;
 import saru.saru_rest.dtos.ClienteDTO;
+import saru.saru_rest.dtos.LoginDTO;
+import saru.saru_rest.exceptions.CpfInexistenteException;
+import saru.saru_rest.exceptions.SenhaIncorretaException;
+import saru.saru_rest.exceptions.UsuarioJaCadastradoException;
 import saru.saru_rest.service.auth.AuthService;
 
 @RestController
@@ -13,15 +18,12 @@ public class AuthController {
 
 
     @PostMapping(value = "/login")
-    public String login(@RequestHeader("Authorization")  String token) {
-        token = token.substring(7);
-        return authService.pegarCPF(token);
+    public ResponseEntity<String> login(@RequestBody LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
+        return ResponseEntity.ok(authService.fazerLogin(login));
     }
 
     @PostMapping(value = "/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody ClienteDTO cliente) {
-        return ResponseEntity.ok().body(authService.fazerCadastro(cliente));
+    public ResponseEntity<String> cadastrar(@RequestBody CadastroDTO cadastro) throws UsuarioJaCadastradoException {
+        return ResponseEntity.ok().body(authService.fazerCadastro(cadastro));
     }
-
-
 }
