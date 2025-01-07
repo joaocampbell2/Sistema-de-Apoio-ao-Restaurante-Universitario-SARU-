@@ -1,17 +1,33 @@
 package saru.saru_rest.service;
 
+import saru.saru_rest.exceptions.SaldoExcedenteException;
 import saru.saru_rest.repository.ClienteRepository;
 
 public class AdicionarSaldoService {
     private ClienteRepository clienteRepository;
-    public String adicionarSaldo(String id)
-    {
+    private boolean receberPagamento(float valor){
+        //Não haverá pagamento real nesta versão, para fins de demonstração e por limitações
         
-        try{
-            clienteRepository.existsById("Oi");
-        }catch(Exception exception){
-               
-        }
-        return null;
+        return true;
     }
+    public String adicionarSaldo(String cpf, float valor)
+    {
+        float saldo = clienteRepository.findById(cpf).get().getSaldo();
+            try{
+                if(clienteRepository.existsById(cpf) && this.receberPagamento(valor) && verificaSaldoExcedente(cpf, saldo)){
+                    return clienteRepository.addSaldo(cpf, valor);
+                }
+            }catch(Exception exception){
+                System.out.println("Erro ao adicionar saldo");
+            }
+        return "Erro ao adicionar saldo";
+    }
+    public boolean verificaSaldoExcedente(String cpf, float valor) throws SaldoExcedenteException{
+        float saldo = clienteRepository.findById(cpf).get().getSaldo();
+        if(saldo >= 500 && (saldo + valor) > 500){
+            throw new SaldoExcedenteException();
+        }
+        return true;
+    }
+    
 }
