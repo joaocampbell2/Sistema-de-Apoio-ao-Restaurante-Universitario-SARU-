@@ -13,7 +13,10 @@ import saru.saru_rest.exceptions.UsuarioJaCadastradoException;
 import saru.saru_rest.service.auth.AuthService;
 
 @RestController
+@RequestMapping(value = "/auth")
 public class AuthController {
+
+
     @Autowired
     private AuthService authService;
 
