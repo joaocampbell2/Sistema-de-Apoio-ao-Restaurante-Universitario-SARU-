@@ -1,12 +1,14 @@
 package saru.saru_rest.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;
+import saru.saru_rest.dtos.ClienteDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.dtos.SaldoDTO;
 import saru.saru_rest.entity.enums.Turno;
@@ -29,8 +31,10 @@ public class AlterarTurnoController {
     }
 
     @PutMapping(value="/alterarTurno")
-    public ResponseEntity<String> alterarTurno(@RequestHeader(value="Authorization")String Jw, @RequestBody RefeicaoDTO refeicaoDTO) throws TodasRefeicoesCompradasException, TurnoJaCompradoException, SemRefeicoesCompradasException {
-        alterarTurnoService.alterarTurno(jwtService.pegarCpfDoToken(Jw), refeicaoDTO.getTurno());
+    public ResponseEntity<String> alterarTurno(@RequestBody RefeicaoDTO refeicaoDTO) throws TodasRefeicoesCompradasException, TurnoJaCompradoException, SemRefeicoesCompradasException {
+
+        String cpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        alterarTurnoService.alterarTurno(cpf, refeicaoDTO.getTurno());
         return ResponseEntity.ok().body("Turno alterado com sucesso");
     }
 }

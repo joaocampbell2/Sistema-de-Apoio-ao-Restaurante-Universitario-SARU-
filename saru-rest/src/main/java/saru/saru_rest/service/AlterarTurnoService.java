@@ -9,7 +9,6 @@ import saru.saru_rest.exceptions.TurnoJaCompradoException;
 import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.entity.enums.Turno;
 import saru.saru_rest.repository.RefeicaoRepository;
-
 import java.util.List;
 
 @Service
@@ -23,15 +22,16 @@ public class AlterarTurnoService {
     }
 
     public String alterarTurno(String cpf, Turno turno) throws SemRefeicoesCompradasException, TodasRefeicoesCompradasException, TurnoJaCompradoException {
-        List<RefeicaoEntity> refeicoes= refeicaoRepository.findByCpf(cpf);
-
+        List<RefeicaoEntity> refeicoes= refeicaoRepository.findByCpfCliente(cpf);
         try{
             if (clienteRepository.existsById(cpf) && verificaTurno(refeicoes, turno) && verificaSemRefeicoesCompradas(refeicoes) && verificaTodasRefeicoesCompradas(refeicoes)) {
-                refeicoes.get(0).setTurno(turno);
+                refeicoes.getFirst().setTurno(turno);
+                refeicaoRepository.save(refeicoes.getFirst());
+
                 return "Turno alterado com sucesso";
             }
         }catch (Exception e){
-            System.out.println("Erro ao alterar turno");
+            e.printStackTrace();
         }
         return "Erro ao alterar turno";
     }

@@ -13,9 +13,10 @@ import java.util.UUID;
 public class RefeicaoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Integer id_refeicao;
     private String cpfCliente;
     private Date data;
+    @Enumerated(EnumType.STRING)
     private Turno turno;
     @Column(unique = true, nullable = false)
     private String token;
@@ -27,7 +28,7 @@ public class RefeicaoEntity {
     }
 
     public RefeicaoEntity(Integer id, String cpfCliente, Date data, Turno turno, String token) {
-        this.id = id;
+        this.id_refeicao = id;
         this.cpfCliente = cpfCliente;
         this.data = data;
         this.turno = turno;
@@ -45,4 +46,43 @@ public class RefeicaoEntity {
         }
     }
 
+    public void setId(Integer id) {
+        this.id_refeicao = id;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Integer getId() {
+        return id_refeicao;
+    }
+
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public String getToken() {
+        return token;
+    }
 }
