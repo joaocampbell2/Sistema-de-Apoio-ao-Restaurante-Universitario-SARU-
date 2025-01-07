@@ -44,6 +44,8 @@ public class JwtService {
 
     public String pegarCpfDoToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(PRIVATE_KEY);
+        token = token.substring(7);
+        System.out.println(JWT.require(algorithm).build().verify(token).getSubject());
         return JWT.require(algorithm).build().verify(token).getSubject();
 
 
