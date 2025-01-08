@@ -4,50 +4,50 @@
 ## MEDIÇÕES DO SLA
 
 ### Cadastrar usuário
-Tipo de operações: leitura / inserção
+#### Tipo de operações: leitura / inserção
 
-Arquivos envolvidos:
+#### Arquivos envolvidos:
 
-AuthController
+[AuthController](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/controller/AuthController.java)
 
-AuthService
+[AuthService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/auth/AuthService.java)
 
-AuthServiceImpl
+[AuthServiceImpl](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/auth/AuthServiceImpl.java)
 
-JwtService
+[JwtService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/security/JwtService.java)
 
-ClienteRepository
+[ClienteRepository](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/repository/ClienteRepository.java)
 
-BCryptPasswordEncoder
 
-Data da medição: 08/01/2025
+#### Data da medição: 08/01/2025
 
-Descrição das configurações: I5 13400F, 16GB RAM, WINDOWS 11
+#### Descrição das configurações: I5 13400F, 16GB RAM, WINDOWS 11
 
-Testes de carga (SLA):
+#### Testes de carga (SLA):
 
 ![alt text](image.png)
 
 
 ### Logar Usuário
-Tipo de operações: leitura 
 
-Arquivos envolvidos:
+#### Tipo de operações: leitura 
 
-AuthController
+#### Arquivos envolvidos:
 
-AuthService
+[AuthController](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/controller/AuthController.java)
 
-AuthServiceImpl
+[AuthService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/auth/AuthService.java)
 
-JwtService
+[AuthServiceImpl](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/auth/AuthServiceImpl.java)
 
-ClienteRepository
+[JwtService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/security/JwtService.java)
 
-Data da medição: 08/01/2025
+[ClienteRepository](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/repository/ClienteRepository.java)
 
-Descrição das configurações: I5 13400F, 16GB RAM, WINDOWS 11
+#### Data da medição: 08/01/2025
 
-Testes de carga (SLA):
+#### Descrição das configurações: I5 13400F, 16GB RAM, WINDOWS 11
+
+#### Testes de carga (SLA):
 ![alt text](image-1.png)
 
