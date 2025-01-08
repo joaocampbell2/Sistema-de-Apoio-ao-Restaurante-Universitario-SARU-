@@ -19,4 +19,12 @@ public class RefeicaoDTO {
     public Turno getTurno() {
         return turno;
     }
+
+    @Override
+    public String toString() {
+        return "RefeicaoDTO{" +
+                "dataRefeicao=" + dataRefeicao +
+                ", turno=" + turno +
+                '}';
+    }
 }
