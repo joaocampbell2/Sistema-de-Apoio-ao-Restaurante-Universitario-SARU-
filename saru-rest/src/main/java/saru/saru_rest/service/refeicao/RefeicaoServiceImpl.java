@@ -7,6 +7,8 @@ import saru.saru_rest.exceptions.RefeicaoJaCompradaException;
 import saru.saru_rest.exceptions.SaldoInsuficienteException;
 import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.repository.RefeicaoRepository;
+import saru.saru_rest.service.QRCodeService.QRCodeService;
+
 @Service
 
 public class RefeicaoServiceImpl implements RefeicaoService {
@@ -35,7 +37,17 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         RefeicaoEntity refeicaoEntity = new RefeicaoEntity(cpf,refeicao.getDataRefeicao(),refeicao.getTurno());
         refeicaoRepository.save(refeicaoEntity);
 
+
+        try {
+            byte[] qrCodeData = QRCodeService.getQRCodeImage(refeicaoEntity);
+            refeicaoEntity.setQrCodeData(qrCodeData);
+            refeicaoRepository.save(refeicaoEntity);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao gerar QR Code: " + e.getMessage());
+        }
+
     }
+
 
 
 }

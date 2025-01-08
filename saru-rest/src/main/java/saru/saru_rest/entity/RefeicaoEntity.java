@@ -39,6 +39,15 @@ public class RefeicaoEntity {
 
     }
 
+    @Lob
+    private byte[] qrCodeData;
+    public byte[] getQrCodeData() {
+        return qrCodeData;
+    }
+    public void setQrCodeData(byte[] qrCodeData) {
+        this.qrCodeData = qrCodeData;
+    }
+
     @PrePersist
     public void generateToken() {
         if (this.token == null || this.token.isEmpty()) {
