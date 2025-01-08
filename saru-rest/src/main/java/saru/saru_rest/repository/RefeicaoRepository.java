@@ -11,4 +11,9 @@ import java.util.List;
 public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer> {
 
     List<RefeicaoEntity> findByCpfClienteAndDataAndTurno(String cpf, Date data, Turno turno);
+
+    @Override
+    List<RefeicaoEntity> findAll(Sort sort);
+
+    List<RefeicaoEntity> findByCpfCliente(String cpf);
 }
