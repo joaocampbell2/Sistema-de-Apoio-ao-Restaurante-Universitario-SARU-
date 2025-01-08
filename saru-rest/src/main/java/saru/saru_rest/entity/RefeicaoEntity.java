@@ -13,23 +13,22 @@ import java.util.UUID;
 public class RefeicaoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Integer id_refeicao;
     private String cpfCliente;
     private Date data;
+    @Enumerated(EnumType.STRING)
     private Turno turno;
     @Column(unique = true, nullable = false)
     private String token;
-    private Boolean utilizado;
 
     public RefeicaoEntity(String cpfCliente, Date data, Turno turno) {
         this.cpfCliente = cpfCliente;
         this.data = data;
         this.turno = turno;
-        this.utilizado = false;
     }
 
     public RefeicaoEntity(Integer id, String cpfCliente, Date data, Turno turno, String token) {
-        this.id = id;
+        this.id_refeicao = id;
         this.cpfCliente = cpfCliente;
         this.data = data;
         this.turno = turno;
@@ -46,52 +45,52 @@ public class RefeicaoEntity {
             this.token = UUID.randomUUID().toString(); // Gerar um token único
         }
     }
-
-    public Integer getId() {
-        return id;
+    @PreUpdate
+    public void generateNewToken(){
+        this.token = UUID.randomUUID().toString();
     }
 
     public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCpfCliente() {
-        return cpfCliente;
+        this.id_refeicao = id;
     }
 
     public void setCpfCliente(String cpfCliente) {
         this.cpfCliente = cpfCliente;
     }
 
-    public Date getData() {
-        return data;
-    }
-
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public Turno getTurno() {
-        return turno;
     }
 
     public void setTurno(Turno turno) {
         this.turno = turno;
     }
 
-    public String getToken() {
-        return token;
-    }
-
     public void setToken(String token) {
         this.token = token;
     }
 
-    public Boolean getUtilizado() {
-        return utilizado;
+    public Integer getId() {
+        return id_refeicao;
     }
 
-    public void setUtilizado(Boolean utilizado) {
-        this.utilizado = utilizado;
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public Integer getId_refeicao() {
+        return id_refeicao;
     }
 }
