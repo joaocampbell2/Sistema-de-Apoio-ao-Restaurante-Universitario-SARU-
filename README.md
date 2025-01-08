@@ -1,9 +1,9 @@
 # Sistema de Apoio ao Restaurante Universitario SARU
 
 
-MEDIÇÕES DO SLA
+##MEDIÇÕES DO SLA
 
-Cadastrar usuário
+###Cadastrar usuário
 Tipo de operações: leitura / inserção
 
 Arquivos envolvidos:
@@ -22,7 +22,7 @@ Testes de carga (SLA):
 ![alt text](image.png)
 
 
-Logar Usuário
+###Logar Usuário
 Tipo de operações: leitura 
 Arquivos envolvidos:
 
