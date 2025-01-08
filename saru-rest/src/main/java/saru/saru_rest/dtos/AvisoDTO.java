@@ -1,5 +1,6 @@
 package saru.saru_rest.dtos;
 
+import jakarta.annotation.Nullable;
 import saru.saru_rest.entity.AvisoEntity;
 
 import java.sql.Date;
@@ -7,6 +8,7 @@ import java.sql.Date;
 public class AvisoDTO {
     private String texto;
     private Date data;
+    @Nullable
     private String imagem;
 
     public AvisoDTO(AvisoEntity aviso) {
