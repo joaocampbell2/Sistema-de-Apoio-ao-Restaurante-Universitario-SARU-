@@ -1,6 +1,7 @@
 package saru.saru_rest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.AvisoDTO;
 import saru.saru_rest.entity.AvisoEntity;
@@ -21,5 +22,10 @@ public class AvisoService {
             avisos.add(new AvisoDTO(aviso));
         }
         return avisos;
+    }
+    public String publicarAviso(String cpf, AvisoDTO aviso) {
+        AvisoEntity avisoEntity = new AvisoEntity(aviso, cpf);
+        avisoRepository.save(avisoEntity);
+        return "Aviso cadastrado com sucesso!";
     }
 }
