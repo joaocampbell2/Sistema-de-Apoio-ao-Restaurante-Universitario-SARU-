@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import saru.saru_rest.dtos.AvisoDTO;
 import saru.saru_rest.entity.AvisoEntity;
 import saru.saru_rest.service.AvisoService;
 
@@ -17,8 +18,8 @@ public class AvisoController {
     private AvisoService avisoService;
 
     @GetMapping(value = "/avisos")
-    public ResponseEntity<List<AvisoEntity>> listarAvisos() {
-        List<AvisoEntity> avisos = avisoService.buscarTodosAvisos();
+    public ResponseEntity<List<AvisoDTO>> listarAvisos() {
+        List<AvisoDTO> avisos = avisoService.buscarTodosAvisos();
         return ResponseEntity.ok(avisos);
     }
 }
