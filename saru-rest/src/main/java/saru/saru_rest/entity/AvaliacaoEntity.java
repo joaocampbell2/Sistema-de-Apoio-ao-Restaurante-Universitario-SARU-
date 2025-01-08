@@ -5,7 +5,7 @@ import saru.saru_rest.entity.enums.Turno;
 
 @Data
 @Entity
-@Table(name = "AVALIACAO")
+@Table(name = "avaliacao")
 
 public class AvaliacaoEntity {
 
@@ -14,8 +14,6 @@ public class AvaliacaoEntity {
     private int nota;
     private String feedback;
     private int idRefeicao;
-    @Enumerated(EnumType.STRING)
-    private Turno turno;
 
     public AvaliacaoEntity(int idAvaliacao, int nota, String feedback, int idRefeicao) {
         this.idAvaliacao = idAvaliacao;
@@ -24,13 +22,14 @@ public class AvaliacaoEntity {
         this.idRefeicao = idRefeicao;
     }
 
-    public AvaliacaoEntity(int nota, String feedback, Turno turno) {
-        this.nota = nota;
-        this.feedback = feedback;
-        this.turno = turno;
-    }
 
     public AvaliacaoEntity() {
 
+    }
+
+    public AvaliacaoEntity(int nota, String feedback, int idRefeicao) {
+        this.nota = nota;
+        this.feedback = feedback;
+        this.idRefeicao = idRefeicao;
     }
 }
