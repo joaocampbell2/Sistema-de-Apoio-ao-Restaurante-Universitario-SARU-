@@ -17,6 +17,8 @@ public class AvisoDTO {
         this.imagem = aviso.getImagem();
     }
 
+    public AvisoDTO(){}
+
     public String getTexto() {
         return texto;
     }
@@ -29,5 +31,15 @@ public class AvisoDTO {
         return imagem;
     }
 
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
 
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public void setImagem(@Nullable String imagem) {
+        this.imagem = imagem;
+    }
 }
