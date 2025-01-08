@@ -47,7 +47,6 @@ public class AvaliacaoService {
         Turno turno = avaliacaoDTO.getTurno();
         RefeicaoEntity refeicao = verificaRefeicaoJaUtilizada(cpf, turno);
 
-
         try {
             if (refeicao == null) {
                 throw new TurnoNaoCompradoException();
@@ -55,8 +54,11 @@ public class AvaliacaoService {
         } catch (Exception e){}
 
 
-        AvaliacaoEntity avaliacao = new AvaliacaoEntity(avaliacaoDTO.getNota(), avaliacaoDTO.getFeedback(),
-                avaliacaoDTO.getTurno());
+        AvaliacaoEntity avaliacao = new AvaliacaoEntity(
+                avaliacaoDTO.getNota(),
+                avaliacaoDTO.getFeedback(),
+                refeicao.getId_refeicao());
+
 
          avaliacaoRepository.save(avaliacao);
 
@@ -68,16 +70,14 @@ public class AvaliacaoService {
 
         if (refeicao.isEmpty()) {
             throw new SemRefeicoesCompradasException();
-
         }
+
         for (RefeicaoEntity refeicaoEntity : refeicao) {
             if (refeicaoEntity.getTurno().equals(turno)) {
                     return refeicaoEntity;
             }
         }
 
-
         return null;
     }
-
 }
