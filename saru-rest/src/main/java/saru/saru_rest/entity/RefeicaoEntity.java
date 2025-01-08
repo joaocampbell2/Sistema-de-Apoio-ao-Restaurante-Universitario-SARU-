@@ -45,6 +45,10 @@ public class RefeicaoEntity {
             this.token = UUID.randomUUID().toString(); // Gerar um token único
         }
     }
+    @PreUpdate
+    public void generateNewToken(){
+        this.token = UUID.randomUUID().toString();
+    }
 
     public void setId(Integer id) {
         this.id_refeicao = id;

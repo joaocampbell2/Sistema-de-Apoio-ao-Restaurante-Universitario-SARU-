@@ -26,6 +26,7 @@ public class AlterarTurnoService {
         try{
             if (clienteRepository.existsById(cpf) && verificaTurno(refeicoes, turno) && verificaSemRefeicoesCompradas(refeicoes) && verificaTodasRefeicoesCompradas(refeicoes)) {
                 refeicoes.getFirst().setTurno(turno);
+                refeicoes.getFirst().generateNewToken();
                 refeicaoRepository.save(refeicoes.getFirst());
 
                 return "Turno alterado com sucesso";
