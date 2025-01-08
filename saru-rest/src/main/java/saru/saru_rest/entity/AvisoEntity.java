@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import org.springframework.lang.Nullable;
+import saru.saru_rest.dtos.AvisoDTO;
 
 import java.sql.Date;
 
@@ -18,8 +20,19 @@ public class AvisoEntity {
     private String texto;
     private String cpfFuncionario;
     private Date data;
+    @Nullable
     private String imagem;
 
+    public AvisoEntity(AvisoDTO aviso, String cpf) {
+        this.texto = aviso.getTexto();
+        this.cpfFuncionario = cpf;
+        this.data = aviso.getData();
+        this.imagem = aviso.getImagem();
+    }
+
+    public AvisoEntity() {
+
+    }
 
     public int getIdAviso() {
         return idAviso;
