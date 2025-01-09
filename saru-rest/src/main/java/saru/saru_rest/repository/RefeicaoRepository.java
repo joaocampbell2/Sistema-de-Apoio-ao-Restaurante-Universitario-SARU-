@@ -16,4 +16,6 @@ public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer
     List<RefeicaoEntity> findAll(Sort sort);
 
     List<RefeicaoEntity> findByCpfCliente(String cpf);
+
+    List<RefeicaoEntity> findByDataAndTurno(Date data, Turno turno);
 }
