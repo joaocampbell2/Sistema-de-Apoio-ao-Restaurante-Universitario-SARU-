@@ -54,7 +54,7 @@ public class RefeicaoController {
 
     @RolesAllowed("FUNCIONARIO")
     @GetMapping(value="/verRefeicoes")
-    public ResponseEntity<String> verRefeicoes(@RequestBody DataRefeicaoDTO dataRefeicao){
+    public ResponseEntity<String> verRefeicoes(@RequestBody RefeicaoDTO dataRefeicao){
         List<RefeicaoEntity> refeicao = refeicaoService.verRefeicoes(dataRefeicao);
         if(refeicao.isEmpty()){
             return ResponseEntity.noContent().build();

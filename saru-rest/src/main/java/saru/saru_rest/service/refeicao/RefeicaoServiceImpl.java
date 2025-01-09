@@ -54,7 +54,7 @@ public class RefeicaoServiceImpl implements RefeicaoService {
     }
 
     @Override
-    public List<RefeicaoEntity> verRefeicoes(DataRefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException {
+    public List<RefeicaoEntity> verRefeicoes(RefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException {
         List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao.getDataRefeicao(),dataRefeicao.getTurno());
         try {
             if (verificaRefeiçoesDataExistem(refeicao)){

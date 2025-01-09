@@ -12,5 +12,5 @@ import java.util.List;
 public interface RefeicaoService {
     public void comprarRefeicao(RefeicaoDTO refeicao, String cpf) throws SaldoInsuficienteException, RefeicaoJaCompradaException;
 
-    public List<RefeicaoEntity> verRefeicoes(DataRefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException;
+    public List<RefeicaoEntity> verRefeicoes(RefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException;
 }
