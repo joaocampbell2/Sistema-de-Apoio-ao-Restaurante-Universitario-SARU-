@@ -1,6 +1,5 @@
 package saru.saru_rest.service.refeicao;
 
-import saru.saru_rest.dtos.DataRefeicaoDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.exceptions.DataNaoPossuiComprasException;
