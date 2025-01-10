@@ -13,6 +13,7 @@ import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.entity.enums.Turno;
 import saru.saru_rest.exceptions.RefeicaoJaCompradaException;
 import saru.saru_rest.exceptions.SaldoInsuficienteException;
+import saru.saru_rest.exceptions.*;
 import saru.saru_rest.repository.RefeicaoRepository;
 import saru.saru_rest.service.QRCodeService.QRCodeService;
 import saru.saru_rest.service.refeicao.RefeicaoService;
@@ -63,4 +64,10 @@ public class RefeicaoController {
         return ResponseEntity.ok(numeroRefeicoes);
     }
 
+
+    @PutMapping(value="/alterarTurno")
+    public ResponseEntity<String> alterarTurno(@RequestBody RefeicaoDTO refeicaoDTO) throws TodasRefeicoesCompradasException, TurnoJaCompradoException, SemRefeicoesCompradasException {
+        String cpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok().body(refeicaoService.alterarTurno(cpf, refeicaoDTO.getTurno(), refeicaoDTO.getDataRefeicao()));
+    }
 }

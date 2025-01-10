@@ -6,6 +6,10 @@ import saru.saru_rest.entity.enums.Turno;
 import saru.saru_rest.exceptions.DataNaoPossuiComprasException;
 import saru.saru_rest.exceptions.RefeicaoJaCompradaException;
 import saru.saru_rest.exceptions.SaldoInsuficienteException;
+import saru.saru_rest.entity.enums.Turno;
+import saru.saru_rest.exceptions.*;
+
+import java.sql.Date;
 
 import java.sql.Date;
 import java.util.List;
@@ -17,4 +21,5 @@ public interface RefeicaoService {
 
     public List<RefeicaoEntity> verRefeicoes(Date dataRefeicao, Turno turno) throws DataNaoPossuiComprasException;
 
+    public String alterarTurno(String cpf, Turno turno, Date data) throws SemRefeicoesCompradasException, TodasRefeicoesCompradasException, TurnoJaCompradoException;
 }
