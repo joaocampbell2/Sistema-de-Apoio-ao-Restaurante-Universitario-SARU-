@@ -25,7 +25,7 @@ public class ClienteController {
     }
 
     @PutMapping(value="/adicionarSaldo")
-    public ResponseEntity<String> adicionarSaldo(@RequestHeader(value="Authorization")String Jw, @RequestBody SaldoDTO valor){
+    public ResponseEntity<String> adicionarSaldo(@RequestBody SaldoDTO valor){
         return ResponseEntity.ok().body(clienteService.adicionarSaldo((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), valor.getValor()));
     }
 }
