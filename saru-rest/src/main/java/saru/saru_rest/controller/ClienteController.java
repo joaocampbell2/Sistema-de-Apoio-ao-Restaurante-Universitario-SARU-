@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;
 import saru.saru_rest.dtos.SaldoDTO;
-import saru.saru_rest.security.JwtService;
 import saru.saru_rest.service.ClienteService;
 
 
@@ -17,11 +16,9 @@ import saru.saru_rest.service.ClienteService;
 @RequestMapping(value = "/cliente")
 public class ClienteController {
     private ClienteService clienteService;
-    private JwtService jwtService;
 
-    public ClienteController(ClienteService clienteService, JwtService jwtService) {
+    public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
-        this.jwtService = jwtService;
     }
 
     @PutMapping(value="/adicionarSaldo")
