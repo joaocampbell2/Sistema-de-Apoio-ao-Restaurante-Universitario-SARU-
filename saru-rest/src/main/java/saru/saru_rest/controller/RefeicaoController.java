@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
+import saru.saru_rest.entity.enums.Turno;
 import saru.saru_rest.exceptions.RefeicaoJaCompradaException;
 import saru.saru_rest.exceptions.SaldoInsuficienteException;
 import saru.saru_rest.repository.RefeicaoRepository;
@@ -17,6 +18,7 @@ import saru.saru_rest.service.QRCodeService.QRCodeService;
 import saru.saru_rest.service.refeicao.RefeicaoService;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 
@@ -51,13 +53,13 @@ public class RefeicaoController {
     }
 
     @RolesAllowed("FUNCIONARIO")
-    @GetMapping(value="/verRefeicoes/{dataRefeicao}")
-    public ResponseEntity<String> verRefeicoes(@RequestParam("dataRefeicao") RefeicaoDTO dataRefeicao){
-        List<RefeicaoEntity> refeicao = refeicaoService.verRefeicoes(dataRefeicao);
+    @GetMapping(value="/verRefeicoes/{dataRefeicao}/{turno}")
+    public ResponseEntity<String> verRefeicoes(@PathVariable("dataRefeicao") Date dataRefeicao, @PathVariable("turno") Turno turno){
+        List<RefeicaoEntity> refeicao = refeicaoService.verRefeicoes(dataRefeicao,turno);
         if(refeicao.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        String numeroRefeicoes = ("O numero de refeições compradas do dia" + dataRefeicao.getDataRefeicao() + "no turno" + dataRefeicao.getTurno() + "foi de:" + refeicao.size() );
+        String numeroRefeicoes = ("O numero de refeições compradas do dia " + dataRefeicao + " no turno " + turno + " foi de: " + refeicao.size() );
         return ResponseEntity.ok(numeroRefeicoes);
     }
 
