@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 import saru.saru_rest.exceptions.SaldoExcedenteException;
 import saru.saru_rest.repository.ClienteRepository;
 @Service
-public class AdicionarSaldoService {
+public class ClienteService {
     private ClienteRepository clienteRepository;
 
-    public AdicionarSaldoService(ClienteRepository clienteRepository) {
+    public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 

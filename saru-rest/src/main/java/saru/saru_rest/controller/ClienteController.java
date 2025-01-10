@@ -6,28 +6,26 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.persistence.PostUpdate;
 import saru.saru_rest.dtos.SaldoDTO;
-import saru.saru_rest.security.SecurityConfig;
-import saru.saru_rest.service.AdicionarSaldoService;
-import java.lang.Object;
 import saru.saru_rest.security.JwtService;
+import saru.saru_rest.service.ClienteService;
 
 
 @DeclareRoles({"ALUNO, PROFESSOR"})
 @RolesAllowed({"ALUNO, PROFESSOR"})
 @RestController
-public class AdicionarSaldoController {
-    private AdicionarSaldoService adicionarSaldoService;
+@RequestMapping(value = "/cliente")
+public class ClienteController {
+    private ClienteService clienteService;
     private JwtService jwtService;
 
-    public AdicionarSaldoController(AdicionarSaldoService adicionarSaldoService, JwtService jwtService) {
-        this.adicionarSaldoService = adicionarSaldoService;
+    public ClienteController(ClienteService clienteService, JwtService jwtService) {
+        this.clienteService = clienteService;
         this.jwtService = jwtService;
     }
 
     @PutMapping(value="/adicionarSaldo")
     public ResponseEntity<String> adicionarSaldo(@RequestHeader(value="Authorization")String Jw, @RequestBody SaldoDTO valor){
-        return ResponseEntity.ok().body(adicionarSaldoService.adicionarSaldo((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), valor.getValor()));
+        return ResponseEntity.ok().body(clienteService.adicionarSaldo((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), valor.getValor()));
     }
 }
