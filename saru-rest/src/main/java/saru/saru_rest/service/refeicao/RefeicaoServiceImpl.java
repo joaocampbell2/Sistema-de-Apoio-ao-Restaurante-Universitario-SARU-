@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.entity.enums.Turno;
+import saru.saru_rest.exceptions.DataNaoPossuiComprasException;
+import saru.saru_rest.exceptions.RefeicaoJaCompradaException;
+import saru.saru_rest.exceptions.SaldoInsuficienteException;
 import saru.saru_rest.exceptions.*;
 import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.repository.RefeicaoRepository;
@@ -51,6 +54,33 @@ public class RefeicaoServiceImpl implements RefeicaoService {
 
     }
 
+    @Override
+    public List<RefeicaoEntity> verRefeicoes(RefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException {
+        List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao.getDataRefeicao(),dataRefeicao.getTurno());
+        try {
+            if (verificaRefeiçoesDataExistem(refeicao)){
+                return refeicao;
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return null;
+    }
+    @Override
+    public List<RefeicaoEntity> verRefeicoes(Date dataRefeicao, Turno turno) throws DataNaoPossuiComprasException {
+        List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao,turno);
+        try {
+            if (verificaRefeiçoesDataExistem(refeicao)){
+                return refeicao;
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return null;
+    }
+    public boolean verificaRefeiçoesDataExistem(List<RefeicaoEntity> refeicao) throws DataNaoPossuiComprasException {
+        if (refeicao.isEmpty()){
+            throw new DataNaoPossuiComprasException();
     public String alterarTurno(String cpf, Turno turno, Date data) throws SemRefeicoesCompradasException, TodasRefeicoesCompradasException, TurnoJaCompradoException {
         List<RefeicaoEntity> refeicoes= refeicaoRepository.findByCpfClienteAndData(cpf, data);
         try{
