@@ -39,6 +39,7 @@ public class RefeicaoEntity {
 
     }
 
+
     @Lob
     private byte[] qrCodeData;
     public byte[] getQrCodeData() {
@@ -47,7 +48,6 @@ public class RefeicaoEntity {
     public void setQrCodeData(byte[] qrCodeData) {
         this.qrCodeData = qrCodeData;
     }
-
     @PrePersist
     public void generateToken() {
         if (this.token == null || this.token.isEmpty()) {
@@ -98,4 +98,9 @@ public class RefeicaoEntity {
     public String getToken() {
         return token;
     }
+
+    public Integer getId_refeicao() {
+        return id_refeicao;
+    }
 }
+

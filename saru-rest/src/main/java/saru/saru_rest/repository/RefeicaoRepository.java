@@ -12,6 +12,16 @@ public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer
 
     List<RefeicaoEntity> findByCpfClienteAndDataAndTurno(String cpf, Date data, Turno turno);
 
+
+    List<RefeicaoEntity> findByCpfCliente(String cpf);
+
+    List<RefeicaoEntity> findById(int id);
+
+    List<RefeicaoEntity> findByTurno(Turno turno);
+
+    String cpfCliente(String cpfCliente);
+
+
     @Override
     List<RefeicaoEntity> findAll(Sort sort);
 
@@ -21,3 +31,4 @@ public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer
   
     List<RefeicaoEntity> findByCpfClienteAndData(String cpf, Date data);
 }
+
