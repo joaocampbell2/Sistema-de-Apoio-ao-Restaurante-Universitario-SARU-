@@ -2,9 +2,7 @@ package saru.saru_rest.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import saru.saru_rest.dtos.CadastroDTO;
-import saru.saru_rest.dtos.ClienteDTO;
+import saru.saru_rest.dtos.CadastroClienteDTO;
 import saru.saru_rest.entity.enums.Clientes;
 
 @Data
@@ -21,7 +19,7 @@ public class ClienteEntity {
     private String senha;
 
 
-    public ClienteEntity(CadastroDTO cadastro) {
+    public ClienteEntity(CadastroClienteDTO cadastro) {
         this.cpf =  cadastro.getCpf();
         this.nome = cadastro.getNome();
         this.email = cadastro.getEmail();

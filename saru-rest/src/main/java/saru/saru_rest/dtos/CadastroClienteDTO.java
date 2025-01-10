@@ -3,7 +3,7 @@ package saru.saru_rest.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import saru.saru_rest.entity.enums.Clientes;
 
-public class CadastroDTO {
+public class CadastroClienteDTO {
     @JsonProperty("cpf")
     private String cpf;
     @JsonProperty("nome")

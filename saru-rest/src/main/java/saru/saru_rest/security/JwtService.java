@@ -42,11 +42,16 @@ public class JwtService {
 
     }
 
+    public String gerarTokenFuncionario(String cpf) {
+
+        Algorithm algorithm = Algorithm.HMAC256(PRIVATE_KEY);
+        return JWT.create().withSubject(cpf).withClaim("role", "FUNCIONARIO" ).sign(algorithm);
+
+    }
+
     public String pegarCpfDoToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(PRIVATE_KEY);
         return JWT.require(algorithm).build().verify(token).getSubject();
-
-
     }
 
 }

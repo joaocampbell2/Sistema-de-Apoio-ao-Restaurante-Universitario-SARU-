@@ -1,29 +1,17 @@
-package saru.saru_rest.entity;
+package saru.saru_rest.dtos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
-import saru.saru_rest.dtos.CadastroFuncionarioDTO;
-@Data
-@Entity
-@Table(name = "funcionario")
-public class FuncionarioEntity {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class CadastroFuncionarioDTO {
+
+    @JsonProperty("nome")
     private String nome;
-    @Id
+    @JsonProperty("cpf")
     private String cpf;
+    @JsonProperty("cargo")
     private String cargo;
+    @JsonProperty("senha")
     private String senha;
-    public FuncionarioEntity(CadastroFuncionarioDTO cadastro) {
-        this.nome = cadastro.getNome();
-        this.cpf = cadastro.getCpf();
-        this.cargo = cadastro.getCargo();
-        this.senha = cadastro.getSenha();
-    }
-
-    public FuncionarioEntity() {
-
-    }
 
     public String getNome() {
         return nome;
@@ -48,6 +36,7 @@ public class FuncionarioEntity {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+
     public String getSenha() {
         return senha;
     }
