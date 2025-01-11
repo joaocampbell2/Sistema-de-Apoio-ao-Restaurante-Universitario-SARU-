@@ -11,5 +11,12 @@ public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer
 
     List<RefeicaoEntity> findByCpfClienteAndDataAndTurno(String cpf, Date data, Turno turno);
 
+
     List<RefeicaoEntity> findByCpfCliente(String cpf);
+
+    List<RefeicaoEntity> findByTurno(Turno turno);
+
+    List<RefeicaoEntity> findByDataAndTurno(Date data, Turno turno);
+
+    List<RefeicaoEntity> findByCpfClienteAndData(String cpf, Date data);
 }

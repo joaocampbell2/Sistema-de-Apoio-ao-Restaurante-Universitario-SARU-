@@ -7,7 +7,7 @@ import saru.saru_rest.entity.enums.Clientes;
 
 @Data
 @Entity
-@Table(name = "CLIENTE")
+@Table(name = "cliente")
 public class ClienteEntity {
     @Id
     private String cpf;
