@@ -1,39 +1,49 @@
 package saru.saru_rest.service;
 
 import org.springframework.stereotype.Service;
+import saru.saru_rest.entity.ClienteEntity;
+import saru.saru_rest.exceptions.CpfInexistenteException;
+import saru.saru_rest.exceptions.NaoFoiPossivelAdicionarSaldo;
 import saru.saru_rest.exceptions.SaldoExcedenteException;
 import saru.saru_rest.repository.ClienteRepository;
+
+import java.util.Optional;
+
 @Service
 public class ClienteService {
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
     public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
-    private boolean receberPagamento(float valor){
-        //Não haverá pagamento real nesta versão, para fins de demonstração e por limitações
-        
-        return true;
-    }
     public String adicionarSaldo(String cpf, float valor)
     {
-        float saldo = clienteRepository.findById(cpf).get().getSaldo();
             try{
-                if(clienteRepository.existsById(cpf) && this.receberPagamento(valor) && verificaSaldoExcedente(cpf, valor)){
-                    return clienteRepository.addSaldo(cpf, valor);
+                Optional<ClienteEntity> cliente = clienteRepository.findById(cpf);
+                if(cliente.isPresent() && verificaSaldoExcedente(cpf, valor)){
+                    cliente.get().setSaldo(valor + cliente.get().getSaldo());
+                    clienteRepository.save(cliente.get());
+                    return "Saldo adicionado";
                 }
             }catch(Exception exception){
-                System.out.println("Erro ao adicionar saldo");
+                throw new NaoFoiPossivelAdicionarSaldo();
             }
-        return "Erro ao adicionar saldo";
+            return null;
     }
-    public boolean verificaSaldoExcedente(String cpf, float valor) throws SaldoExcedenteException{
-        float saldo = clienteRepository.findById(cpf).get().getSaldo();
-        if(saldo >= 500 || (saldo + valor) > 500){
-            throw new SaldoExcedenteException();
+    public boolean verificaSaldoExcedente(String cpf, float valor) throws SaldoExcedenteException, CpfInexistenteException {
+
+        Optional<ClienteEntity> cliente = clienteRepository.findById(cpf);
+        if (cliente.isPresent()){
+            float saldo = cliente.get().getSaldo();
+            if(saldo >= 500 || (saldo + valor) > 500){
+                throw new SaldoExcedenteException();
+            }
+            return true;
         }
-        return true;
+        else {
+            throw new CpfInexistenteException(cpf);
+        }
     }
     
 }
