@@ -11,9 +11,9 @@ import saru.saru_rest.exceptions.UsuarioJaCadastradoException;
 public interface AuthService {
 
 
-    public String fazerCadastroAluno(CadastroClienteDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException;
+    public String fazerCadastro(CadastroClienteDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException;
 
     public String fazerLogin(LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException;
 
-    public String fazerCadastroFuncionario(CadastroFuncionarioDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException;
+    public String fazerCadastro(CadastroFuncionarioDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException;
 }
