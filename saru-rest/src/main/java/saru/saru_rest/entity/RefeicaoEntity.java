@@ -13,7 +13,8 @@ import java.util.UUID;
 public class RefeicaoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id_refeicao;
+    @Column(name = "id_refeicao")
+    private Integer idRefeicao;
     private String cpfCliente;
     private Date data;
     @Enumerated(EnumType.STRING)
@@ -28,7 +29,7 @@ public class RefeicaoEntity {
     }
 
     public RefeicaoEntity(Integer id, String cpfCliente, Date data, Turno turno, String token) {
-        this.id_refeicao = id;
+        this.idRefeicao = id;
         this.cpfCliente = cpfCliente;
         this.data = data;
         this.turno = turno;
@@ -60,7 +61,7 @@ public class RefeicaoEntity {
     }
 
     public void setId(Integer id) {
-        this.id_refeicao = id;
+        this.idRefeicao = id;
     }
 
     public void setCpfCliente(String cpfCliente) {
@@ -80,7 +81,7 @@ public class RefeicaoEntity {
     }
 
     public Integer getId() {
-        return id_refeicao;
+        return idRefeicao;
     }
 
     public String getCpfCliente() {
