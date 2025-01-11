@@ -15,7 +15,7 @@ import saru.saru_rest.service.ClienteService;
 @RestController
 @RequestMapping(value = "/cliente")
 public class ClienteController {
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;

@@ -34,7 +34,7 @@ public class RefeicaoController {
     }
 
     @PostMapping(value = "/comprarRefeicao")
-    public ResponseEntity<byte[]> comprarRefeicao(@RequestBody RefeicaoDTO refeicao) throws SaldoInsuficienteException, RefeicaoJaCompradaException {
+    public ResponseEntity<byte[]> comprarRefeicao(@RequestBody RefeicaoDTO refeicao) throws SaldoInsuficienteException, RefeicaoJaCompradaException, IOException, WriterException {
         String userCpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(refeicaoService.comprarRefeicao(refeicao, userCpf));
     }
