@@ -101,7 +101,7 @@ public class RefeicaoEntity {
     }
 
     public Integer getId_refeicao() {
-        return id_refeicao;
+        return idRefeicao;
     }
 }
 

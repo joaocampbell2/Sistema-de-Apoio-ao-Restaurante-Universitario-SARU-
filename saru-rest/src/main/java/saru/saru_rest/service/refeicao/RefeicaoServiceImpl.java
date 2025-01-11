@@ -1,5 +1,6 @@
 package saru.saru_rest.service.refeicao;
 
+import com.google.zxing.WriterException;
 import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
@@ -12,6 +13,7 @@ import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.repository.RefeicaoRepository;
 import saru.saru_rest.service.qrcode.QRCodeService;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         this.qrCodeService = qrCodeService;
     }
 
-    public void comprarRefeicao(RefeicaoDTO refeicao,String cpf) throws SaldoInsuficienteException, RefeicaoJaCompradaException {
+    public byte[] comprarRefeicao(RefeicaoDTO refeicao, String cpf) throws SaldoInsuficienteException, RefeicaoJaCompradaException, IOException, WriterException {
         float saldo = clienteRepository.findById(cpf).get().getSaldo();
 
         if(saldo < 2){
@@ -77,12 +79,6 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         }
         return true;
     }
-    public boolean verificaSemRefeicoesCompradas(List<RefeicaoEntity> refeicoes) throws SemRefeicoesCompradasException {
-        if (refeicoes.isEmpty()) {
-            throw new SemRefeicoesCompradasException();
-        }
-        return true;
-    }
 
     public List<RefeicaoEntity> verRefeicoes(RefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException {
         List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao.getDataRefeicao(),dataRefeicao.getTurno());
@@ -106,11 +102,13 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         }
         return null;
     }
-    public String verificaRefeiçoesDataExistem(List<RefeicaoEntity> refeicao) throws DataNaoPossuiComprasException, TurnoJaCompradoException, TodasRefeicoesCompradasException, SemRefeicoesCompradasException {
-        if (refeicao.isEmpty()){
+    public Boolean verificaRefeiçoesDataExistem(List<RefeicaoEntity> refeicao) throws DataNaoPossuiComprasException, TurnoJaCompradoException, TodasRefeicoesCompradasException, SemRefeicoesCompradasException {
+        if (refeicao.isEmpty()) {
             throw new DataNaoPossuiComprasException();
         }
+        return true;
     }
+
     public String alterarTurno(String cpf, Turno turno, Date data) throws SemRefeicoesCompradasException, TodasRefeicoesCompradasException, TurnoJaCompradoException {
         List<RefeicaoEntity> refeicoes= refeicaoRepository.findByCpfClienteAndData(cpf, data);
         try{
@@ -126,12 +124,7 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         }
         return "Erro ao alterar turno";
     }
-    private boolean verificaTurno(List<RefeicaoEntity> refeicoes, Turno turno) throws TurnoJaCompradoException{
-        if (refeicoes.get(0).getTurno().equals(turno)){
-            throw new TurnoJaCompradoException();
-        }
-        return true;
-    }
+
     private boolean verificaTodasRefeicoesCompradasDoDia(List<RefeicaoEntity> refeicoes) throws TodasRefeicoesCompradasException {
         if (refeicoes.size() >= 2){
             throw new TodasRefeicoesCompradasException();
