@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component'; 
 import { NavbarComponent } from './components/navbar/navbar.component';
-
+import { LoginComponent } from './components/login/login.component';
+import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
 
 export const routes: Routes = [
     {
@@ -14,6 +14,14 @@ export const routes: Routes = [
         }]
     },
 
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path:"cadastrar",
+        component: CadastrarComponent
+    },
     {
         path: "**",
         redirectTo:'home'
