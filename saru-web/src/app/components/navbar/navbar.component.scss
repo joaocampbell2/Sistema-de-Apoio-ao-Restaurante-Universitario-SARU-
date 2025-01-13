@@ -2,15 +2,32 @@ $primary : #F43;
 
 
 
-mat-toolbar{
-    background-color: $primary;
-    text-align: center;
-    align-content: center;
 
-    span{
-        align-content: center;
-        text-align: center;
-        flex: 1 1 auto;
-          
-    }
+nav a {
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  margin: 0px 4px;
+  padding: 10px 20px; /* Espaçamento interno */
+  display: flex; /* Flexbox para controle de layout */
+  justify-content: flex-start; /* Alinha os itens à esquerda */
+  align-items: center; /* Alinha os itens verticalmente */
+}
+nav a:hover {
+  color: white; /* Mantém a mesma cor ao passar o mouse */
+  text-decoration: none; /* Remove o sublinhado */
+  display: flex;
+}
+
+.align-left {
+  position: absolute; /* Torna o link posicionado de forma absoluta */
+  left: 0; /* Coloca o link na posição mais à esquerda possível */
+}
+
+nav span{
+  color:white;
+  font-weight: bold;
+  margin-right: 10px;
 }
