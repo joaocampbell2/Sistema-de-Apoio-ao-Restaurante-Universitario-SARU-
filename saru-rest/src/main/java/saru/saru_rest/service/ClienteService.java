@@ -45,5 +45,7 @@ public class ClienteService {
             throw new CpfInexistenteException(cpf);
         }
     }
-    
+    public ClienteEntity resgatarDados(String cpf){
+        return clienteRepository.findById(cpf).get();
+    }
 }

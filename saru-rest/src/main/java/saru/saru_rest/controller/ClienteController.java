@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;
 import saru.saru_rest.dtos.SaldoDTO;
+import saru.saru_rest.entity.ClienteEntity;
 import saru.saru_rest.service.ClienteService;
 
 
@@ -24,5 +25,17 @@ public class ClienteController {
     @PutMapping(value="/adicionarSaldo")
     public ResponseEntity<String> adicionarSaldo(@RequestBody SaldoDTO valor){
         return ResponseEntity.ok().body(clienteService.adicionarSaldo((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), valor.getValor()));
+    }
+
+    @GetMapping(value= "/resgatarDados")
+    public ResponseEntity<String> resgatarDados(){
+        ClienteEntity cliente = clienteService.resgatarDados((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return ResponseEntity.ok(new String(
+                '{' +
+                    "cpf:" + '"' + cliente.getCpf() + '"' +
+                        "nome:" + '"' + cliente.getNome() + '"' +
+                        "saldo:" + '"' + cliente.getSaldo() + '"' +
+                        "email:" + '"' + cliente.getEmail() + '"' +
+                '}'));
     }
 }
