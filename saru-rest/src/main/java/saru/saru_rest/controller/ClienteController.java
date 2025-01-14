@@ -38,4 +38,9 @@ public class ClienteController {
                         "email:" + '"' + cliente.getEmail() + '"' +
                 '}'));
     }
+    @GetMapping(value= "/resgatarDados/saldo")
+    public ResponseEntity<Float> resgatarDados(){
+        ClienteEntity cliente = clienteService.resgatarDados((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return ResponseEntity.ok(cliente.getSaldo());
+    }
 }
