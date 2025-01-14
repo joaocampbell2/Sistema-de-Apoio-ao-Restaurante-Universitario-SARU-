@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import {  Component } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   imports: [MatToolbarModule, RouterLink],
@@ -9,16 +10,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.scss',
 })
 
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   private httpClient;
-  private saldo:any;
+  public saldo:any = 0;
   constructor(httpClient: HttpClient){
     this.httpClient = httpClient;
     this.saldo = 0;
   }
 
-  onInit(){
-    this.httpClient.get("http//:localhost8080/cliente/resgatarDados").subscribe(response => {
+  ngOnInit(){
+    this.httpClient.get("http://localhost:8080/cliente/getSaldo", {headers: {"Access-Control-Allow-Origin": "*","Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOTU4NDg5NDY1NSIsInJvbGUiOiJBTFVOTyJ9.uK-JLH7gjKalUhowcpeg-_dkVQDrC5hkQyrZKI6lS2E"}}).subscribe(response => {
+      console.log(response)
       this.saldo = response
     })
   }
