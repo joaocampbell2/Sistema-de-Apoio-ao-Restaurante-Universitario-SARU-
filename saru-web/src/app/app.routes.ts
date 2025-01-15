@@ -4,6 +4,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
 import { VerRefeicoesComponent } from './components/ver-refeicoes/ver-refeicoes.component';
+import { authGuard } from './guards/auth.guard';
+import { MenuComponent } from './components/menu/menu.component';
+import { VerAvisoComponent } from './components/ver-aviso/ver-aviso.component';
 
 export const routes: Routes = [
     {
@@ -25,6 +28,21 @@ export const routes: Routes = [
     {
         path: 'ver-refeicoes',
         component: VerRefeicoesComponent
+    },
+    {
+        path:"verAviso",
+        component: VerAvisoComponent,
+        canActivate:[authGuard]
+    },
+    {
+        path: 'menu',
+        component: MenuComponent,
+        children:[{
+            path:"",
+            component: NavbarComponent
+        }],
+        canActivate: [authGuard]
+        
     },
     {
         path: "**",

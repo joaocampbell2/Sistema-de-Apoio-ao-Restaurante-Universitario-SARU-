@@ -9,5 +9,7 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent { 
 
-  constructor( ){}
+  constructor( ){
+    localStorage.clear()
+  }
 }
