@@ -1,41 +1,100 @@
-  .container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  h2 {
-    text-align: center;
-  }
-  
-  label {
-    margin: 10px;
-  }
-  
-  input, select {
-    margin: 5px;
-    padding: 8px;
-    font-size: 14px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  h3 {
-    color: green;
-    text-align: center;
-  }
-  
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* Estilo para o título com fundo circular */
+.title-circle {
+  display: inline-block;
+  padding: 20px 30px;  /* Adiciona padding para que o título tenha espaço dentro do círculo */
+  background-color: #007bff;  /* Cor de fundo */
+  color: white;  /* Cor do texto */
+  border-radius: 50%;  /* Torna o fundo circular */
+  font-weight: bold;  /* Deixa o texto em negrito */
+  font-size: 1.8rem;  /* Ajuste no tamanho da fonte */
+  text-align: center;
+  text-transform: uppercase;  /* Deixa o texto em maiúsculas */
+  cursor: pointer;  /* Indica que o título é interativo */
+}
+
+/* Efeito quando o mouse passa sobre o título */
+.title-circle:hover {
+  background-color: #28a745;  /* Cor de fundo quando o mouse passar */
+  transform: scale(1.1);  /* Leve aumento de tamanho */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);  /* Adiciona sombra quando hover */
+}
+
+.form-container {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  color: #495057;
+}
+
+input[type="date"], select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:active {
+  background-color: #004085;
+}
+
+/* Estilos para a mensagem de resultado */
+.alert {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: white;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+/* Classe para sucesso */
+.success {
+  background-color: #28a745;
+}
+
+/* Classe para erro */
+.error {
+  background-color: #dc3545;
+}
+
+/* Classe para aviso (aviso de falta de dados) */
+.warning {
+  background-color: #ffc107;
+}

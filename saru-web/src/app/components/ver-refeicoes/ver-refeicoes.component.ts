@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class VerRefeicoesComponent {
   refeicoesForm: FormGroup;
   resultado: any;
+  resultadoClass: string = '';
 
   constructor(private refeicoesService: RefeicoesService) {
     this.refeicoesForm = new FormGroup({
@@ -30,14 +31,30 @@ export class VerRefeicoesComponent {
       this.refeicoesService.getRefeicoes(dataRefeicao, turno).subscribe(
         (response) => {
           this.resultado = response;
-          console.log(this.resultado)
+          this.resultado = `Refeições encontradas: ${response}`;
+          this.resultadoClass = 'success';
+          this.hideMessageAfterTimeout();
+
         },
         (_error: any) => {
-          this.resultado = 'Erro ao obter as refeições. Tente novamente mais tarde.';
+          this.resultado = 'Erro ao obter as refeições. Selecione uma data existente, ou tente novamente mais tarde';
+          this.resultadoClass = 'error';
+          this.hideMessageAfterTimeout();
+
         }
       );
     } else {
       this.resultado = 'Por favor, insira uma data e um turno.';
+      this.resultadoClass = 'warning';
+      this.hideMessageAfterTimeout();
+
     }
+  }
+
+  hideMessageAfterTimeout(){
+    setTimeout(()=> {
+      this.resultado = '';
+    }, 10000)
+  
   }
 }
