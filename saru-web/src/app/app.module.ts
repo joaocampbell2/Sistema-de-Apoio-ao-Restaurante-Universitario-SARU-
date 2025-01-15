@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { VerRefeicoesModule } from './ver-refeicoes/ver-refeicoes.module';  
+import { VerRefeicoesModule } from './components/ver-refeicoes/ver-refeicoes.module';  
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 

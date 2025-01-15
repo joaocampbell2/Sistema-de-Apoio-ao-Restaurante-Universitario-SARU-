@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RefeicoesService } from '../ver-refeicoes/refeicoes.service';
+import { RefeicoesService } from './refeicoes.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
