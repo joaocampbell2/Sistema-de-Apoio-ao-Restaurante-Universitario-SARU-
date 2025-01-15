@@ -3,6 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 export const routes: Routes = [
     {
@@ -23,8 +24,13 @@ export const routes: Routes = [
         component: CadastrarComponent
     },
     {
+        path: 'menu',
+        component: MenuComponent
+    },
+    {
         path: "**",
         redirectTo:'home'
     }
+    
 
 ];
