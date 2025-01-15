@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { AvisoDTO } from '../../models/AvisoDTO';
 import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-verAvisos',
-  imports: [NavbarComponent,CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './ver-aviso.component.html',
   styleUrl: './ver-aviso.component.scss',
 })
 export class VerAvisoComponent {
-    private httpClient;
+    private readonly httpClient;
     public avisos: any;
     constructor(httpClient: HttpClient){
       this.httpClient = httpClient;      
