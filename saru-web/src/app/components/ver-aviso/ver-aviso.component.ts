@@ -6,11 +6,11 @@ import { AvisoDTO } from '../../models/AvisoDTO';
 
 @Component({
   selector: 'app-verAvisos',
-  imports: [NavbarComponent],
-  templateUrl: './verAvisos.component.html',
-  styleUrl: './verAvisos.component.scss',
+  imports: [NavbarComponent,CommonModule],
+  templateUrl: './ver-aviso.component.html',
+  styleUrl: './ver-aviso.component.scss',
 })
-export class VerAvisosComponent {
+export class VerAvisoComponent {
     private httpClient;
     public avisos: any;
     constructor(httpClient: HttpClient){
@@ -18,8 +18,9 @@ export class VerAvisosComponent {
     }
   
     ngOnInit(){
-      this.httpClient.get<Array<AvisoDTO>>("http://localhost:8080/avisos/buscarAvisos", {headers: {"Access-Control-Allow-Origin": "*","Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOTU4NDg5NDY1NSIsInJvbGUiOiJBTFVOTyJ9.uK-JLH7gjKalUhowcpeg-_dkVQDrC5hkQyrZKI6lS2E"}}).subscribe(response => {
+      this.httpClient.get<Array<AvisoDTO>>("http://localhost:8080/aviso/buscarAvisos", {headers: {"Access-Control-Allow-Origin": "*","Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOTU4NDg5NDY1NSIsInJvbGUiOiJBTFVOTyJ9.uK-JLH7gjKalUhowcpeg-_dkVQDrC5hkQyrZKI6lS2E"}}).subscribe(response => {
         console.log(response)
+        console.log("aaaaaaaaaaaaa")
         this.avisos = response;
         
       })
