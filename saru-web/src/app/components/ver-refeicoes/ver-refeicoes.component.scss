@@ -13,25 +13,15 @@ h2 {
   transition: all 0.3s ease;
 }
 
-/* Estilo para o título com fundo circular */
 .title-circle {
-  display: inline-block;
-  padding: 20px 30px;  /* Adiciona padding para que o título tenha espaço dentro do círculo */
-  background-color: #007bff;  /* Cor de fundo */
-  color: white;  /* Cor do texto */
-  border-radius: 50%;  /* Torna o fundo circular */
-  font-weight: bold;  /* Deixa o texto em negrito */
-  font-size: 1.8rem;  /* Ajuste no tamanho da fonte */
+  
+  padding: 20px 30px; 
+  background-color: #242629; 
+  color: white; 
+  font-weight: bold;
+  font-size: 1.8rem;
   text-align: center;
-  text-transform: uppercase;  /* Deixa o texto em maiúsculas */
-  cursor: pointer;  /* Indica que o título é interativo */
-}
-
-/* Efeito quando o mouse passa sobre o título */
-.title-circle:hover {
-  background-color: #28a745;  /* Cor de fundo quando o mouse passar */
-  transform: scale(1.1);  /* Leve aumento de tamanho */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);  /* Adiciona sombra quando hover */
+   
 }
 
 .form-container {
@@ -74,7 +64,7 @@ button:active {
   background-color: #004085;
 }
 
-/* Estilos para a mensagem de resultado */
+
 .alert {
   padding: 10px;
   border-radius: 5px;
@@ -84,17 +74,17 @@ button:active {
   transition: opacity 0.3s ease;
 }
 
-/* Classe para sucesso */
+
 .success {
   background-color: #28a745;
 }
 
-/* Classe para erro */
+
 .error {
   background-color: #dc3545;
 }
 
-/* Classe para aviso (aviso de falta de dados) */
+
 .warning {
   background-color: #ffc107;
 }

@@ -31,7 +31,7 @@ export class VerRefeicoesComponent {
       this.refeicoesService.getRefeicoes(dataRefeicao, turno).subscribe(
         (response) => {
           this.resultado = response;
-          this.resultado = `Refeições encontradas: ${response}`;
+          this.resultado = `Refeições encontradas na data (${dataRefeicao}): ${response}`;
           this.resultadoClass = 'success';
           this.hideMessageAfterTimeout();
 
