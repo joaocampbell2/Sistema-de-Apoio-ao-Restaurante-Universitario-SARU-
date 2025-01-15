@@ -3,6 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
+import { VerRefeicoesComponent } from './ver-refeicoes/ver-refeicoes.component';
 
 export const routes: Routes = [
     {
@@ -13,7 +14,6 @@ export const routes: Routes = [
             component: NavbarComponent
         }]
     },
-
     {
         path: 'login',
         component: LoginComponent
@@ -23,8 +23,12 @@ export const routes: Routes = [
         component: CadastrarComponent
     },
     {
+        path: 'ver-refeicoes',
+        component: VerRefeicoesComponent
+    },
+    {
         path: "**",
         redirectTo:'home'
     }
-
+    
 ];

@@ -61,7 +61,8 @@ public class RefeicaoController {
         if(refeicao.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        String numeroRefeicoes = ("O numero de refeições compradas do dia " + dataRefeicao + " no turno " + turno + " foi de: " + refeicao.size() );
+        String numeroRefeicoes = ("O numero de refeições compradas do dia " + dataRefeicao +
+                " no turno " + turno + " foi de: " + refeicao.size() );
         return ResponseEntity.ok(numeroRefeicoes);
     }
 

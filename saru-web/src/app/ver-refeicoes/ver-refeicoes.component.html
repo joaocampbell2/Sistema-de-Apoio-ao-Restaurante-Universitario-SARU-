@@ -1,0 +1,24 @@
+<div class="container">
+  <h2>Consultar Refeições</h2>
+
+  <form [formGroup]="refeicoesForm" (ngSubmit)="buscarRefeicoes()">
+    <div>
+      <label for="dataRefeicao">Data:</label>
+      <input formControlName="dataRefeicao" type="date" id="dataRefeicao">
+    </div>
+
+    <div>
+      <label for="turno">Turno:</label>
+      <select formControlName="turno" id="turno">
+        <option value="almoço">Almoço</option>
+        <option value="janta">Janta</option>
+      </select>
+    </div>
+
+    <button type="submit">Buscar</button>
+  </form>
+
+  <div *ngIf="resultado">
+    <h3>{{ resultado }}</h3>
+  </div>
+</div>
