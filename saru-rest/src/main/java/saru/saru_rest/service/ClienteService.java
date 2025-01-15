@@ -45,5 +45,16 @@ public class ClienteService {
             throw new CpfInexistenteException(cpf);
         }
     }
+
+    public float getSaldo(String cpf) throws CpfInexistenteException {
+        Optional<ClienteEntity> cliente = clienteRepository.findById(cpf);
+        if(cliente.isPresent()){
+            return cliente.get().getSaldo();
+        }
+        else{
+            throw new CpfInexistenteException(cpf);
+        }
+    }
+
     
 }
