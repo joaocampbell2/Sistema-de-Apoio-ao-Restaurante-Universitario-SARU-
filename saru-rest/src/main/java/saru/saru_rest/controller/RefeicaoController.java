@@ -54,16 +54,14 @@ public class RefeicaoController {
                 .body(qrCodeService.getQRCodeImage(refeicaoEntity));
     }
 
-    @RolesAllowed("FUNCIONARIO")
-    @GetMapping(value="/verRefeicoes/{dataRefeicao}/{turno}")
-    public ResponseEntity<String> verRefeicoes(@PathVariable("dataRefeicao") Date dataRefeicao, @PathVariable("turno") Turno turno){
+        @GetMapping(value="/verRefeicoes/{dataRefeicao}/{turno}")
+    public ResponseEntity<Integer> verRefeicoes(@PathVariable("dataRefeicao") Date dataRefeicao, @PathVariable("turno") Turno turno){
         List<RefeicaoEntity> refeicao = refeicaoService.verRefeicoes(dataRefeicao,turno);
         if(refeicao.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        String numeroRefeicoes = ("O numero de refeições compradas do dia " + dataRefeicao +
-                " no turno " + turno + " foi de: " + refeicao.size() );
-        return ResponseEntity.ok(numeroRefeicoes);
+            
+        return ResponseEntity.ok(refeicao.size());
     }
 
 
