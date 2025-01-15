@@ -10,8 +10,8 @@
     <div>
       <label for="turno">Turno:</label>
       <select formControlName="turno" id="turno">
-        <option value="almoço">Almoço</option>
-        <option value="janta">Janta</option>
+        <option value="almoco">Almoço</option>
+        <option value="jantar">jantar</option>
       </select>
     </div>
 
@@ -19,6 +19,7 @@
   </form>
 
   <div *ngIf="resultado">
-    <h3>{{ resultado }}</h3>
+    <h3> O numero de refeições foi: 
+      {{ resultado }}</h3>
   </div>
 </div>

@@ -12,13 +12,15 @@ import { CommonModule } from '@angular/common';
 })
 export class VerRefeicoesComponent {
   refeicoesForm: FormGroup;
-  resultado: string = '';
-  
-  constructor(private refeicoesService: RefeicoesService) { 
+  resultado: any;
+
+  constructor(private refeicoesService: RefeicoesService) {
     this.refeicoesForm = new FormGroup({
-    dataRefeicao: new FormControl(''),
-    turno: new FormControl('')
-  })}
+
+      dataRefeicao: new FormControl(''),
+      turno: new FormControl('')
+    })
+  }
 
   buscarRefeicoes() {
 
