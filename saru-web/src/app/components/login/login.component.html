@@ -1,1 +1,34 @@
-<p>login works!</p>,
+<body>
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+            <div class="text-center mb-4">
+                <h1 class="h3">Login</h1>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input
+                        id="cpf"
+                        formControlName="cpf"
+                        maxlength="11"
+                        class="form-control"
+                        placeholder="Digite seu CPF"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="senha" class="form-label">Senha</label>
+                    <input
+                        id="senha"
+                        class="form-control"
+                        type="password"
+                        formControlName="senha"
+                        placeholder="Digite sua senha"
+                    />
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Logar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
