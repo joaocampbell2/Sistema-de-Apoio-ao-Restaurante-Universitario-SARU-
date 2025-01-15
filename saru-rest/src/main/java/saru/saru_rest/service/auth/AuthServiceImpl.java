@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.CadastroClienteDTO;
 import saru.saru_rest.dtos.CadastroFuncionarioDTO;
 import saru.saru_rest.dtos.LoginDTO;
+import saru.saru_rest.dtos.TokenDTO;
 import saru.saru_rest.entity.ClienteEntity;
 import saru.saru_rest.entity.FuncionarioEntity;
 import saru.saru_rest.exceptions.CpfInexistenteException;
@@ -37,14 +38,14 @@ public class AuthServiceImpl implements AuthService {
         return jwtService.pegarCpfDoToken(token);
     }
 
-    public String fazerLogin(LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
+    public TokenDTO fazerLogin(LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
         Optional<ClienteEntity> entidade = clienteRepository.findById(login.getCpf());
         if(entidade.isEmpty()) {
             throw new CpfInexistenteException(login.getCpf());
         }
         ClienteEntity cliente = entidade.get();
         if(bCryptPasswordEncoder.matches(login.getSenha(), cliente.getSenha())){
-            return jwtService.gerarTokenAluno(login.getCpf());
+            return new TokenDTO(jwtService.gerarTokenAluno(login.getCpf()));
         }
 
         throw new SenhaIncorretaException();
