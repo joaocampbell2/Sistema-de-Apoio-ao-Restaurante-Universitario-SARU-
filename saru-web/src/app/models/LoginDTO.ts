@@ -1,4 +1,4 @@
-export interface loginDto{
+export interface LoginDto{
     cpf: string
     senha: string
 }
