@@ -22,8 +22,12 @@ export const routes: Routes = [
         component: CadastrarComponent
     },
     {
-        path:"verAviso",
+        path:"avisos",
         component: VerAvisoComponent,
+        children:[{
+            path:"",
+            component: NavbarComponent
+        }],
         canActivate:[authGuard]
     },
     {
