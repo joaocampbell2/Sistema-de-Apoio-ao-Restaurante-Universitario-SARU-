@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { AvisoDTO } from '../../models/AvisoDTO';
-
+import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-verAvisos',
-  imports: [NavbarComponent,CommonModule],
+  imports: [NavbarComponent,CommonModule, RouterOutlet],
   templateUrl: './ver-aviso.component.html',
   styleUrl: './ver-aviso.component.scss',
 })

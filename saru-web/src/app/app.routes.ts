@@ -25,7 +25,11 @@ export const routes: Routes = [
     },
     {
         path:"verAviso",
-        component: VerAvisoComponent
+        component: VerAvisoComponent,
+        children:[{
+            path:"",
+            component: NavbarComponent
+        }]
     },
     {
         path: "**",
