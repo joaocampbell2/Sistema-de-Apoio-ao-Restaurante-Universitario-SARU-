@@ -1,5 +1,5 @@
 body {
-  background-color: #f0f8ff; /* Azul claro /
+  background-color: #59A1FF;
 }
 
 h2 {
@@ -8,7 +8,7 @@ h2 {
 }
 
 .card {
-  background-color: #ffffff; / Fundo branco */
+  background-color: #59A1FF;
   border-radius: 10px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -22,9 +22,13 @@ h2 {
   font-weight: bold;
   margin-bottom: 10px;
 }
+.text-primary {
+  color: white;
+}
 
 .text-muted {
   font-size: 0.9rem;
+  color: white;
 }
 
 .container {
