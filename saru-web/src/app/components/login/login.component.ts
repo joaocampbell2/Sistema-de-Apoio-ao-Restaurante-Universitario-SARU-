@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { LoginDto } from '../../models/loginDTO';
+import { loginDto } from '../../models/loginDTO';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent {
 
   form: FormGroup;
   http: HttpClient
-  constructor(http: HttpClient){
+  router: Router;
+  constructor(http: HttpClient, router:Router){
     this.http = http;
     this.form = new FormGroup(
       {
@@ -21,19 +23,22 @@ export class LoginComponent {
         senha: new FormControl("",[Validators.required])
       }
     )
+    this.router = router;
   }
 
   onSubmit(){
 
     if(this.form.valid){
-      console.log(this.form.value)
-      const loginDto = new LoginDto(this.form.value.cpf,this.form.value.senha) 
-      this.http.post("https://localhost:8080/auth/login",{loginDto}).subscribe(response => {
+      const loginDto: loginDto ={cpf: this.form.value.cpf,senha: this.form.value.senha}
+      console.log(loginDto)
+      this.http.post<string>("http://localhost:8080/auth/login",loginDto).subscribe(response => {
         console.log(response)
+        localStorage.setItem("token",response)
+        this.router.navigate(["/menu"])
       })
     }
     else{
-      console.log("nao")
+      alert("login impossivel!")
     }
   }
 
