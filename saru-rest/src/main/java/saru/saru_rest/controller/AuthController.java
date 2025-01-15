@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import saru.saru_rest.dtos.CadastroClienteDTO;
 import saru.saru_rest.dtos.CadastroFuncionarioDTO;
 import saru.saru_rest.dtos.LoginDTO;
+import saru.saru_rest.dtos.TokenDTO;
 import saru.saru_rest.exceptions.CpfInexistenteException;
 import saru.saru_rest.exceptions.ImpossivelCadastrarException;
 import saru.saru_rest.exceptions.SenhaIncorretaException;
@@ -23,7 +24,8 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
+    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
+        System.out.println(login);
         return ResponseEntity.ok(authService.fazerLogin(login));
     }
     @PostMapping(value = "/cadastrarCliente")

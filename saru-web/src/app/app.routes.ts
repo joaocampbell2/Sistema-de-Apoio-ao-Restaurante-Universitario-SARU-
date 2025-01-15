@@ -26,7 +26,11 @@ export const routes: Routes = [
     },
     {
         path: 'menu',
-        component: MenuComponent
+        component: MenuComponent,
+        children:[{
+            path:"",
+            component: NavbarComponent
+        }]
     },
     {
         path: 'menu-funcionario',
