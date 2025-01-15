@@ -28,6 +28,7 @@ export const routes: Routes = [
     {
         path:"verAviso",
         component: VerAvisoComponent,
+        canActivate:[authGuard]
     },
     {
         path: 'menu',
