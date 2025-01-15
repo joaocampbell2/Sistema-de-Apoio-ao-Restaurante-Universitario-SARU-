@@ -4,6 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -29,7 +30,9 @@ export const routes: Routes = [
         children:[{
             path:"",
             component: NavbarComponent
-        }]
+        }],
+        canActivate: [authGuard]
+        
     },
     {
         path: "**",
