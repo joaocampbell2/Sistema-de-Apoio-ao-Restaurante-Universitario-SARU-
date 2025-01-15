@@ -4,6 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { MenuFuncionarioComponent } from './components/menu-funcionario/menu-funcionario.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
     {
         path: 'menu',
         component: MenuComponent
+    },
+    {
+        path: 'menu-funcionario',
+        component: MenuFuncionarioComponent
     },
     {
         path: "**",
