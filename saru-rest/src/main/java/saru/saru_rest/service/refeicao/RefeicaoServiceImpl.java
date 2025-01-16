@@ -42,13 +42,10 @@ public class RefeicaoServiceImpl implements RefeicaoService {
             throw new RefeicaoJaCompradaException();
         }
 
-
-
         RefeicaoEntity refeicaoEntity = new RefeicaoEntity(cpf,refeicao.getDataRefeicao(),refeicao.getTurno());
         refeicaoRepository.save(refeicaoEntity);
 
         return qrCodeService.getQRCodeImage(refeicaoEntity);
-
     }
 
 
@@ -79,6 +76,7 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         }
         return true;
     }
+
 
     public List<RefeicaoEntity> verRefeicoes(RefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException {
         List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao.getDataRefeicao(),dataRefeicao.getTurno());
