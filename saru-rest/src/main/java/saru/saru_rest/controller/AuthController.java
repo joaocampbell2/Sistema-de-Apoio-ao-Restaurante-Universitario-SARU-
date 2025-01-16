@@ -25,7 +25,6 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
-        System.out.println(login);
         return ResponseEntity.ok(authService.fazerLogin(login));
     }
     @PostMapping(value = "/cadastrarCliente")

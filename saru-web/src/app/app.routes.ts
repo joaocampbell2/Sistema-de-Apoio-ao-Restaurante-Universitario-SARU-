@@ -12,10 +12,6 @@ export const routes: Routes = [
     {
         path: 'home',
         component:HomeComponent,
-        children:[{
-            path:"",
-            component: NavbarComponent
-        }]
     },
     {
         path: 'login',
@@ -30,8 +26,12 @@ export const routes: Routes = [
         component: VerRefeicoesComponent
     },
     {
-        path:"verAviso",
+        path:"avisos",
         component: VerAvisoComponent,
+        children:[{
+            path:"",
+            component: NavbarComponent
+        }],
         canActivate:[authGuard]
     },
     {

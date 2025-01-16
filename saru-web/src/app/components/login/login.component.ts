@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { loginDto } from '../../models/loginDTO';
+import { LoginDto } from '../../models/LoginDTO';
 import { Router } from '@angular/router';
-
+import { TokenDTO } from '../../models/TokenDTO';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
@@ -29,11 +29,11 @@ export class LoginComponent {
   onSubmit(){
 
     if(this.form.valid){
-      const loginDto: loginDto ={cpf: this.form.value.cpf,senha: this.form.value.senha}
+      const loginDto: LoginDto ={cpf: this.form.value.cpf,senha: this.form.value.senha}
       console.log(loginDto)
-      this.http.post<string>("http://localhost:8080/auth/login",loginDto).subscribe(response => {
+      this.http.post<TokenDTO>("http://localhost:8080/auth/login",loginDto).subscribe(response => {
         console.log(response)
-        localStorage.setItem("token",response)
+        localStorage.setItem("token",response.token)
         this.router.navigate(["/menu"])
       })
     }
