@@ -23,10 +23,8 @@ public class AvaliacaoController {
     @Autowired
     private JwtService jwtService;
 
-    @PostMapping (value = "/avaliacoes")
+    @PostMapping (value = "/publicarAvaliacoes")
     public ResponseEntity<String> criarAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO) throws SemRefeicoesCompradasException {
-
-        avaliacaoService.criarAvaliacao(avaliacaoDTO, (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        return ResponseEntity.ok().body("Avaliação enviada com sucesso");
+        return ResponseEntity.ok().body(avaliacaoService.criarAvaliacao(avaliacaoDTO));
     }
 }

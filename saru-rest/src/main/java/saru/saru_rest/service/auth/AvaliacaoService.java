@@ -1,20 +1,22 @@
 package saru.saru_rest.service.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import saru.saru_rest.dtos.AvaliacaoDTO;
 import saru.saru_rest.entity.AvaliacaoEntity;
+import saru.saru_rest.entity.AvisoEntity;
 import saru.saru_rest.entity.ClienteEntity;
 import saru.saru_rest.entity.RefeicaoEntity;
-import saru.saru_rest.exceptions.SemRefeicoesCompradasException;
-import saru.saru_rest.exceptions.TurnoNaoCompradoException;
+import saru.saru_rest.exceptions.*;
 import saru.saru_rest.repository.AvaliacaoRepository;
 import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.repository.RefeicaoRepository;
 import saru.saru_rest.entity.enums.Turno;
 
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -34,30 +36,20 @@ public class AvaliacaoService {
     }
 
     @Transactional
-    public String criarAvaliacao(AvaliacaoDTO avaliacaoDTO, String cpf) throws SemRefeicoesCompradasException, TurnoNaoCompradoException {
-
-        try {
-            if (clienteRepository.existsById(cpf)) {
-                throw new RuntimeException("Cliente não encontrado");
-            }
-        } catch (Exception e){
-
-        }
-
+    public String criarAvaliacao(AvaliacaoDTO avaliacaoDTO) throws SemRefeicoesCompradasException, TurnoNaoCompradoException {
+        Date data = avaliacaoDTO.getData();
         Turno turno = avaliacaoDTO.getTurno();
-        RefeicaoEntity refeicao = verificaRefeicaoJaUtilizada(cpf, turno);
-
+        String cpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
-            if (refeicao == null) {
-                throw new TurnoNaoCompradoException();
-            }
-        } catch (Exception e){}
-
-
+            verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(cpf, data, turno);
+        }catch (Exception e) {
+            return (e.getMessage());
+        }
         AvaliacaoEntity avaliacao = new AvaliacaoEntity(
                 avaliacaoDTO.getNota(),
                 avaliacaoDTO.getFeedback(),
-                refeicao.getId_refeicao());
+                this.getIdByCpfClienteAndAndDataAndAndTurno(cpf, data, turno)
+        );
 
 
          avaliacaoRepository.save(avaliacao);
@@ -65,19 +57,27 @@ public class AvaliacaoService {
        return "Feedback enviado!";
     }
 
-    private RefeicaoEntity verificaRefeicaoJaUtilizada(String cpf, Turno turno) throws SemRefeicoesCompradasException{
-        List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfCliente(cpf);
 
-        if (refeicao.isEmpty()) {
-            throw new SemRefeicoesCompradasException();
-        }
+    private boolean verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(String cpf, Date data, Turno turno) throws DataNaoPossuiComprasException{
 
-        for (RefeicaoEntity refeicaoEntity : refeicao) {
-            if (refeicaoEntity.getTurno().equals(turno)) {
-                    return refeicaoEntity;
+        List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, data, turno);
+        boolean utilizado = refeicao.get(0).isUtilizado();
+        if (refeicaoRepository.existsByCpfClienteAndDataAndTurno(cpf, data, turno)) {
+            if (utilizado) {
+                if (avaliacaoRepository.existsByIdRefeicao(refeicao.get(0).getIdRefeicao())) {
+                    throw new RefeicaoJaPossuiFeedbackException();
+                }
+                return true;
             }
+            throw new RefeicaoNaoUtilizadaException();
         }
-
-        return null;
+        throw new DataNaoPossuiComprasException();
     }
+
+    private int getIdByCpfClienteAndAndDataAndAndTurno(String cpf, Date data, Turno turno){
+        List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, data,turno);
+        return refeicao.get(0).getId();
+    }
+
 }
+
