@@ -88,3 +88,7 @@ button:active {
 .warning {
   background-color: #ffc107;
 }
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
