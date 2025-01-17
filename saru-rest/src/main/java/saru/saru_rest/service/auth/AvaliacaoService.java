@@ -43,14 +43,13 @@ public class AvaliacaoService {
         try {
             verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(cpf, data, turno);
         }catch (Exception e) {
-            return (e.getMessage());
+            throw e;
         }
         AvaliacaoEntity avaliacao = new AvaliacaoEntity(
                 avaliacaoDTO.getNota(),
                 avaliacaoDTO.getFeedback(),
                 this.getIdByCpfClienteAndAndDataAndAndTurno(cpf, data, turno)
         );
-
 
          avaliacaoRepository.save(avaliacao);
 
@@ -76,7 +75,7 @@ public class AvaliacaoService {
 
     private int getIdByCpfClienteAndAndDataAndAndTurno(String cpf, Date data, Turno turno){
         List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, data,turno);
-        return refeicao.get(0).getId();
+        return refeicao.getFirst().getId();
     }
 
 }

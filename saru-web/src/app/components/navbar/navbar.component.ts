@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
   public saldo:any = 0;
   constructor(httpClient: HttpClient){
     this.httpClient = httpClient;
-    this.saldo = 0;
   }
 
   ngOnInit(){

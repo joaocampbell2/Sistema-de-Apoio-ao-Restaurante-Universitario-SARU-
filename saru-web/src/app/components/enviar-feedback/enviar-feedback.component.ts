@@ -33,7 +33,7 @@ export class EnviarFeedbackComponent {
     if(this.form.valid){
       const avaliacaoDto: AvaliacaoDTO ={data: this.form.value.dataRefeicao, turno: this.form.value.turno, nota: this.form.value.nota, texto: this.form.value.avaliacao}
       console.log(avaliacaoDto)
-      this.http.post<String>("http://localhost:8080/publicarAvaliacoes",avaliacaoDto).subscribe(response => {
+      this.http.post<string>("http://localhost:8080/publicarAvaliacoes",avaliacaoDto).subscribe(response => {
         console.log(response)
         this.resultado = response;
       })
