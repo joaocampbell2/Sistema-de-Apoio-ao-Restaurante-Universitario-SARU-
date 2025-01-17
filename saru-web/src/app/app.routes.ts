@@ -7,6 +7,7 @@ import { VerRefeicoesComponent } from './components/ver-refeicoes/ver-refeicoes.
 import { authGuard } from './guards/auth.guard';
 import { MenuComponent } from './components/menu/menu.component';
 import { VerAvisoComponent } from './components/ver-aviso/ver-aviso.component';
+import { EnviarFeedbackComponent } from './components/enviar-feedback/enviar-feedback.component';
 import { EnviarAvisosComponent } from './components/enviar-aviso/enviar-aviso.component';
 
 export const routes: Routes = [
@@ -25,6 +26,10 @@ export const routes: Routes = [
     {
         path: 'ver-refeicoes',
         component: VerRefeicoesComponent
+    },
+    {
+        path: "enviar-feedback",
+        component: EnviarFeedbackComponent
     },
     {
         path:"avisos",

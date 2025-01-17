@@ -2,8 +2,10 @@ package saru.saru_rest.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import saru.saru_rest.entity.enums.Turno;
 
+import java.sql.Date;
 
-    public class AvaliacaoDTO {
+
+public class AvaliacaoDTO {
 
         @JsonProperty(value = "nota")
         private int nota;
@@ -11,6 +13,8 @@ import saru.saru_rest.entity.enums.Turno;
         private String feedback;
         @JsonProperty(value = "turno")
         private Turno turno;
+        @JsonProperty(value="dataRefeicao")
+        private Date data;
 
 
         // Getters e Setters
@@ -26,6 +30,9 @@ import saru.saru_rest.entity.enums.Turno;
             return turno;
         }
 
+    public Date getData() {
+        return data;
     }
+}
 
 

@@ -1,0 +1,51 @@
+
+  <app-navbar></app-navbar>
+
+
+<div class="container mt-5">
+  <h2 class="title-circle text-center mb-4">Enviar Feedback</h2>
+
+  <form [formGroup]="form" (ngSubmit)="enviarFeedback()" class="form-container">
+    <div class="form-group">
+      <label for="dataRefeicao">Data:</label>
+      <input formControlName="dataRefeicao" type="date" id="dataRefeicao" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="turno">Turno:</label>
+      <select formControlName="turno" id="turno" class="form-control">
+        <option value="Almoco">Almoço</option>
+        <option value="Jantar">Jantar</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="nota">Nota:</label>
+      <select formControlName="nota" id="nota" class="form-control">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+      </select>
+    </div>
+      
+    <div class="form-group">
+      <label for="feedback">Avaliação:</label>
+        <input formControlName="feedback" id="feedback" 
+          class="form-control"
+          id="feedback"
+          type="text"
+          class="form-control"
+          formControlName="feedback"
+          placeholder="Digite o texto da avaliacao"
+        />
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="form.invalid">Enviar feedback</button>
+  </form>
+
+  <div *ngIf="resultado" [ngClass]="resultadoClass" class="alert mt-4" role="alert">
+    {{ resultado }}
+  </div>
+</div>
