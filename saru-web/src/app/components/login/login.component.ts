@@ -31,11 +31,16 @@ export class LoginComponent {
     if(this.form.valid){
       const loginDto: LoginDto ={cpf: this.form.value.cpf,senha: this.form.value.senha}
       console.log(loginDto)
-      this.http.post<TokenDTO>("http://localhost:8080/auth/login",loginDto).subscribe(response => {
+      this.http.post<TokenDTO>("http://localhost:8080/auth/login",loginDto).subscribe({next: response => {
         console.log(response)
         localStorage.setItem("token",response.token)
         this.router.navigate(["/menu"])
-      })
+      },
+      error: () =>{
+        alert("Erro!")
+      }
+      }
+    )
     }
     else{
       alert("login impossivel!")
