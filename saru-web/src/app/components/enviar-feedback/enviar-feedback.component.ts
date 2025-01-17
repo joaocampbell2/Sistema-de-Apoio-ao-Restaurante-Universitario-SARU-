@@ -24,14 +24,14 @@ export class EnviarFeedbackComponent {
       dataRefeicao: new FormControl('',[Validators.required]),
       turno: new FormControl('',[Validators.required]),
       nota: new FormControl('',[Validators.required]),
-      avaliacao: new FormControl('',[Validators.required])
+      feedback: new FormControl('',[Validators.required])
     })
   }
 
   enviarFeedback() {
 
     if(this.form.valid){
-      const avaliacaoDto: AvaliacaoDTO ={data: this.form.value.dataRefeicao, turno: this.form.value.turno, nota: this.form.value.nota, texto: this.form.value.avaliacao}
+      const avaliacaoDto: AvaliacaoDTO ={dataRefeicao: this.form.value.dataRefeicao, turno: this.form.value.turno, nota: this.form.value.nota, feedback: this.form.value.feedback}
       console.log(avaliacaoDto)
       this.http.post<string>("http://localhost:8080/publicarAvaliacoes",avaliacaoDto).subscribe(response => {
         console.log(response)

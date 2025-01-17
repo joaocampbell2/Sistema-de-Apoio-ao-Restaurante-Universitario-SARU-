@@ -14,8 +14,8 @@
     <div class="form-group">
       <label for="turno">Turno:</label>
       <select formControlName="turno" id="turno" class="form-control">
-        <option value="almoco">Almoço</option>
-        <option value="jantar">Jantar</option>
+        <option value="Almoco">Almoço</option>
+        <option value="Jantar">Jantar</option>
       </select>
     </div>
 
@@ -31,17 +31,18 @@
     </div>
       
     <div class="form-group">
-      <label for="avaliacao">Avaliação:</label>
-        <input formControlName="avaliacao" id="avaliacao" class="form-control"
-          id="avaliacao"
+      <label for="feedback">Avaliação:</label>
+        <input formControlName="feedback" id="feedback" 
+          class="form-control"
+          id="feedback"
           type="text"
           class="form-control"
-          formControlName="avaliacao"
+          formControlName="feedback"
           placeholder="Digite o texto da avaliacao"
         />
     </div>
 
-    <button type="submit" class="btn btn-primary btn-block mt-3">Buscar</button>
+    <button type="submit" class="btn btn-primary btn-block mt-3">Enviar feedback</button>
   </form>
 
   <div *ngIf="resultado" [ngClass]="resultadoClass" class="alert mt-4" role="alert">

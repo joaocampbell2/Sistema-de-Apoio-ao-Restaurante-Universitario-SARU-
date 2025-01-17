@@ -1,6 +1,6 @@
 export interface AvaliacaoDTO {
     nota: number;
-    texto: string;
+    feedback: string;
     turno: string;
-    data: string;
+    dataRefeicao: string;
   }
