@@ -59,9 +59,10 @@ public class AvaliacaoService {
 
     private boolean verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(String cpf, Date data, Turno turno) throws DataNaoPossuiComprasException{
 
-        List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, data, turno);
-        boolean utilizado = refeicao.get(0).isUtilizado();
+
         if (refeicaoRepository.existsByCpfClienteAndDataAndTurno(cpf, data, turno)) {
+            List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, data, turno);
+            boolean utilizado = refeicao.get(0).isUtilizado();
             if (utilizado) {
                 if (avaliacaoRepository.existsByIdRefeicao(refeicao.get(0).getIdRefeicao())) {
                     throw new RefeicaoJaPossuiFeedbackException();
