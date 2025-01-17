@@ -1,7 +1,7 @@
 package saru.saru_rest.entity.enums;
 
 public enum Turno {
-    ALMOCO("Almoco"), JANTAR("Jantar");
+    ALMOCO("ALMOCO"), JANTAR("JANTAR");
 
     private String tipoRefeicao;
 
