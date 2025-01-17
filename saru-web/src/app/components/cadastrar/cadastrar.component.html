@@ -1,19 +1,56 @@
-<div class="form-container">
-    <h1>Cadastro de Usuário</h1>
-    <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
-      <label for="nome">Nome</label>
-      <input id="nome" formControlName="nome" type="text" placeholder="Digite seu nome" />
-  
-      <label for="cpf">CPF</label>
-      <input id="cpf" formControlName="cpf" type="text" placeholder="Digite seu CPF" />
-  
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" type="email" placeholder="Digite seu email" />
-  
-      <label for="senha">Senha</label>
-      <input id="senha" formControlName="senha" type="password" placeholder="Digite sua senha" />
-  
-      <button type="submit">Cadastrar</button>
-    </form>
-  </div>
-  
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>Registrar</h1>
+      <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+        <label for="nome">Nome</label>
+        <input id="nome" formControlName="nome" type="text" placeholder="Digite seu nome" />
+        <div *ngIf="cadastroForm.get('nome')?.invalid && cadastroForm.get('nome')?.touched" class="error-message">
+          Nome é obrigatório.
+        </div>
+    
+        <label for="cpf">CPF (apenas dígitos)</label>
+        <input id="cpf" formControlName="cpf" type="text" placeholder="Digite seu CPF" />
+        <div *ngIf="cadastroForm.get('cpf')?.invalid && cadastroForm.get('cpf')?.touched" class="error-message">
+          CPF deve ter 11 dígitos e é obrigatório.
+        </div>
+    
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="Digite seu email" />
+        <div *ngIf="cadastroForm.get('email')?.invalid && cadastroForm.get('email')?.touched" class="error-message">
+          Insira um email válido.
+        </div>
+    
+        <label for="senha">Senha</label>
+        <input id="senha" formControlName="senha" type="password" placeholder="Digite sua senha" />
+        <div *ngIf="cadastroForm.get('senha')?.invalid && cadastroForm.get('senha')?.touched" class="error-message">
+          Senha é obrigatória e deve ter pelo menos 6 caracteres.
+        </div>
+    
+        <label for="confirmarsenha">Confirmar senha</label>
+        <input id="confirmarsenha" formControlName="confirmarsenha" type="password" placeholder="Confirmar senha" />
+        <div *ngIf="cadastroForm.get('confirmarsenha')?.invalid && cadastroForm.get('confirmarsenha')?.touched" class="error-message">
+          Confirmação de senha é obrigatória.
+        </div>
+        <div *ngIf="cadastroForm.errors?.['senhasNaoIguais']" class="error-message">
+          As senhas não coincidem.
+        </div>
+    
+        <button type="submit" [disabled]="cadastroForm.invalid">Cadastrar</button>
+      </form>
+    </div>
+    
+  </body>
+</html>

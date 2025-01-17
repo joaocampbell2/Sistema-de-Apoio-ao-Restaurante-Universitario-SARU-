@@ -1,32 +1,48 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastrar',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.scss'],
 })
 export class CadastrarComponent {
   cadastroForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.cadastroForm = this.fb.group({
-      nome: ['', [Validators.required]],
-      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-    });
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.cadastroForm = this.fb.group(
+      {
+        nome: ['', [Validators.required]],
+        cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+        email: ['', [Validators.required, Validators.email]],
+        senha: ['', [Validators.required, Validators.minLength(6)]],
+        confirmarsenha: ['', [Validators.required]],
+      },
+      { validators: this.senhasIguais }
+    );
+  }
+
+  senhasIguais(group: AbstractControl): ValidationErrors | null {
+    const senha = group.get('senha')?.value;
+    const confirmarsenha = group.get('confirmarsenha')?.value;
+    return senha && confirmarsenha && senha === confirmarsenha ? null : { senhasNaoIguais: true };
   }
 
   onSubmit() {
     if (this.cadastroForm.valid) {
-      console.log('Formulário enviado:', this.cadastroForm.value);
-      //adicionar a lógica de envio ao back-end
+      console.log('Formulário enviado com sucesso:', this.cadastroForm.value);
+
+      alert('Cadastro realizado com sucesso!');
+
+      this.router.navigateByUrl('/#/login');
     } else {
-      console.error('Formulário inválido');
+      this.cadastroForm.markAllAsTouched();
+      console.error('Formulário inválido.');
     }
   }
 }

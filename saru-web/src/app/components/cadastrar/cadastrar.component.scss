@@ -1,28 +1,33 @@
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100vh;
+}
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Roboto', Arial, sans-serif;
   background-color: #f0f8ff;
+  height: 100vh;
+  min-height: 100vh;
 }
 
 .form-container {
   width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 10px;
+  max-width: 800px;
+  padding: 45px;
+  background: #0084ff;
+  border-radius: 35px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 h1 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 42px;
+  color: #ffffff;
+  margin-bottom: 32px;
 }
 
 form {
@@ -31,18 +36,18 @@ form {
 }
 
 label {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 5px;
+  font-size: 30px;
+  color: #ffffff;
+  margin-bottom: 15px;
   text-align: left;
 }
 
 input {
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 25px;
+  margin-bottom: 34px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 34px;
+  font-size: 28px;
 }
 
 input:focus {
@@ -51,16 +56,95 @@ input:focus {
 }
 
 button {
-  padding: 10px;
+  padding: 24px;
   border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
+  border-radius: 35px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-size: 30px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  color: white;
+  background-color: black;
+}
+
+@media screen and (max-width: 849px) {
+  .form-container {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  input {
+    padding: 18px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  button {
+    padding: 18px;
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .form-container {
+    padding: 12px;
+    max-width: 95%;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  input {
+    padding: 12px;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 14px;
+    font-size: 18px;
+  }
+
+  .error-message {
+    color: #aa0600 !important;
+    font-size: 16px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  @media screen and (max-width: 849px) {
+    .error-message {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .error-message {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  }
 }
