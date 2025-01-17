@@ -22,7 +22,7 @@
         </div>
     
         <label for="cpf">CPF (apenas dígitos)</label>
-        <input id="cpf" formControlName="cpf" type="text" placeholder="Digite seu CPF" />
+        <input id="cpf" formControlName="cpf" type="text" maxlength="11" placeholder="Digite seu CPF" />
         <div *ngIf="cadastroForm.get('cpf')?.invalid && cadastroForm.get('cpf')?.touched" class="error-message">
           CPF deve ter 11 dígitos e é obrigatório.
         </div>

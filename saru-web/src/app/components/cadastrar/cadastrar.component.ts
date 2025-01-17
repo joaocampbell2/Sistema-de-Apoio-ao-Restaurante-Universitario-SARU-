@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CadastroDTO } from '../../models/cadastroDTO';
 
 @Component({
   selector: 'app-cadastrar',
@@ -13,8 +15,8 @@ import { Router } from '@angular/router';
 })
 export class CadastrarComponent {
   cadastroForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private router: Router) {
+  
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {
     this.cadastroForm = this.fb.group(
       {
         nome: ['', [Validators.required]],
@@ -37,9 +39,12 @@ export class CadastrarComponent {
     if (this.cadastroForm.valid) {
       console.log('Formulário enviado com sucesso:', this.cadastroForm.value);
 
+
+      this.http.post("http://localhost:8080/auth/cadastrarCliente", this.cadastroForm.value as CadastroDTO)
+
       alert('Cadastro realizado com sucesso!');
 
-      this.router.navigateByUrl('/#/login');
+      this.router.navigateByUrl('/login');
     } else {
       this.cadastroForm.markAllAsTouched();
       console.error('Formulário inválido.');
