@@ -25,7 +25,11 @@ public class AvisoService {
         return avisos;
     }
     public String publicarAviso(String cpf, AvisoDTO aviso) {
-        AvisoEntity avisoEntity = new AvisoEntity(aviso, cpf);
+
+        List<AvisoEntity> avisos = avisoRepository.findAll();
+        int idAvisos = avisos.size();
+        AvisoEntity avisoEntity = new AvisoEntity(aviso, cpf, idAvisos);
+
         avisoRepository.save(avisoEntity);
         return "Aviso cadastrado com sucesso!";
     }

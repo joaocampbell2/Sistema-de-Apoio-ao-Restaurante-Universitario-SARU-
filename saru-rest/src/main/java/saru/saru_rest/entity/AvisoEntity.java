@@ -23,11 +23,12 @@ public class AvisoEntity {
     @Nullable
     private String imagem;
 
-    public AvisoEntity(AvisoDTO aviso, String cpf) {
+    public AvisoEntity(AvisoDTO aviso, String cpf, int idAviso) {
         this.texto = aviso.getTexto();
         this.cpfFuncionario = cpf;
         this.data = aviso.getData();
         this.imagem = aviso.getImagem();
+        this.idAviso = idAviso;
     }
 
     public AvisoEntity() {
