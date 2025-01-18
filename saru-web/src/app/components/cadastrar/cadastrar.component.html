@@ -47,6 +47,19 @@
         <div *ngIf="cadastroForm.errors?.['senhasNaoIguais']" class="error-message">
           As senhas não coincidem.
         </div>
+
+        <label for="tipocliente">Tipo Cliente</label>
+        <div id="tipocliente">
+          <label>
+            <input type="radio" formControlName="tipoCliente" value="ALUNO" /> Aluno
+          </label>
+          <label>
+            <input type="radio" formControlName="tipoCliente" value="PROFESSOR" /> Professor
+          </label>
+        </div>
+        <div *ngIf="cadastroForm.get('tipoCliente')?.invalid && cadastroForm.get('tipoCliente')?.touched" class="error-message">
+          Escolha o tipo de cliente.
+        </div>
     
         <button type="submit" [disabled]="cadastroForm.invalid">Cadastrar</button>
       </form>

@@ -24,6 +24,7 @@ export class CadastrarComponent {
         email: ['', [Validators.required, Validators.email]],
         senha: ['', [Validators.required, Validators.minLength(6)]],
         confirmarsenha: ['', [Validators.required]],
+        tipoCliente: ['', [Validators.required]],
       },
       { validators: this.senhasIguais }
     );
@@ -35,16 +36,24 @@ export class CadastrarComponent {
     return senha && confirmarsenha && senha === confirmarsenha ? null : { senhasNaoIguais: true };
   }
 
+  
   onSubmit() {
     if (this.cadastroForm.valid) {
-      console.log('Formulário enviado com sucesso:', this.cadastroForm.value);
-
-
-      this.http.post("http://localhost:8080/auth/cadastrarCliente", this.cadastroForm.value as CadastroDTO)
-
-      alert('Cadastro realizado com sucesso!');
-
-      this.router.navigateByUrl('/login');
+      const cadastroDTO: CadastroDTO = this.cadastroForm.value;
+  
+      console.log('Enviando ao backend:', cadastroDTO);
+  
+      this.http.post("http://localhost:8080/auth/cadastrarCliente", cadastroDTO).subscribe({
+        next: (response) => {
+          console.log('Resposta do servidor:', response);
+          alert('Cadastro realizado com sucesso!');
+          //this.router.navigateByUrl('/login');
+        },  
+        error: (error) => {
+          console.error('Erro ao cadastrar:', error);
+          alert('Erro ao realizar o cadastro.');
+        }
+      });
     } else {
       this.cadastroForm.markAllAsTouched();
       console.error('Formulário inválido.');
