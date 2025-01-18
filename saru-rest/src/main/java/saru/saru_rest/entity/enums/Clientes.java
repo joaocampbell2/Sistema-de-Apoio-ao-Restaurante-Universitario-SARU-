@@ -1,7 +1,7 @@
 package saru.saru_rest.entity.enums;
 
 public enum Clientes {
-    aluno("Aluno"), PROFESSOR("Professor"), VISITANTE("Visitante");
+    ALUNO("Aluno"), PROFESSOR("Professor"), VISITANTE("Visitante");
 
     private String tipoCliente;
 
