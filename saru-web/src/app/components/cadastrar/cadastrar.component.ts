@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { ReactiveFormsModule,FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CadastroDTO } from '../../models/cadastroDTO';
@@ -16,7 +15,7 @@ import { CadastroDTO } from '../../models/cadastroDTO';
 export class CadastrarComponent {
   cadastroForm: FormGroup;
   
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {
+  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly http: HttpClient) {
     this.cadastroForm = this.fb.group(
       {
         nome: ['', [Validators.required]],
@@ -43,11 +42,10 @@ export class CadastrarComponent {
   
       console.log('Enviando ao backend:', cadastroDTO);
   
-      this.http.post("http://localhost:8080/auth/cadastrarCliente", cadastroDTO).subscribe({
+      this.http.post<string>("http://localhost:8080/auth/cadastrarCliente", cadastroDTO).subscribe({
         next: (response) => {
-          console.log('Resposta do servidor:', response);
           alert('Cadastro realizado com sucesso!');
-          //this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/login');
         },  
         error: (error) => {
           console.error('Erro ao cadastrar:', error);
