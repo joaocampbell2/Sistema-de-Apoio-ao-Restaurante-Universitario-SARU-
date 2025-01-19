@@ -25,30 +25,26 @@ public class AvaliacaoService {
 
     private AvaliacaoRepository avaliacaoRepository;
 
-    private ClienteRepository clienteRepository;
 
     private RefeicaoRepository refeicaoRepository;
 
-    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, ClienteRepository clienteRepository, RefeicaoRepository refeicaoRepository) {
+    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, RefeicaoRepository refeicaoRepository) {
         this.avaliacaoRepository = avaliacaoRepository;
-        this.clienteRepository = clienteRepository;
         this.refeicaoRepository = refeicaoRepository;
     }
 
     @Transactional
     public String criarAvaliacao(AvaliacaoDTO avaliacaoDTO) throws SemRefeicoesCompradasException, TurnoNaoCompradoException {
-        Date data = avaliacaoDTO.getData();
-        Turno turno = avaliacaoDTO.getTurno();
         String cpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
-            verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(cpf, data, turno);
+            verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(cpf, avaliacaoDTO);
         }catch (Exception e) {
             throw e;
         }
         AvaliacaoEntity avaliacao = new AvaliacaoEntity(
                 avaliacaoDTO.getNota(),
                 avaliacaoDTO.getFeedback(),
-                this.getIdByCpfClienteAndAndDataAndAndTurno(cpf, data, turno)
+                this.getIdByCpfClienteAndAndDataAndAndTurno(cpf, avaliacaoDTO.getData(), avaliacaoDTO.getTurno())
         );
 
          avaliacaoRepository.save(avaliacao);
@@ -57,11 +53,10 @@ public class AvaliacaoService {
     }
 
 
-    private boolean verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(String cpf, Date data, Turno turno) throws DataNaoPossuiComprasException{
+    private boolean verificaRefeicaoExisteEUtilizadaEFeedbackJaEnviado(String cpf, AvaliacaoDTO avaliacaoDTO) throws DataNaoPossuiComprasException{
 
-
-        if (refeicaoRepository.existsByCpfClienteAndDataAndTurno(cpf, data, turno)) {
-            List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, data, turno);
+        if (refeicaoRepository.existsByCpfClienteAndDataAndTurno(cpf, avaliacaoDTO.getData(), avaliacaoDTO.getTurno())) {
+            List<RefeicaoEntity> refeicao = refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, avaliacaoDTO.getData(), avaliacaoDTO.getTurno());
             boolean utilizado = refeicao.get(0).isUtilizado();
             if (utilizado) {
                 if (avaliacaoRepository.existsByIdRefeicao(refeicao.get(0).getIdRefeicao())) {

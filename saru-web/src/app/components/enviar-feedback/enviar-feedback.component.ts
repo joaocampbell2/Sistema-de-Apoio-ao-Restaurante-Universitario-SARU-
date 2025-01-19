@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AvaliacaoDTO } from '../../models/AvaliacaoDTO';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-enviar-feedback',
@@ -12,13 +13,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
   templateUrl: './enviar-feedback.component.html',
   styleUrls: ['./enviar-feedback.component.scss']
 })
-export class EnviarFeedbackComponent {
+export class EnviarFeedbackComponent implements OnInit {
   form: FormGroup;
   resultado: any;
   resultadoClass: string = '';
-  http: HttpClient;
 
-  constructor(http: HttpClient) {
+  constructor(private readonly http: HttpClient, private readonly route: ActivatedRoute) {
     this.http = http;
     this.form = new FormGroup({
       dataRefeicao: new FormControl('',[Validators.required]),
@@ -40,6 +40,15 @@ export class EnviarFeedbackComponent {
     }
     }
   
+    ngOnInit(): void {
+      this.route.paramMap.subscribe(params =>{
+        this.form.patchValue({
+          dataRefeicao : params.get("data"),
+          turno: params.get("turno")
+        })
+      })
+    }
+
 
   hideMessageAfterTimeout(){
     setTimeout(()=> {

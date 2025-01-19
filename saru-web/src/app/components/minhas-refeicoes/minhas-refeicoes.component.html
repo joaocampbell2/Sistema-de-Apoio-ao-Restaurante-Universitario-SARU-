@@ -12,19 +12,30 @@
       <div class="card shadow border-0">
         <div class="card-body">
           <h5 class="card-title text-primary">
+
             {{ refeicao.data | date: 'dd/MM/yyyy' }}
           </h5>
           <p class="card-text text-primary">{{ refeicao.turno }}</p>
-          <button 
-            class="btn btn-primary" 
-            (click)="alterarTurno(refeicao.idRefeicao)">
-            Alterar Turno
-          </button>
-          <button 
-            class="btn btn-primary" 
-            (click)="qrCode(refeicao.idRefeicao)">
-            QR Code
-          </button>
+          <div *ngIf="!refeicao.utilizado; else feedback">
+            <button 
+              class="btn btn-primary" 
+              (click)="alterarTurno(refeicao.idRefeicao)">
+              Alterar Turno
+            </button>
+            <button 
+              class="btn btn-primary" 
+              (click)="qrCode(refeicao.idRefeicao)">
+              QR Code
+            </button>
+          </div>
+
+          <ng-template #feedback>
+            <button 
+              class="btn btn-primary" 
+              [routerLink] ="['/enviar-feedback',refeicao.data,refeicao.turno]">
+              Feedback
+            </button>
+          </ng-template>  
         </div>
       </div>
     </div>
