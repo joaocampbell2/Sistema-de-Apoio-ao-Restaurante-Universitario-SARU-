@@ -19,6 +19,7 @@ export class ComprarRefeicaoComponent {
   resultadoClass: string = '';
   minDate: string;
 
+
   constructor(private readonly http: HttpClient) {
     this.form = new FormGroup({
       dataRefeicao: new FormControl('',[Validators.required]),
