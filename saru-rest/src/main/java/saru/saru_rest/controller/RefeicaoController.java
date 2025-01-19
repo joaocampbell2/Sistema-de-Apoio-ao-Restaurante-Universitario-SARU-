@@ -93,6 +93,13 @@ public class RefeicaoController {
             return ResponseEntity.noContent().build();
         }
     }
+    @GetMapping(value = "/validarQrCode/{qrCode}")
+    public ResponseEntity<Boolean> validarQrCode(@PathVariable String qrCode){
+        if (qrCodeService.validarQrCode(qrCode)){
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

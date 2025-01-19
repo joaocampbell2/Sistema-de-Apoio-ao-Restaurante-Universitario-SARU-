@@ -57,7 +57,6 @@ public class RefeicaoEntity {
             this.token = UUID.randomUUID().toString(); // Gerar um token único
         }
     }
-    @PreUpdate
     public void generateNewToken(){
         this.token = UUID.randomUUID().toString();
     }
@@ -112,6 +111,10 @@ public class RefeicaoEntity {
 
     public Integer getIdRefeicao() {
         return idRefeicao;
+    }
+
+    public void setUtilizado(boolean utilizado) {
+        this.utilizado = utilizado;
     }
 }
 

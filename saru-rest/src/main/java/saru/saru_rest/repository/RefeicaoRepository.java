@@ -6,6 +6,7 @@ import saru.saru_rest.entity.enums.Turno;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer> {
 
@@ -14,15 +15,14 @@ public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer
 
     List<RefeicaoEntity> findByCpfCliente(String cpf);
 
-    List<RefeicaoEntity> findByTurno(Turno turno);
-
     List<RefeicaoEntity> findByDataAndTurno(Date data, Turno turno);
-
-    List<RefeicaoEntity> findByCpfClienteAndData(String cpf, Date data);
 
     boolean existsByCpfClienteAndDataAndTurno(String cpf, Date data, Turno turno);
 
     RefeicaoEntity findByidRefeicao(int idRefeicao);
 
     boolean existsByDataAndTurno(Date data, Turno novoTurno);
+
+    Optional<RefeicaoEntity> findByToken(String token);
+
 }
