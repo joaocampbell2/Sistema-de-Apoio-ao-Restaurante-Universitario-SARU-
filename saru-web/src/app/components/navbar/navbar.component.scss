@@ -1,8 +1,3 @@
-$primary : #F43;
-
-
-
-
 nav a {
   text-transform: uppercase;
   color: white;
@@ -19,6 +14,10 @@ nav a:hover {
   color: white; /* Mantém a mesma cor ao passar o mouse */
   text-decoration: none; /* Remove o sublinhado */
   display: flex;
+}
+
+nav{
+  color: white; /* Mantém a mesma cor ao passar o mouse */
 }
 
 .align-left {
