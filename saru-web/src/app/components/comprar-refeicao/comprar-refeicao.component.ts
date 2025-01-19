@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AvaliacaoDTO } from '../../models/AvaliacaoDTO';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RefeicaoDTO } from '../../models/RefeicaoDTO';
@@ -17,10 +16,9 @@ export class ComprarRefeicaoComponent {
   form: FormGroup;
   resultado: any;
   resultadoClass: string = '';
-  http: HttpClient;
   minDate: string;
 
-  constructor(http: HttpClient) {
+  constructor(private http: HttpClient) {
     this.http = http;
     this.form = new FormGroup({
       dataRefeicao: new FormControl('',[Validators.required]),
@@ -35,9 +33,10 @@ export class ComprarRefeicaoComponent {
     if(this.form.valid){
       const refeicaoDto: RefeicaoDTO ={dataRefeicao: this.form.value.dataRefeicao, turno: this.form.value.turno}
       console.log(refeicaoDto)
-      this.http.post<string>("http://localhost:8080/refeicao/comprarRefeicao",refeicaoDto).subscribe(response => {
-        console.log(response)
-        this.resultado = response;
+      this.http.post("http://localhost:8080/refeicao/comprarRefeicao",refeicaoDto,{headers:{"Accept":"image/png"},responseType: "blob"}).subscribe(response => {
+      const url = URL.createObjectURL(response);
+      this.resultado = url;
+      console.log(this.resultado);
       })
     }
     }
