@@ -25,6 +25,12 @@
             (click)="qrCode(refeicao.idRefeicao)">
             QR Code
           </button>
+          <button 
+            class="btn btn-primary" 
+            [routerLink] ="['/enviar-feedback',refeicao.data,refeicao.turno]">
+            Feedback
+          </button>
+          
         </div>
       </div>
     </div>

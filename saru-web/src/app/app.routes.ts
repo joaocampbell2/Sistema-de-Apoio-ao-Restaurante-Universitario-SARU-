@@ -35,6 +35,10 @@ export const routes: Routes = [
         component: EnviarFeedbackComponent
     },
     {
+        path: "enviar-feedback/:data/:turno",
+        component: EnviarFeedbackComponent
+    },
+    {
         path: "comprar-refeicao",
         component: ComprarRefeicaoComponent
     },

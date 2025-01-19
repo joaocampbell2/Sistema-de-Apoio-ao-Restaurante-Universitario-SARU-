@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RefeicaoEntityDTO } from '../../models/RefeicaoEntityDTO';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AlterarTurnoDTO } from '../../models/AlterarTurnoDTO';
 
@@ -10,18 +10,17 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-minhas-refeicoes',
-  imports: [CommonModule, RouterOutlet, NavbarComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent,RouterModule],
   templateUrl: './minhas-refeicoes.component.html',
   styleUrl: './minhas-refeicoes.component.scss',
 })
 export class MinhasRefeicoesComponent {
-    private readonly httpClient;
     public refeicoes: any;
     turnoAtual: string = '';
     turnoNovo: string = '';
     idRefeicaoSelecionada: number | null = null;
     qrCodeUrl: string = '';
-    constructor(httpClient: HttpClient){
+    constructor(private readonly httpClient: HttpClient, private readonly router: Router){
       this.httpClient = httpClient;      
     }
   
