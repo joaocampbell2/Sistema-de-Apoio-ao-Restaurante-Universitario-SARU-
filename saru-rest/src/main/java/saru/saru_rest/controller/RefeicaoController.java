@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import saru.saru_rest.dtos.AlterarTurnoDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.entity.enums.Turno;
@@ -64,9 +65,34 @@ public class RefeicaoController {
         return ResponseEntity.ok(refeicao.size());
     }
 
-    @PutMapping(value="/alterarTurno")
-    public ResponseEntity<String> alterarTurno(@RequestBody RefeicaoDTO refeicaoDTO) throws TodasRefeicoesCompradasException, TurnoJaCompradoException, SemRefeicoesCompradasException {
-        String cpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ResponseEntity.ok().body(refeicaoService.alterarTurno(cpf, refeicaoDTO.getTurno(), refeicaoDTO.getDataRefeicao()));
+    @RolesAllowed({"ALUNO, PROFESSOR"})
+    @GetMapping(value="/minhasRefeicoes")
+    public ResponseEntity<List<RefeicaoEntity>> resgatarRefeicoes(){
+        List<RefeicaoEntity> refeicoes = refeicaoRepository.findByCpfCliente((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        if (refeicoes.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(refeicaoRepository.findByCpfCliente((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
     }
+
+    @PutMapping(value="/alterarTurno")
+    public ResponseEntity<String> alterarTurno(@RequestBody AlterarTurnoDTO alterarTurnoDTO) throws TodasRefeicoesCompradasException, TurnoJaCompradoException, SemRefeicoesCompradasException {
+        try{
+            return ResponseEntity.ok().body(refeicaoService.alterarTurno(alterarTurnoDTO));
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
+
+    @GetMapping(value="/getQrCode/{idRefeicao}")
+    public ResponseEntity<byte[]> getQRCode(@PathVariable("idRefeicao")int idRefeicao){
+        try {
+            return ResponseEntity.ok(qrCodeService.getQRCodeImage(refeicaoRepository.findByidRefeicao(idRefeicao)));
+        }catch (Exception e){
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+
 }

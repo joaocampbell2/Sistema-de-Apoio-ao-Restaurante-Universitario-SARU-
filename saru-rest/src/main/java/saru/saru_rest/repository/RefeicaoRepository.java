@@ -22,4 +22,7 @@ public interface RefeicaoRepository extends JpaRepository<RefeicaoEntity,Integer
 
     boolean existsByCpfClienteAndDataAndTurno(String cpf, Date data, Turno turno);
 
+    RefeicaoEntity findByidRefeicao(int idRefeicao);
+
+    boolean existsByDataAndTurno(Date data, Turno novoTurno);
 }
