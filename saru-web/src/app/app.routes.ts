@@ -12,6 +12,7 @@ import { EnviarAvisosComponent } from './components/enviar-aviso/enviar-aviso.co
 import { ComprarRefeicaoComponent } from './components/comprar-refeicao/comprar-refeicao.component';
 import { MenuRefeicoesComponent } from './components/menu-refeicoes/menu-refeicoes.component';
 import { MinhasRefeicoesComponent } from './components/minhas-refeicoes/minhas-refeicoes.component';
+import { AdicionarSaldoComponent } from './components/adicionar-saldo/adicionar-saldo.component';
 
 export const routes: Routes = [
     {
@@ -45,6 +46,10 @@ export const routes: Routes = [
     {
         path: "minhas-refeicoes",
         component: MinhasRefeicoesComponent
+    },
+    {
+        path: "adicionar-saldo",
+        component: AdicionarSaldoComponent
     },
     {
         path:"avisos",
