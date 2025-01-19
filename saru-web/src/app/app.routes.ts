@@ -79,6 +79,10 @@ export const routes: Routes = [
         component: MenuFuncionarioComponent
     },
     {
+        path: 'menu-funcionario',
+        component: MenuFuncionarioComponent
+    },
+    {
         path: "**",
         redirectTo:'home'
     }
