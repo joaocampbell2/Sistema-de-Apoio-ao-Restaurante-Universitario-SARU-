@@ -37,7 +37,17 @@ export class MinhasRefeicoesComponent {
       if (refeicao) {
         this.idRefeicaoSelecionada = idRefeicao;
         this.turnoAtual = refeicao.turno;
-        this.turnoNovo = refeicao.turno === 'Almoço' ? 'Jantar' : 'Almoço';
+        switch (refeicao.turno){
+          case 'ALMOCO':
+             this.turnoNovo = 'JANTAR';
+             break;
+          case 'JANTAR': 
+              this.turnoNovo = 'ALMOCO';
+              break;
+          default: 
+              break;
+
+        }
   
         const modal = new bootstrap.Modal(document.getElementById('alterarTurnoModal')!);
         modal.show();
