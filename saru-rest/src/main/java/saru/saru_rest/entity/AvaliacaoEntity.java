@@ -10,6 +10,7 @@ import saru.saru_rest.entity.enums.Turno;
 public class AvaliacaoEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAvaliacao;
     private int nota;
     private String feedback;
