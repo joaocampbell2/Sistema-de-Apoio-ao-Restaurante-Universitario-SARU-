@@ -10,6 +10,8 @@ import { VerAvisoComponent } from './components/ver-aviso/ver-aviso.component';
 import { EnviarFeedbackComponent } from './components/enviar-feedback/enviar-feedback.component';
 import { EnviarAvisosComponent } from './components/enviar-aviso/enviar-aviso.component';
 import { ComprarRefeicaoComponent } from './components/comprar-refeicao/comprar-refeicao.component';
+import { MenuRefeicoesComponent } from './components/menu-refeicoes/menu-refeicoes.component';
+import { MinhasRefeicoesComponent } from './components/minhas-refeicoes/minhas-refeicoes.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +37,14 @@ export const routes: Routes = [
     {
         path: "comprar-refeicao",
         component: ComprarRefeicaoComponent
+    },
+    {
+        path: "menu-refeicoes",
+        component: MenuRefeicoesComponent
+    },
+    {
+        path: "minhas-refeicoes",
+        component: MinhasRefeicoesComponent
     },
     {
         path:"avisos",
