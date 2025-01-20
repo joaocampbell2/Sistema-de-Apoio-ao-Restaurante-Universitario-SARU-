@@ -1,0 +1,24 @@
+<router-outlet></router-outlet>
+<div class="container my-5">
+    <!-- Título da Página -->
+    <div class="text-center mb-4">
+      <h2 class="text-primary">Avisos</h2>
+      <p class="confira-avisos">Confira os últimos avisos!</p>
+    </div>
+  
+    <!-- Grade de Avisos -->
+    <div class="row">
+      <div *ngFor="let aviso of avisos" class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <h5 class="card-title text-primary">
+              {{ aviso.data | date: 'dd/MM/yyyy' }}
+            </h5>
+            <p class="card-text text-dark">
+              {{ aviso.texto }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

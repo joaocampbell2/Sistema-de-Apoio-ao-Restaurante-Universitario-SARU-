@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import saru.saru_rest.dtos.AlterarTurnoDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.entity.enums.Turno;
@@ -39,7 +40,7 @@ public class RefeicaoController {
         this.refeicaoRepository = refeicaoRepository;
     }
 
-    @PostMapping(value = "/comprarRefeicao")
+    @PostMapping(value = "/comprarRefeicao",produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> comprarRefeicao(@RequestBody RefeicaoDTO refeicao) throws SaldoInsuficienteException, RefeicaoJaCompradaException, IOException, WriterException {
         String userCpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(refeicaoService.comprarRefeicao(refeicao, userCpf));
@@ -53,22 +54,52 @@ public class RefeicaoController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG)
                 .body(qrCodeService.getQRCodeImage(refeicaoEntity));
     }
-
-    @RolesAllowed("FUNCIONARIO")
-    @GetMapping(value="/verRefeicoes/{dataRefeicao}/{turno}")
-    public ResponseEntity<String> verRefeicoes(@PathVariable("dataRefeicao") Date dataRefeicao, @PathVariable("turno") Turno turno){
+        @RolesAllowed("FUNCIONARIO")
+        @GetMapping(value="/verRefeicoes/{dataRefeicao}/{turno}")
+    public ResponseEntity<Integer> verRefeicoes(@PathVariable("dataRefeicao") Date dataRefeicao, @PathVariable("turno") Turno turno){
         List<RefeicaoEntity> refeicao = refeicaoService.verRefeicoes(dataRefeicao,turno);
         if(refeicao.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        String numeroRefeicoes = ("O numero de refeições compradas do dia " + dataRefeicao + " no turno " + turno + " foi de: " + refeicao.size() );
-        return ResponseEntity.ok(numeroRefeicoes);
+
+        return ResponseEntity.ok(refeicao.size());
     }
 
+    @RolesAllowed({"ALUNO, PROFESSOR"})
+    @GetMapping(value="/minhasRefeicoes")
+    public ResponseEntity<List<RefeicaoEntity>> resgatarRefeicoes(){
+        List<RefeicaoEntity> refeicoes = refeicaoRepository.findByCpfCliente((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        if (refeicoes.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(refeicaoRepository.findByCpfCliente((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+    }
 
     @PutMapping(value="/alterarTurno")
-    public ResponseEntity<String> alterarTurno(@RequestBody RefeicaoDTO refeicaoDTO) throws TodasRefeicoesCompradasException, TurnoJaCompradoException, SemRefeicoesCompradasException {
-        String cpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ResponseEntity.ok().body(refeicaoService.alterarTurno(cpf, refeicaoDTO.getTurno(), refeicaoDTO.getDataRefeicao()));
+    public ResponseEntity<String> alterarTurno(@RequestBody AlterarTurnoDTO alterarTurnoDTO) throws TodasRefeicoesCompradasException, TurnoJaCompradoException, SemRefeicoesCompradasException {
+        try{
+            return ResponseEntity.ok().body(refeicaoService.alterarTurno(alterarTurnoDTO));
+        } catch (Exception e) {
+            throw e;
+        }
+
     }
+
+    @GetMapping(value="/getQrCode/{idRefeicao}")
+    public ResponseEntity<byte[]> getQRCode(@PathVariable("idRefeicao")int idRefeicao){
+        try {
+            return ResponseEntity.ok(qrCodeService.getQRCodeImage(refeicaoRepository.findByidRefeicao(idRefeicao)));
+        }catch (Exception e){
+            return ResponseEntity.noContent().build();
+        }
+    }
+    @GetMapping(value = "/validarQrCode/{qrCode}")
+    public ResponseEntity<Boolean> validarQrCode(@PathVariable String qrCode){
+        if (qrCodeService.validarQrCode(qrCode)){
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

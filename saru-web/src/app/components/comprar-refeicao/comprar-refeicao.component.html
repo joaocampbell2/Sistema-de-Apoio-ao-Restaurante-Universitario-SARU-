@@ -1,0 +1,28 @@
+
+  <app-navbar></app-navbar>
+
+
+<div class="container mt-5">
+  <h2 class="title-circle text-center mb-4">Comprar refeicao</h2>
+
+  <form [formGroup]="form" (ngSubmit)="comprarRefeicao()" class="form-container">
+    <div class="form-group">
+      <label for="dataRefeicao">Data:</label>
+      <input formControlName="dataRefeicao" type="date" [min]="minDate" id="dataRefeicao" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="turno">Turno:</label>
+      <select formControlName="turno" id="turno" class="form-control">
+        <option value="ALMOCO">Almoço</option>
+        <option value="JANTAR">Jantar</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="form.invalid">Comprar refeicao</button>
+  </form>
+
+  <div *ngIf="resultado" [ngClass]="resultadoClass" class="alert mt-4" role="alert">
+    <img [src]="resultado"> 
+  </div>
+</div>

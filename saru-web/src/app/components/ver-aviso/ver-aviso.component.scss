@@ -1,0 +1,41 @@
+body {
+  background-color: #59A1FF;
+}
+
+h2 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card {
+  background-color: #59A1FF;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.text-primary {
+  color: white !important;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.confira-avisos{
+  font-size: 0.9rem;
+  color: white;
+}

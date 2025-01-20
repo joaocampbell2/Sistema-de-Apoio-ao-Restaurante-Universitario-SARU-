@@ -1,7 +1,7 @@
-// $primary: black; // Cor primária personalizada
 // $secondary: #6c757d; //
 
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
+$tertiary:  #59A1FF;
+@use "../node_modules/bootstrap/scss/bootstrap.scss" as *;
 
 
 html { height: 100%; }
@@ -11,3 +11,4 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     
 }
+

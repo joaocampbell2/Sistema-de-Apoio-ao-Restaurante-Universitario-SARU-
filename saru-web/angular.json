@@ -32,6 +32,7 @@
               }
             ],
           "styles": [
+            "@angular/material/prebuilt-themes/azure-blue.css",
             "src/styles.scss"
           ],
             "stylePreprocessorOptions": {
@@ -106,6 +107,9 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   },
   "cli": {
     "analytics": "b725a30e-a8c0-499a-8dd5-c771f97f974b"

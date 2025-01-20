@@ -2,6 +2,7 @@ package saru.saru_rest.service.refeicao;
 
 import com.google.zxing.WriterException;
 import org.springframework.stereotype.Service;
+import saru.saru_rest.dtos.AlterarTurnoDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.entity.enums.Turno;
@@ -42,13 +43,10 @@ public class RefeicaoServiceImpl implements RefeicaoService {
             throw new RefeicaoJaCompradaException();
         }
 
-
-
         RefeicaoEntity refeicaoEntity = new RefeicaoEntity(cpf,refeicao.getDataRefeicao(),refeicao.getTurno());
         refeicaoRepository.save(refeicaoEntity);
 
         return qrCodeService.getQRCodeImage(refeicaoEntity);
-
     }
 
 
@@ -80,6 +78,7 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         return true;
     }
 
+
     public List<RefeicaoEntity> verRefeicoes(RefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException {
         List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao.getDataRefeicao(),dataRefeicao.getTurno());
         try {
@@ -109,24 +108,30 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         return true;
     }
 
-    public String alterarTurno(String cpf, Turno turno, Date data) throws SemRefeicoesCompradasException, TodasRefeicoesCompradasException, TurnoJaCompradoException {
-        List<RefeicaoEntity> refeicoes= refeicaoRepository.findByCpfClienteAndData(cpf, data);
+    public String alterarTurno(AlterarTurnoDTO alterarTurnoDTO) throws TodasRefeicoesCompradasException {
+        RefeicaoEntity refeicao = refeicaoRepository.findByidRefeicao(alterarTurnoDTO.getIdRefeicao());
+        Turno novoTurno = null;
         try{
-            if (clienteRepository.existsById(cpf) && verificaTurno(refeicoes, turno) && verificaSemRefeicoesCompradas(refeicoes) && verificaTodasRefeicoesCompradasDoDia(refeicoes)) {
-                refeicoes.getFirst().setTurno(turno);
-                refeicoes.getFirst().generateNewToken();
-                refeicaoRepository.save(refeicoes.getFirst());
+            switch (refeicao.getTurno()){
+                case ALMOCO -> novoTurno = Turno.JANTAR;
+                case JANTAR -> novoTurno = Turno.ALMOCO;
+            }
+
+            if (verificaTodasRefeicoesCompradasDoDia(refeicao, novoTurno)) {
+                refeicao.setTurno(novoTurno);
+                refeicao.generateNewToken();
+                refeicaoRepository.save(refeicao);
 
                 return "Turno alterado com sucesso";
             }
         }catch (Exception e){
-            e.printStackTrace();
+            throw e;
         }
         return "Erro ao alterar turno";
     }
 
-    private boolean verificaTodasRefeicoesCompradasDoDia(List<RefeicaoEntity> refeicoes) throws TodasRefeicoesCompradasException {
-        if (refeicoes.size() >= 2){
+    private boolean verificaTodasRefeicoesCompradasDoDia(RefeicaoEntity refeicao, Turno novoTurno) throws TodasRefeicoesCompradasException {
+        if (refeicaoRepository.existsByDataAndTurno(refeicao.getData(), novoTurno)){
             throw new TodasRefeicoesCompradasException();
         }
         return true;

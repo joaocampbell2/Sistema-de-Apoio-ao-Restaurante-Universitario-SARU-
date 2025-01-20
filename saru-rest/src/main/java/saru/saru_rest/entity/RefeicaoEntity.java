@@ -2,6 +2,7 @@ package saru.saru_rest.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import saru.saru_rest.entity.enums.Turno;
 
 import java.sql.Date;
@@ -21,6 +22,7 @@ public class RefeicaoEntity {
     private Turno turno;
     @Column(unique = true, nullable = false)
     private String token;
+    private boolean utilizado;
 
     public RefeicaoEntity(String cpfCliente, Date data, Turno turno) {
         this.cpfCliente = cpfCliente;
@@ -55,7 +57,6 @@ public class RefeicaoEntity {
             this.token = UUID.randomUUID().toString(); // Gerar um token único
         }
     }
-    @PreUpdate
     public void generateNewToken(){
         this.token = UUID.randomUUID().toString();
     }
@@ -102,6 +103,18 @@ public class RefeicaoEntity {
 
     public Integer getId_refeicao() {
         return idRefeicao;
+    }
+
+    public boolean isUtilizado() {
+        return utilizado;
+    }
+
+    public Integer getIdRefeicao() {
+        return idRefeicao;
+    }
+
+    public void setUtilizado(boolean utilizado) {
+        this.utilizado = utilizado;
     }
 }
 

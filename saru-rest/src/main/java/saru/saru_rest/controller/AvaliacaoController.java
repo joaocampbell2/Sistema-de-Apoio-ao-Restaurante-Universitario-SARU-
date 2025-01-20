@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import saru.saru_rest.dtos.AvaliacaoDTO;
 import saru.saru_rest.entity.AvaliacaoEntity;
+import saru.saru_rest.exceptions.DataNaoPossuiComprasException;
 import saru.saru_rest.exceptions.SemRefeicoesCompradasException;
 import saru.saru_rest.security.JwtService;
 import saru.saru_rest.service.auth.AvaliacaoService;
@@ -20,13 +21,18 @@ public class AvaliacaoController {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
-    @Autowired
-    private JwtService jwtService;
-
-    @PostMapping (value = "/avaliacoes")
+    @PostMapping (value = "/publicarAvaliacoes")
     public ResponseEntity<String> criarAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO) throws SemRefeicoesCompradasException {
+        try{
+            avaliacaoService.criarAvaliacao(avaliacaoDTO);
+            return ResponseEntity.ok().body("Muito obrigado pelo feedback!");
+        }
+        catch(DataNaoPossuiComprasException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data não possui compras pelo cliente");
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
 
-        avaliacaoService.criarAvaliacao(avaliacaoDTO, (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        return ResponseEntity.ok().body("Avaliação enviada com sucesso");
     }
 }
