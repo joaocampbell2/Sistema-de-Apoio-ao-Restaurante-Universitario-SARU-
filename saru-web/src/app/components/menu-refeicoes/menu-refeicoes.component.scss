@@ -1,11 +1,16 @@
-
-
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 h2 {
   font-family: 'Arial', sans-serif;
   font-size: 2rem;
   transition: all 0.3s ease;
 }
-
 .title-circle {
   
   padding: 20px 30px; 
@@ -16,20 +21,16 @@ h2 {
   text-align: center;
    
 }
-
 .form-container {
   margin-top: 20px;
 }
-
 .form-group {
   margin-bottom: 15px;
 }
-
 label {
   font-weight: bold;
   color: #495057;
 }
-
 input[type="date"], select {
   width: 100%;
   padding: 10px;
@@ -37,7 +38,6 @@ input[type="date"], select {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
-
 button {
   width: 100%;
   padding: 12px;
@@ -49,16 +49,12 @@ button {
   cursor: pointer;
   margin-bottom: 10px;
 }
-
 button:hover {
   background-color: #0056b3;
 }
-
 button:active {
   background-color: #004085;
 }
-
-
 .alert {
   padding: 10px;
   border-radius: 5px;
@@ -67,18 +63,12 @@ button:active {
   text-align: center;
   transition: opacity 0.3s ease;
 }
-
-
 .success {
   background-color: #28a745;
 }
-
-
 .error {
   background-color: #dc3545;
 }
-
-
 .warning {
   background-color: #ffc107;
 }
