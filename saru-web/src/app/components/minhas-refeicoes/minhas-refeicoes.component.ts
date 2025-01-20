@@ -15,11 +15,13 @@ declare var bootstrap: any;
   styleUrl: './minhas-refeicoes.component.scss',
 })
 export class MinhasRefeicoesComponent {
-    public refeicoes: any;
+    public refeicoes: Array<RefeicaoEntityDTO> = [];
     turnoAtual: string = '';
     turnoNovo: string = '';
     idRefeicaoSelecionada: number | null = null;
     qrCodeUrl: string = '';
+    hoje:  number = Date.now()
+
     constructor(private readonly httpClient: HttpClient, private readonly router: Router){
       this.httpClient = httpClient;      
     }
@@ -68,6 +70,7 @@ export class MinhasRefeicoesComponent {
           },
           (error) => {
             console.error('Erro ao alterar turno:', error);
+            alert("Impossível alterar turno!")
           }
         );
       }
