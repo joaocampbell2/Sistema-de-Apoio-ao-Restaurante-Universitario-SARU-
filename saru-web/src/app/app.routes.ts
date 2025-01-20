@@ -13,11 +13,16 @@ import { ComprarRefeicaoComponent } from './components/comprar-refeicao/comprar-
 import { MenuRefeicoesComponent } from './components/menu-refeicoes/menu-refeicoes.component';
 import { MinhasRefeicoesComponent } from './components/minhas-refeicoes/minhas-refeicoes.component';
 import { AdicionarSaldoComponent } from './components/adicionar-saldo/adicionar-saldo.component';
+import { MenuFuncionarioComponent } from './components/menu-funcionario/menu-funcionario.component';
 
 export const routes: Routes = [
     {
         path: 'home',
         component:HomeComponent,
+        children:[{
+            path:"",
+            component: NavbarComponent
+        }]
     },
     {
         path: 'login',
@@ -33,6 +38,10 @@ export const routes: Routes = [
     },
     {
         path: "enviar-feedback",
+        component: EnviarFeedbackComponent
+    },
+    {
+        path: "enviar-feedback/:data/:turno",
         component: EnviarFeedbackComponent
     },
     {
@@ -73,6 +82,14 @@ export const routes: Routes = [
     {
         path: 'enviar-aviso',
         component: EnviarAvisosComponent,
+    },
+    {
+        path: 'menu-funcionario',
+        component: MenuFuncionarioComponent
+    },
+    {
+        path: 'menu-funcionario',
+        component: MenuFuncionarioComponent
     },
     {
         path: "**",

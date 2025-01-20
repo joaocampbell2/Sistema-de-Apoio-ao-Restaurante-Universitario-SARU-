@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RefeicaoDTO } from '../../models/RefeicaoDTO';
+import { Turno } from '../../models/enums/Turno.enum';
 
 @Component({
   selector: 'app-comprar-refeicao',
@@ -18,11 +19,11 @@ export class ComprarRefeicaoComponent {
   resultadoClass: string = '';
   minDate: string;
 
-  constructor(private http: HttpClient) {
-    this.http = http;
+
+  constructor(private readonly http: HttpClient) {
     this.form = new FormGroup({
       dataRefeicao: new FormControl('',[Validators.required]),
-      turno: new FormControl('',[Validators.required])
+      turno: new FormControl(Turno,[Validators.required])
     })
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];

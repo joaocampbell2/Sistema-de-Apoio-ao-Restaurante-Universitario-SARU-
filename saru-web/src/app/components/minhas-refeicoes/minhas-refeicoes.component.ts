@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RefeicaoEntityDTO } from '../../models/RefeicaoEntityDTO';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AlterarTurnoDTO } from '../../models/AlterarTurnoDTO';
 
@@ -10,18 +10,19 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-minhas-refeicoes',
-  imports: [CommonModule, RouterOutlet, NavbarComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent,RouterModule],
   templateUrl: './minhas-refeicoes.component.html',
   styleUrl: './minhas-refeicoes.component.scss',
 })
 export class MinhasRefeicoesComponent {
-    private readonly httpClient;
-    public refeicoes: any;
+    public refeicoes: Array<RefeicaoEntityDTO> = [];
     turnoAtual: string = '';
     turnoNovo: string = '';
     idRefeicaoSelecionada: number | null = null;
     qrCodeUrl: string = '';
-    constructor(httpClient: HttpClient){
+    hoje:  number = Date.now()
+
+    constructor(private readonly httpClient: HttpClient, private readonly router: Router){
       this.httpClient = httpClient;      
     }
   
@@ -69,6 +70,7 @@ export class MinhasRefeicoesComponent {
           },
           (error) => {
             console.error('Erro ao alterar turno:', error);
+            alert("Impossível alterar turno!")
           }
         );
       }

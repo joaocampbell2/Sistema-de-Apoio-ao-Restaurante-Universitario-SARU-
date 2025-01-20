@@ -33,6 +33,16 @@ public class AvaliacaoDTO {
     public Date getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "AvaliacaoDTO{" +
+                "nota=" + nota +
+                ", feedback='" + feedback + '\'' +
+                ", turno=" + turno +
+                ", data=" + data +
+                '}';
+    }
 }
 
 

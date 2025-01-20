@@ -44,10 +44,17 @@
 
 [ClienteRepository](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/repository/ClienteRepository.java)
 
-#### Data da medição: 08/01/2025
-
 #### Descrição das configurações: I5 13400F, 16GB RAM, WINDOWS 11
+
+#### Data da medição: 08/01/2025
 
 #### Testes de carga (SLA):
 ![alt text](image-1.png)
 
+#### Data da medição: 19/01/2025
+
+#### Testes de carga (SLA):
+![image](https://github.com/user-attachments/assets/cce23b7d-be10-4c11-97b4-81b69fa9da6f)
+
+
+Melhorias: Adição de Cache para evitar o contato ao banco de dados muitas vezes

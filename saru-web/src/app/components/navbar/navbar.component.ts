@@ -5,15 +5,15 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatToolbarModule, RouterLink],
+  imports: [MatToolbarModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 
 export class NavbarComponent implements OnInit {
-  private httpClient;
+  
   public saldo:any = 0;
-  constructor(httpClient: HttpClient){
+  constructor(private readonly httpClient: HttpClient){
     this.httpClient = httpClient;
   }
 
