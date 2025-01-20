@@ -54,6 +54,7 @@
 #### Data da medição: 19/01/2025
 
 #### Testes de carga (SLA):
-![image](https://github.com/user-attachments/assets/332ce43f-ad5f-46f0-b9f1-a07efd34efac)
+![image](https://github.com/user-attachments/assets/cce23b7d-be10-4c11-97b4-81b69fa9da6f)
+
 
 Melhorias: Adição de Cache para evitar o contato ao banco de dados muitas vezes
