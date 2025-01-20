@@ -7,6 +7,7 @@ import saru.saru_rest.dtos.CadastroClienteDTO;
 import saru.saru_rest.dtos.CadastroFuncionarioDTO;
 import saru.saru_rest.dtos.LoginDTO;
 import saru.saru_rest.dtos.TokenDTO;
+import saru.saru_rest.dtos.ResponseDTO;
 import saru.saru_rest.exceptions.CpfInexistenteException;
 import saru.saru_rest.exceptions.ImpossivelCadastrarException;
 import saru.saru_rest.exceptions.SenhaIncorretaException;
@@ -28,13 +29,15 @@ public class AuthController {
         return ResponseEntity.ok(authService.fazerLogin(login));
     }
     @PostMapping(value = "/cadastrarCliente")
-    public ResponseEntity<String> cadastrarCliente(@RequestBody CadastroClienteDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
-        return ResponseEntity.ok().body(authService.fazerCadastro(cadastro));
+    public ResponseEntity<ResponseDTO> cadastrarCliente(@RequestBody CadastroClienteDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
+        authService.fazerCadastro(cadastro);
+        return ResponseEntity.ok().body(new ResponseDTO("Cliente Cadastrado!"));
     }
     @PostMapping(value = "/cadastrarFuncionario")
 
-    public ResponseEntity<String> cadastrarFuncionario(@RequestBody CadastroFuncionarioDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
-        return ResponseEntity.ok().body(authService.fazerCadastro(cadastro));
+    public ResponseEntity<ResponseDTO> cadastrarFuncionario(@RequestBody CadastroFuncionarioDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
+        authService.fazerCadastro(cadastro);
+        return ResponseEntity.ok().body(new ResponseDTO("Funcionario cadastrado"));
     }
 
 
