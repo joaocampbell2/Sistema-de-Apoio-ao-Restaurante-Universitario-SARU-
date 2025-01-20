@@ -32,6 +32,7 @@ public class ClienteController {
     @GetMapping(value="/getSaldo")
     public ResponseEntity<Float> getSaldo() throws CpfInexistenteException {
         String cpf = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(clienteService.getSaldo(cpf));
         return new ResponseEntity<>(clienteService.getSaldo(cpf), HttpStatus.OK);
     }
 }
