@@ -23,9 +23,15 @@
     
         <label for="cpf">CPF (apenas dígitos)</label>
         <input id="cpf" formControlName="cpf" type="text" maxlength="11" placeholder="Digite seu CPF" />
-        <div *ngIf="cadastroForm.get('cpf')?.invalid && cadastroForm.get('cpf')?.touched" class="error-message">
-          CPF deve ter 11 dígitos e é obrigatório.
+
+        <div *ngIf="cadastroForm.get('cpf')?.errors?.['cpfTamanhoInvalido'] && cadastroForm.get('cpf')?.touched" class="error-message">
+          CPF deve conter exatamente 11 dígitos.
         </div>
+
+        <div *ngIf="cadastroForm.get('cpf')?.errors?.['cpfInvalido'] && cadastroForm.get('cpf')?.touched" class="error-message">
+          CPF inválido.
+        </div>
+
     
         <label for="email">Email</label>
         <input id="email" formControlName="email" type="email" placeholder="Digite seu email" />
