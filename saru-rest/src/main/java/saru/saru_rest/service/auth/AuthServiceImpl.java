@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
         return bCryptPasswordEncoder.encode(senha);
     }
 
-    public void fazerCadastro(CadastroClienteDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
+    public String fazerCadastro(CadastroClienteDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
         if(cadastro.getCpf().length() != 11){
             throw new ImpossivelCadastrarException();
         }
@@ -68,10 +68,11 @@ public class AuthServiceImpl implements AuthService {
         ClienteEntity novoCliente = new ClienteEntity(cadastro);
         novoCliente.setSenha(hashSenha(novoCliente.getSenha()));
         clienteRepository.save(novoCliente);
+        return jwtService.gerarTokenAluno(novoCliente.getCpf());
     }
 
 
-    public void fazerCadastro(CadastroFuncionarioDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
+    public String fazerCadastro(CadastroFuncionarioDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
         if(cadastro.getCpf().length() != 11){
             throw new ImpossivelCadastrarException();
         }
@@ -82,6 +83,7 @@ public class AuthServiceImpl implements AuthService {
         FuncionarioEntity novoFuncionario = new FuncionarioEntity(cadastro);
         novoFuncionario.setSenha(hashSenha(novoFuncionario.getSenha()));
         funcionarioRepository.save(novoFuncionario);
+        return jwtService.gerarTokenFuncionario(novoFuncionario.getCpf());
     }
 
 
