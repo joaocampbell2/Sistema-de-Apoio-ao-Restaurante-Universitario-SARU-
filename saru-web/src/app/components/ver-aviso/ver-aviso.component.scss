@@ -8,7 +8,7 @@ h2 {
 }
 
 .card {
-  background-color: #59A1FF;
+  background-color: #ffffff !important;
   border-radius: 10px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -23,7 +23,7 @@ h2 {
   margin-bottom: 10px;
 }
 .text-primary {
-  color: white !important;
+  color: #59A1FF !important;
 }
 
 .text-muted {
@@ -38,4 +38,13 @@ h2 {
 .confira-avisos{
   font-size: 0.9rem;
   color: white;
+}
+
+.text-tittle{
+  color: white;
+}
+
+.btn-primary{
+  margin-right: 10px;
+  background-color: #59A1FF;
 }
