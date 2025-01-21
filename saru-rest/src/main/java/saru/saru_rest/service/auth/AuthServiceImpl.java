@@ -1,6 +1,7 @@
 package saru.saru_rest.service.auth;
 
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.CadastroClienteDTO;
@@ -37,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
     public String pegarCPF(String token) {
         return jwtService.pegarCpfDoToken(token);
     }
-
+    @Cacheable("usuarios")
     public TokenDTO fazerLogin(LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
 
 
@@ -74,7 +75,7 @@ public class AuthServiceImpl implements AuthService {
         return bCryptPasswordEncoder.encode(senha);
     }
 
-    public String fazerCadastro(CadastroClienteDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
+    public TokenDTO fazerCadastro(CadastroClienteDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
         if(cadastro.getCpf().length() != 11){
             throw new ImpossivelCadastrarException();
         }
@@ -86,11 +87,12 @@ public class AuthServiceImpl implements AuthService {
         ClienteEntity novoCliente = new ClienteEntity(cadastro);
         novoCliente.setSenha(hashSenha(novoCliente.getSenha()));
         clienteRepository.save(novoCliente);
-        return jwtService.gerarTokenAluno(novoCliente.getCpf());
+        return new TokenDTO(jwtService.gerarTokenAluno(novoCliente.getCpf()));
+
     }
 
 
-    public String fazerCadastro(CadastroFuncionarioDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
+    public TokenDTO fazerCadastro(CadastroFuncionarioDTO cadastro) throws ImpossivelCadastrarException, UsuarioJaCadastradoException {
         if(cadastro.getCpf().length() != 11){
             throw new ImpossivelCadastrarException();
         }
@@ -101,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
         FuncionarioEntity novoFuncionario = new FuncionarioEntity(cadastro);
         novoFuncionario.setSenha(hashSenha(novoFuncionario.getSenha()));
         funcionarioRepository.save(novoFuncionario);
-        return jwtService.gerarTokenFuncionario(novoFuncionario.getCpf());
+        return new TokenDTO(jwtService.gerarTokenAluno(novoFuncionario.getCpf()));
     }
 
 
