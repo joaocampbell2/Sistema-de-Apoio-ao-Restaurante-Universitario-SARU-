@@ -1,0 +1,97 @@
+﻿Obs: Foi necessário alterar alguns dados no banco para melhorar a integração com os serviços.
+
+
+SGBD: PostgreSQL 17
+
+
+CREATE TYPE clientes as ENUM('ALUNO','PROFESSOR','VISITANTE');
+
+
+CREATE TABLE "cliente"(
+        "cpf" VARCHAR PRIMARY KEY NOT NULL,
+        "nome" VARCHAR NOT NULL,
+        "email" VARCHAR NOT NULL,
+        "saldo" FLOAT,
+        "tipo_cliente" clientes NOT NULL,
+        "senha" VARCHAR NOT NULL
+)
+;
+CREATE TYPE "turnos" as ENUM ('ALMOCO','JANTAR');
+
+
+CREATE TABLE "refeicao"(
+        "id_refeicao" INTEGER PRIMARY KEY NOT NULL,
+        "cpf_cliente" VARCHAR REFERENCES "cliente"(cpf) NOT NULL,
+        "data" DATE NOT NULL,
+        "turno" turnos NOT NULL,
+        "token" VARCHAR NOT NULL,
+        "utilizado" BOOLEAN
+);
+
+
+create TABLE "avaliacao"(
+        "id_avaliacao" INTEGER NOT NULL,
+        "nota" INTEGER NOT NULL,
+        "feedback" VARCHAR,
+        "id_refeicao" INTEGER REFERENCES "refeicao"("id_refeicao")
+);
+
+
+CREATE TABLE "funcionario" (
+        "cpf" VARCHAR PRIMARY KEY NOT NULL,
+        "nome" VARCHAR NOT NULL,
+        "cargo" VARCHAR NOT NULL,
+        "senha" VARCHAR NOT NULL
+);
+
+
+CREATE TABLE "aviso" (
+        "id_aviso" INTEGER PRIMARY KEY NOT NULL,
+        "cpf_funcionario" VARCHAR REFERENCES "funcionario"("cpf") NOT NULL,
+        "texto" VARCHAR NOT NULL,
+        "data" DATE NOT NULL,
+        "imagem" VARCHAR
+);
+
+
+
+
+create sequence seq_id_refeicao;
+create sequence seq_id_aviso;
+create sequence seq_id_avaliacao;
+
+
+ALTER TABLE "refeicao"
+ALTER COLUMN id_refeicao SET DEFAULT nextval('seq_id_refeicao');
+
+
+ALTER TABLE "aviso"
+ALTER COLUMN id_aviso SET DEFAULT nextval('seq_id_aviso');
+
+
+ALTER TABLE "avaliacao"
+ALTER COLUMN id_avaliacao SET DEFAULT nextval('seq_id_avaliacao');
+
+
+INSERT INTO "funcionario"("cpf","nome","cargo","senha")
+VALUES ('29584894655','Wéllyza Levy','Gerente','$2a$10$HNEe5OQWVh1nZzsp7APRfuwRdLff1Fus1C3xuHIkJYz/TP39/962K'), ('1457894441121','Raquel Antsuagui','Caixa','$2a$10$HNEe5OQWVh1nZzsp7APRfuwRdLff1Fus1C3xuHIkJYz/TP39/962K');
+
+
+
+
+INSERT INTO "cliente"("cpf","nome","email","saldo","tipo_cliente","senha")
+VALUES ('22807638007','Joao Campbell','joao.campbell@edu.unirio.br',20, 'ALUNO','$2a$10$a9T5o3IObcrh.P9WYV5wUONtxINaTSn3NBApCJgw7dpWPSzSFrhpu'), ('02383994782','Fabricio Pereira','fabriciorsf@uniriotec.br',0,'PROFESSOR','$2a$10$rlWNrGlGKi/ubxyiR/yaQeRtv44pxixTemYy3TTW76SW2QDD2p3Oi');
+
+
+
+
+INSERT INTO "refeicao"("cpf_cliente","data","turno","token")
+VALUES ('22807638007','2024-02-02','ALMOCO','JOAJFOAFJOAE1328');
+
+
+INSERT INTO "aviso"("cpf_funcionario","texto","data")
+VALUES ('29584894655','ALMOÇO CANCELADO','2024-02-02');
+
+
+INSERT INTO "avaliacao"("nota","feedback","id_refeicao")
+VALUES (9,'Carne estava deliciosa',1);
