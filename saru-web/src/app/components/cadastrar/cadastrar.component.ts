@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-Cadastrar',
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './Cadastrar.component.html',
-  styleUrl: './Cadastrar.component.scss',
+  templateUrl: './cadastrar.component.html',
+  styleUrl: './cadastrar.component.scss',
 })
 export class CadastrarComponent {
   form: FormGroup;
@@ -51,7 +51,7 @@ export class CadastrarComponent {
 
       console.log('Enviando ao backend:', cadastroDTO);
 
-      this.http.post<string>('http://localhost:8080/auth/cadastrarCliente', cadastroDTO).subscribe({
+      this.http.post('http://localhost:8080/auth/cadastrarCliente', cadastroDTO).subscribe({
         next: () => {
           alert('Cadastro realizado com sucesso!');
           this.router.navigateByUrl('/login');

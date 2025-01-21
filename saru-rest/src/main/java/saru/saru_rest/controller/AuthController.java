@@ -28,12 +28,14 @@ public class AuthController {
         return ResponseEntity.ok(authService.fazerLogin(login));
     }
     @PostMapping(value = "/cadastrarCliente")
-    public ResponseEntity<String> cadastrarCliente(@RequestBody CadastroClienteDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
+    public ResponseEntity<TokenDTO> cadastrarCliente(@RequestBody CadastroClienteDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
+
         return ResponseEntity.ok().body(authService.fazerCadastro(cadastro));
     }
     @PostMapping(value = "/cadastrarFuncionario")
 
-    public ResponseEntity<String> cadastrarFuncionario(@RequestBody CadastroFuncionarioDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
+    public ResponseEntity<TokenDTO> cadastrarFuncionario(@RequestBody CadastroFuncionarioDTO cadastro) throws UsuarioJaCadastradoException, ImpossivelCadastrarException {
+
         return ResponseEntity.ok().body(authService.fazerCadastro(cadastro));
     }
 
