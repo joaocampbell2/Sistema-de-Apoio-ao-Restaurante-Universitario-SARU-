@@ -1,1 +1,121 @@
-<p>cadastrar works!</p>,
+<body>
+    <div class="container d-flex justify-content-center mt-5">
+      <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+        <div class="text-center mb-4">
+          <h1 class="h3">Cadastro</h1>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <!-- Nome -->
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input
+              id="nome"
+              formControlName="nome"
+              class="form-control"
+              placeholder="Digite seu nome"
+            />
+            <div *ngIf="form.get('nome')?.touched && form.get('nome')?.hasError('required')" class="text-danger">
+              Nome é obrigatório.
+            </div>
+          </div>
+  
+          <!-- CPF -->
+          <div class="mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            <input
+              id="cpf"
+              formControlName="cpf"
+              maxlength="11"
+              class="form-control"
+              placeholder="Digite seu CPF"
+            />
+            <div *ngIf="form.get('cpf')?.touched && form.get('cpf')?.hasError('required')" class="text-danger">
+              CPF é obrigatório.
+            </div>
+            <div *ngIf="form.get('cpf')?.touched && form.get('cpf')?.hasError('cpfTamanhoInvalido')" class="text-danger">
+              CPF deve ter exatamente 11 dígitos.
+            </div>
+            <div *ngIf="form.get('cpf')?.touched && form.get('cpf')?.hasError('cpfInvalido')" class="text-danger">
+              CPF inválido.
+            </div>
+          </div>
+  
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="Digite seu Email"
+            />
+            <div *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')" class="text-danger">
+              Email é obrigatório.
+            </div>
+            <div *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')" class="text-danger">
+              Email inválido.
+            </div>
+          </div>
+  
+          <!-- Senha -->
+          <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input
+              id="senha"
+              class="form-control"
+              type="password"
+              formControlName="senha"
+              placeholder="Digite sua senha"
+            />
+            <div *ngIf="form.get('senha')?.touched && form.get('senha')?.hasError('required')" class="text-danger">
+              Senha é obrigatória.
+            </div>
+            <div *ngIf="form.get('senha')?.touched && form.get('senha')?.hasError('minlength')" class="text-danger">
+              Senha deve ter pelo menos 6 caracteres.
+            </div>
+          </div>
+  
+          <!-- Confirmar Senha -->
+          <div class="mb-3">
+            <label for="confirmarSenha" class="form-label">Confirmar senha</label>
+            <input
+              id="confirmarSenha"
+              class="form-control"
+              type="password"
+              formControlName="confirmarSenha"
+              placeholder="Digite sua senha novamente"
+            />
+            <div *ngIf="form.get('confirmarSenha')?.touched && form.get('confirmarSenha')?.hasError('required')" class="text-danger">
+              Confirmação de senha é obrigatória.
+            </div>
+            <!-- Verificação de senhas não coincidentes -->
+            <div *ngIf="form.hasError('senhasNaoIguais') && form.get('confirmarSenha')?.touched" class="text-danger">
+              As senhas não coincidem.
+            </div>
+          </div>
+  
+          <!-- Tipo Cliente -->
+          <label for="tipoCliente" class="form-label">Tipo de cliente</label>
+          <div id="tipoCliente" class="mb-3">
+            <div>
+              <label>
+                <input type="radio" name="tipoCliente" formControlName="tipoCliente" value="ALUNO" /> Aluno
+              </label>
+            </div>
+            <label>
+              <input type="radio" name="tipoCliente" formControlName="tipoCliente" value="PROFESSOR" /> Professor
+            </label>
+          </div>
+          <div *ngIf="form.get('tipoCliente')?.touched && form.get('tipoCliente')?.hasError('required')" class="text-danger">
+            Tipo de cliente é obrigatório.
+          </div>
+  
+          <!-- Botão de Envio -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  
