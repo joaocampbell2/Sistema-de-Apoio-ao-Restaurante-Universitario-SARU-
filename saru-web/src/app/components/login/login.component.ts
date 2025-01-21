@@ -32,15 +32,13 @@ export class LoginComponent {
       const loginDto: LoginDto ={cpf: this.form.value.cpf,senha: this.form.value.senha}
       console.log(loginDto)
       this.http.post<TokenDTO>("http://localhost:8080/auth/login",loginDto).subscribe({next: response => {
-        console.log(response)
-        this.http.get<Boolean>("http://localhost:8080/auth/verificaEhFuncionario").subscribe({
+        localStorage.setItem("token",response.token)
+        this.http.get<boolean>("http://localhost:8080/auth/verificaEhFuncionario").subscribe({
           next: responser=>{
             if(responser)
             {
-              localStorage.setItem("token",response.token)
               this.router.navigate(["/menu-funcionario"])
             }else{
-              localStorage.setItem("token",response.token)
               this.router.navigate(["/menu"])
             }
           }

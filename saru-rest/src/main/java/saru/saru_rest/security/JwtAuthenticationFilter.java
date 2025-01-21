@@ -25,9 +25,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String requestPath = request.getRequestURI();
         for (String path : ignoredPaths) {
-            if (requestPath.startsWith(path)) {
+            if (requestPath.startsWith(path) && !requestPath.startsWith("/auth/verificaEhFuncionario") ) {
                 filterChain.doFilter(request, response);
-                return;
+                 return;
             }
         }
 
