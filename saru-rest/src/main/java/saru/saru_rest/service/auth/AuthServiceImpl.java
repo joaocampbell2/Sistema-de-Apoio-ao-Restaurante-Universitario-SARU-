@@ -39,16 +39,34 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public TokenDTO fazerLogin(LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
-        Optional<ClienteEntity> entidade = clienteRepository.findById(login.getCpf());
-        if(entidade.isEmpty()) {
-            throw new CpfInexistenteException(login.getCpf());
-        }
-        ClienteEntity cliente = entidade.get();
-        if(bCryptPasswordEncoder.matches(login.getSenha(), cliente.getSenha())){
-            return new TokenDTO(jwtService.gerarTokenAluno(login.getCpf()));
-        }
 
-        throw new SenhaIncorretaException();
+
+
+        try {
+            Optional<ClienteEntity> entidade = clienteRepository.findById(login.getCpf());
+            if(entidade.isEmpty()) {
+                throw new CpfInexistenteException(login.getCpf());
+            }
+            ClienteEntity cliente = entidade.get();
+            if(bCryptPasswordEncoder.matches(login.getSenha(), cliente.getSenha())){
+                return new TokenDTO(jwtService.gerarTokenAluno(login.getCpf()));
+            }
+            throw new SenhaIncorretaException();
+        } catch (Exception e) {
+            try {
+                Optional<FuncionarioEntity> entidade = funcionarioRepository.findById(login.getCpf());
+                if(entidade.isEmpty()) {
+                    throw new CpfInexistenteException(login.getCpf());
+                }
+                FuncionarioEntity funcionario = entidade.get();
+                if(login.getSenha().equals(funcionario.getSenha())){
+                    return new TokenDTO(jwtService.gerarTokenFuncionario(login.getCpf()));
+                }
+                throw new SenhaIncorretaException();
+            } catch (Exception ex) {
+                throw new CpfInexistenteException(login.getCpf());
+            }
+        }
 
     }
 
