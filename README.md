@@ -58,3 +58,5 @@
 
 
 Melhorias: Adição de Cache para evitar o contato ao banco de dados muitas vezes
+
+Arquivos: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/pull/60/commits/108e6b7f3600fc9c3cafe4cfc9f87e8becb13b9e
