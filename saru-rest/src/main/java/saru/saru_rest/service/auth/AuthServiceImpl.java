@@ -40,9 +40,6 @@ public class AuthServiceImpl implements AuthService {
     }
     @Cacheable("usuarios")
     public TokenDTO fazerLogin(LoginDTO login) throws SenhaIncorretaException, CpfInexistenteException {
-
-
-
         try {
             Optional<ClienteEntity> entidade = clienteRepository.findById(login.getCpf());
             if(entidade.isEmpty()) {
@@ -53,22 +50,22 @@ public class AuthServiceImpl implements AuthService {
                 return new TokenDTO(jwtService.gerarTokenAluno(login.getCpf()));
             }
             throw new SenhaIncorretaException();
-        } catch (Exception e) {
+        } catch (CpfInexistenteException e) {
             try {
                 Optional<FuncionarioEntity> entidade = funcionarioRepository.findById(login.getCpf());
                 if(entidade.isEmpty()) {
                     throw new CpfInexistenteException(login.getCpf());
                 }
                 FuncionarioEntity funcionario = entidade.get();
-                if(login.getSenha().equals(funcionario.getSenha())){
+                if(bCryptPasswordEncoder.matches(login.getSenha(), entidade.get().getSenha())){
                     return new TokenDTO(jwtService.gerarTokenFuncionario(login.getCpf()));
                 }
                 throw new SenhaIncorretaException();
             } catch (Exception ex) {
-                throw new CpfInexistenteException(login.getCpf());
+                ex.printStackTrace();
+                throw ex;
             }
         }
-
     }
 
     private String hashSenha(String senha) {
