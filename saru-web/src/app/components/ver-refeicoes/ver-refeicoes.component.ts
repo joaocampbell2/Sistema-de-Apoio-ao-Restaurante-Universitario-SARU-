@@ -15,7 +15,7 @@ export class VerRefeicoesComponent {
   resultado: any;
   resultadoClass: string = '';
 
-  constructor(private refeicoesService: RefeicoesService) {
+  constructor(private readonly refeicoesService: RefeicoesService) {
     this.refeicoesForm = new FormGroup({
 
       dataRefeicao: new FormControl(''),
