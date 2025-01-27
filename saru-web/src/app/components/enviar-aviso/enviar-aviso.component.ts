@@ -14,7 +14,7 @@ export class EnviarAvisosComponent {
   public avisoForm: FormGroup;
   public mensagem: string | null = null;
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
+  constructor(private readonly fb: FormBuilder, private readonly httpClient: HttpClient) {
     this.avisoForm = this.fb.group({
       texto: ['', [Validators.required]],
       data: ['', [Validators.required]],
@@ -25,12 +25,8 @@ export class EnviarAvisosComponent {
     if (this.avisoForm.valid) {
       const aviso = this.avisoForm.value;
 
-      this.httpClient.post('http://localhost:8080/aviso/publicarAvisos', aviso, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkxMCIsInJvbGUiOiJBTFVOTyJ9.rgMQQtHPyaAr5lsolkwCH-jfUAuKhGkMtJwoComMaFM',
-        },
-        responseType: 'text',
+      this.httpClient.post('http://localhost:8080/aviso/publicarAvisos', aviso, 
+        {responseType: 'text',
       }).subscribe({
         next: (response: string) => {
           this.mensagem = response; 

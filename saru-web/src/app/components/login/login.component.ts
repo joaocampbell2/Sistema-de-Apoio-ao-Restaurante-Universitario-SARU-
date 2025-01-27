@@ -33,17 +33,7 @@ export class LoginComponent {
       console.log(loginDto)
       this.http.post<TokenDTO>("http://localhost:8080/auth/login",loginDto).subscribe({next: response => {
         localStorage.setItem("token",response.token)
-        this.http.get<boolean>("http://localhost:8080/auth/verificaEhFuncionario").subscribe({
-          next: responser=>{
-            if(responser)
-            {
-              this.router.navigate(["/menu-funcionario"])
-            }else{
-              this.router.navigate(["/menu"])
-            }
-          }
-        })
-        
+        this.router.navigate(["/menu"])
       },
       error: () =>{
         alert("Erro!")

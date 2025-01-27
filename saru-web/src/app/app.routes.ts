@@ -4,7 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
 import { VerRefeicoesComponent } from './components/ver-refeicoes/ver-refeicoes.component';
-import { authGuard } from './guards/auth.guard';
+import { funcionarioGuard } from './guards/funcionario.guard';
 import { MenuComponent } from './components/menu/menu.component';
 import { VerAvisoComponent } from './components/ver-aviso/ver-aviso.component';
 import { EnviarFeedbackComponent } from './components/enviar-feedback/enviar-feedback.component';
@@ -14,6 +14,9 @@ import { MenuRefeicoesComponent } from './components/menu-refeicoes/menu-refeico
 import { MinhasRefeicoesComponent } from './components/minhas-refeicoes/minhas-refeicoes.component';
 import { AdicionarSaldoComponent } from './components/adicionar-saldo/adicionar-saldo.component';
 import { MenuFuncionarioComponent } from './components/menu-funcionario/menu-funcionario.component';
+import { ValidarRefeicaoComponent } from './components/validar-refeicao/validar-refeicao.component';
+import { menuGuard } from './guards/menu.guard';
+import { clienteGuard } from './guards/cliente.guard';
 
 export const routes: Routes = [
     {
@@ -34,31 +37,46 @@ export const routes: Routes = [
     },
     {
         path: 'ver-refeicoes',
-        component: VerRefeicoesComponent
+        component: VerRefeicoesComponent,
+        canActivate: [funcionarioGuard]
+
+
     },
     {
         path: "enviar-feedback",
-        component: EnviarFeedbackComponent
+        component: EnviarFeedbackComponent,
+        canActivate: [clienteGuard]
+
     },
     {
         path: "enviar-feedback/:data/:turno",
-        component: EnviarFeedbackComponent
+        component: EnviarFeedbackComponent,
+        canActivate: [clienteGuard]
+
     },
     {
         path: "comprar-refeicao",
-        component: ComprarRefeicaoComponent
+        component: ComprarRefeicaoComponent,
+        canActivate: [clienteGuard]
+
     },
     {
         path: "menu-refeicoes",
-        component: MenuRefeicoesComponent
+        component: MenuRefeicoesComponent,
+        canActivate: [clienteGuard]
+
     },
     {
         path: "minhas-refeicoes",
-        component: MinhasRefeicoesComponent
+        component: MinhasRefeicoesComponent,
+        canActivate: [clienteGuard]
+
     },
     {
         path: "adicionar-saldo",
-        component: AdicionarSaldoComponent
+        component: AdicionarSaldoComponent,
+        canActivate: [clienteGuard]
+
     },
     {
         path:"avisos",
@@ -67,7 +85,6 @@ export const routes: Routes = [
             path:"",
             component: NavbarComponent
         }],
-        canActivate:[authGuard]
     },
     {
         path: 'menu',
@@ -76,20 +93,29 @@ export const routes: Routes = [
             path:"",
             component: NavbarComponent
         }],
-        canActivate: [authGuard]
+        canActivate: [menuGuard]
 
     },
     {
         path: 'enviar-aviso',
         component: EnviarAvisosComponent,
+        canActivate: [funcionarioGuard]
+
     },
     {
         path: 'menu-funcionario',
-        component: MenuFuncionarioComponent
+        component: MenuFuncionarioComponent,
+        canActivate: [menuGuard]
     },
     {
-        path: 'menu-funcionario',
-        component: MenuFuncionarioComponent
+        path:'validar-refeicao',
+        component:ValidarRefeicaoComponent,
+        canActivate: [funcionarioGuard]
+    },
+    {
+        path:"validar-refeicao/:token",
+        component:ValidarRefeicaoComponent,
+        canActivate:[funcionarioGuard]
     },
     {
         path: "**",
