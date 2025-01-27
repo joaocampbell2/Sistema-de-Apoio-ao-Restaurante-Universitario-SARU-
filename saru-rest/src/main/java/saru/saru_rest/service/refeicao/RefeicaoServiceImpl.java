@@ -3,6 +3,7 @@ package saru.saru_rest.service.refeicao;
 import com.google.zxing.WriterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.AlterarTurnoDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
@@ -11,6 +12,7 @@ import saru.saru_rest.entity.enums.Turno;
 import saru.saru_rest.exceptions.*;
 import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.repository.RefeicaoRepository;
+import saru.saru_rest.service.LogService;
 import saru.saru_rest.service.qrcode.QRCodeService;
 
 import java.io.IOException;
@@ -24,12 +26,14 @@ public class RefeicaoServiceImpl implements RefeicaoService {
     private final ClienteRepository clienteRepository;
     private final RefeicaoRepository refeicaoRepository;
     private final QRCodeService qrCodeService;
+    private LogService logService;
 
     private static final Logger logger = LoggerFactory.getLogger(RefeicaoServiceImpl.class);
 
-    public RefeicaoServiceImpl(ClienteRepository clienteRepository, RefeicaoRepository refeicaoRepository, QRCodeService qrCodeService) {
+    public RefeicaoServiceImpl(ClienteRepository clienteRepository, RefeicaoRepository refeicaoRepository, QRCodeService qrCodeService, LogService logService) {
         this.clienteRepository = clienteRepository;
         this.refeicaoRepository = refeicaoRepository;
+        this.logService = logService;
         this.qrCodeService = qrCodeService;
     }
 
@@ -37,19 +41,21 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         float saldo = clienteRepository.findById(cpf).get().getSaldo();
 
         if(saldo < 2){
-            logger.warn("Saldo insuficiente para o cliente: {}. Refeição não comprada.", cpf);
+            logger.error("Saldo insuficiente para o cliente: {}. Refeição não comprada.", cpf);
+            logService.criarLog(cpf,"cliente","Comprar refeicao","error","","Computador");
             throw new SaldoInsuficienteException();
         }
 
         if (!refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, refeicao.getDataRefeicao(), refeicao.getTurno()).isEmpty()){
-            logger.warn("Refeição já comprada para o cliente: {} na data: {} e turno: {}.", cpf, refeicao.getDataRefeicao(), refeicao.getTurno());
+            logger.error("Refeição já comprada para o cliente: {} na data: {} e turno: {}.", cpf, refeicao.getDataRefeicao(), refeicao.getTurno());
+            logService.criarLog(cpf,"cliente","Comprar refeicao","error","","Computador");
             throw new RefeicaoJaCompradaException();
         }
 
         RefeicaoEntity refeicaoEntity = new RefeicaoEntity(cpf, refeicao.getDataRefeicao(), refeicao.getTurno());
         refeicaoRepository.save(refeicaoEntity);
         logger.info("Refeição comprada com sucesso para o cliente: {}. Refeição ID: {}", cpf, refeicaoEntity.getIdRefeicao());
-
+        logService.criarLog(cpf,"cliente","Refeicao comprada:" + refeicao,"sucess","","Computador");
         return qrCodeService.getQRCodeImage(refeicaoEntity);
     }
 
@@ -61,10 +67,12 @@ public class RefeicaoServiceImpl implements RefeicaoService {
                 refeicoes.get(0).generateNewToken();
                 refeicaoRepository.save(refeicoes.get(0));
                 logger.info("Turno alterado com sucesso para o cliente: {}. Novo turno: {}", cpf, turno);
+                logService.criarLog(cpf,"cliente","Turno alterado:" + turno,"sucess","","Computador");
                 return "Turno alterado com sucesso";
             }
         } catch (Exception e) {
             logger.error("Erro ao alterar turno para o cliente: {}. Erro: {}", cpf, e.getMessage());
+            logService.criarLog(cpf,"cliente","Alterar turno","error","","Computador");
         }
         return "Erro ao alterar turno";
     }
@@ -88,10 +96,12 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         try {
             if (verificaRefeiçoesDataExistem(refeicao)){
                 logger.info("Refeições encontradas para a data: {} e turno: {}.", dataRefeicao.getDataRefeicao(), dataRefeicao.getTurno());
+                logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"Funcionario","Refeicoes resgatadas com sucesso","sucess","","Computador");
                 return refeicao;
             }
         } catch (Exception e) {
             logger.warn("Nenhuma refeição encontrada para a data: {} e turno: {}.", dataRefeicao.getDataRefeicao(), dataRefeicao.getTurno());
+            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"Funcionario","Ver refeicoes","error","","Computador");
             return null;
         }
         return null;
@@ -128,11 +138,13 @@ public class RefeicaoServiceImpl implements RefeicaoService {
                 refeicao.setTurno(novoTurno);
                 refeicao.generateNewToken();
                 refeicaoRepository.save(refeicao);
-
+                logger.info("Turno alterado com sucesso para o cliente: {}. Novo turno: {}", (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), refeicao.getTurno());
+                logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Turno alterado:" + refeicao.getTurno(),"sucess","","Computador");
                 return "Turno alterado com sucesso";
             }
         }catch (Exception e){
-            throw e;
+            logger.error("Erro ao alterar turno para o cliente: {}. Erro: {}", (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), e.getMessage());
+            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Alterar turno","error","","Computador");
         }
         return "Erro ao alterar turno";
     }

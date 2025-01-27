@@ -12,6 +12,7 @@ import saru.saru_rest.repository.RefeicaoRepository;
 import saru.saru_rest.entity.enums.Turno;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import saru.saru_rest.service.LogService;
 
 import java.sql.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class AvaliacaoService {
 
     private AvaliacaoRepository avaliacaoRepository;
     private RefeicaoRepository refeicaoRepository;
+    private LogService logService;
 
     public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, RefeicaoRepository refeicaoRepository) {
         this.avaliacaoRepository = avaliacaoRepository;
@@ -39,6 +41,7 @@ public class AvaliacaoService {
             logger.info("Refeição validada para avaliação do CPF: {}", cpf);
         } catch (Exception e) {
             logger.warn("Erro ao validar refeição para CPF: {}. Mensagem: {}", cpf, e.getMessage());
+            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Erro ao enviar avaliacao","error","","Computador");
             throw e;
         }
 
@@ -50,6 +53,8 @@ public class AvaliacaoService {
 
         avaliacaoRepository.save(avaliacao);
         logger.info("Avaliação salva com sucesso para CPF: {}", cpf);
+        logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Avaliacao enviada","Sucess","","Computador");
+
 
         return "Feedback enviado!";
     }
@@ -64,6 +69,7 @@ public class AvaliacaoService {
             if (utilizado) {
                 if (avaliacaoRepository.existsByIdRefeicao(refeicao.get(0).getIdRefeicao())) {
                     logger.warn("Refeição já possui avaliação para CPF: {}", cpf);
+
                     throw new RefeicaoJaPossuiFeedbackException();
                 }
                 return true;

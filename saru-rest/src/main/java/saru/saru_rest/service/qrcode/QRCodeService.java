@@ -1,5 +1,6 @@
 package saru.saru_rest.service.qrcode;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -12,6 +13,7 @@ import saru.saru_rest.exceptions.RefeicaoNaoEncontradaException;
 import saru.saru_rest.repository.RefeicaoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import saru.saru_rest.service.LogService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,6 +24,7 @@ public class QRCodeService {
 
     private static final Logger logger = LoggerFactory.getLogger(QRCodeService.class);
     private final RefeicaoRepository refeicaoRepository;
+    private LogService logService;
 
     public QRCodeService(RefeicaoRepository refeicaoRepository) {
         this.refeicaoRepository = refeicaoRepository;
@@ -47,12 +50,15 @@ public class QRCodeService {
                 refeicaoEntity.setUtilizado(true);
                 refeicaoRepository.save(refeicaoEntity);
                 logger.info("QR Code validado com sucesso.");
+                logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","QR Code gerado com sucesso","sucess","","Computador");
                 return true;
             }
             logger.error("QR Code já foi utilizado.");
+            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Gerar QR Code","error","","Computador");
             throw new RefeicaoJaUtilizadaException();
         }
         logger.error("Refeição não encontrada para o QR Code.");
+        logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Gerar QR Code","error","","Computador");
         throw new RefeicaoNaoEncontradaException();
     }
 }
