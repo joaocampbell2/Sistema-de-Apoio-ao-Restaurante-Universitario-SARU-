@@ -2,6 +2,7 @@ package saru.saru_rest.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.AvisoDTO;
 import saru.saru_rest.entity.AvisoEntity;
@@ -17,8 +18,11 @@ public class AvisoService {
 
     private AvisoRepository avisoRepository;
 
-    public AvisoService(AvisoRepository avisoRepository) {
+    private LogService logService;
+
+    public AvisoService(AvisoRepository avisoRepository, LogService logService) {
         this.avisoRepository = avisoRepository;
+        this.logService = logService;
     }
 
     public List<AvisoDTO> buscarTodosAvisos() {
@@ -28,6 +32,8 @@ public class AvisoService {
             avisos.add(new AvisoDTO(aviso));
         }
         logger.info("Encontrados {} avisos", avisos.size());
+        logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Buscar avisos","sucess","","Computador");
+
         return avisos;
     }
 
@@ -39,6 +45,7 @@ public class AvisoService {
         
         avisoRepository.save(avisoEntity);
         logger.info("Aviso com ID {} publicado com sucesso para o funcionário com CPF {}", idAvisos, cpf);
+        logService.criarLog(cpf,"funcionario","Criar novo aviso","sucess","","Computador");
         return "Aviso cadastrado com sucesso!";
     }
 }
