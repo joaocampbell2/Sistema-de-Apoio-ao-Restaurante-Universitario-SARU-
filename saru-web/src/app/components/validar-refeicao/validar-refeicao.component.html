@@ -25,7 +25,7 @@
       </form>
     </div>
   
-    <div *ngIf="mensagem" class="alert mt-3" [ngClass]="{ success: mensagem.startsWith('Refeição validada!'), error: mensagem.startsWith('Erro'), warning: mensagem.startsWith('Por favor') }">
+    <div *ngIf="mensagem" class="alert mt-3" [ngClass]="{ success: mensagem.startsWith('Refeição válida!'), error: mensagem.startsWith('Token inválido'), warning: mensagem.startsWith('Por favor') }">
       {{ mensagem }}
     </div>
   </div>

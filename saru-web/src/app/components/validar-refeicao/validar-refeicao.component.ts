@@ -35,7 +35,7 @@ export class ValidarRefeicaoComponent implements OnInit{
           },
           error: (err: any) => {
               console.error('Erro ao verificar token:', err);
-              this.mensagem ='Token Inválido. Tente outro.';
+              this.mensagem = 'Token inválido. Tente outro.';
               this.hideMessageAfterTimeout();
 
           },
