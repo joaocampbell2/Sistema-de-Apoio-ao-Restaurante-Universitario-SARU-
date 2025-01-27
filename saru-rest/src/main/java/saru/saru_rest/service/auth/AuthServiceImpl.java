@@ -34,11 +34,12 @@ public class AuthServiceImpl implements AuthService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private LogService logService;
 
-    public AuthServiceImpl(ClienteRepository clienteRepository, JwtService jwtService, BCryptPasswordEncoder bCryptPasswordEncoder, FuncionarioRepository funcionarioRepository) {
+    public AuthServiceImpl(ClienteRepository clienteRepository, LogService logService,JwtService jwtService, BCryptPasswordEncoder bCryptPasswordEncoder, FuncionarioRepository funcionarioRepository) {
         this.clienteRepository = clienteRepository;
         this.jwtService = jwtService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.funcionarioRepository = funcionarioRepository;
+        this.logService = logService;
     }
 
     @Transactional
@@ -55,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
             Optional<ClienteEntity> entidade = clienteRepository.findById(login.getCpf());
             if (entidade.isEmpty()) {
                 logger.warn("CPF não encontrado no repositório de clientes: {}", login.getCpf());
-                logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Fazer login","error","","Computador");
+                logService.criarLog(login.getCpf(), "cliente","Fazer login","error","","Computador");
 
                 throw new CpfInexistenteException(login.getCpf());
             }
@@ -63,13 +64,13 @@ public class AuthServiceImpl implements AuthService {
             ClienteEntity cliente = entidade.get();
             if (bCryptPasswordEncoder.matches(login.getSenha(), cliente.getSenha())) {
                 logger.info("Login bem-sucedido para cliente com CPF: {}", login.getCpf());
-                logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Login realizada","Sucess","","Computador");
+                logService.criarLog(login.getCpf(), "cliente","Login realizada","Sucess","","Computador");
 
                 return new TokenDTO(jwtService.gerarTokenAluno(login.getCpf()));
             }
 
             logger.warn("Senha incorreta para cliente com CPF: {}", login.getCpf());
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Fazer login","error","","Computador");
+            logService.criarLog(login.getCpf(), "cliente","Fazer login","error","","Computador");
 
             throw new SenhaIncorretaException();
 
@@ -79,7 +80,7 @@ public class AuthServiceImpl implements AuthService {
             Optional<FuncionarioEntity> entidade = funcionarioRepository.findById(login.getCpf());
             if (entidade.isEmpty()) {
                 logger.warn("CPF não encontrado no repositório de funcionários: {}", login.getCpf());
-                logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"funcionario","Fazer login","error","","Computador");
+                logService.criarLog(login.getCpf(), "funcionario","Fazer login","error","","Computador");
 
                 throw new CpfInexistenteException(login.getCpf());
             }
@@ -87,18 +88,18 @@ public class AuthServiceImpl implements AuthService {
             FuncionarioEntity funcionario = entidade.get();
             if (bCryptPasswordEncoder.matches(login.getSenha(), funcionario.getSenha())) {
                 logger.info("Login bem-sucedido para funcionário com CPF: {}", login.getCpf());
-                logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"funcionario","Avaliacao enviada","Sucess","","Computador");
+                logService.criarLog(login.getCpf(), "funcionario","Avaliacao enviada","Sucess","","Computador");
 
                 return new TokenDTO(jwtService.gerarTokenFuncionario(login.getCpf()));
             }
 
             logger.warn("Senha incorreta para funcionário com CPF: {}", login.getCpf());
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"funcionario","Fazer login","error","","Computador");
+            logService.criarLog(login.getCpf(), "funcionario","Fazer login","error","","Computador");
 
             throw new SenhaIncorretaException();
         } catch (Exception ex) {
             logger.error("Erro durante o login para CPF: {}", login.getCpf(), ex);
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente, funcionario","Fazer login","error","","Computador");
+            logService.criarLog(login.getCpf(),"cliente, funcionario","Fazer login","error","","Computador");
 
             throw ex;
         }
@@ -114,7 +115,7 @@ public class AuthServiceImpl implements AuthService {
 
         if (cadastro.getCpf().length() != 11) {
             logger.error("CPF inválido para cadastro de cliente: {}", cadastro.getCpf());
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Fazer cadastro","error","","Computador");
+            logService.criarLog(cadastro.getCpf(), "cliente","Fazer cadastro","error","","Computador");
 
             throw new ImpossivelCadastrarException();
         }
@@ -122,7 +123,7 @@ public class AuthServiceImpl implements AuthService {
         Optional<ClienteEntity> entidade = clienteRepository.findById(cadastro.getCpf());
         if (entidade.isPresent()) {
             logger.warn("Cliente já cadastrado com o CPF: {}", cadastro.getCpf());
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Fazer cadastro","error","","Computador");
+            logService.criarLog(cadastro.getCpf(), "cliente","Fazer cadastro","error","","Computador");
 
             throw new UsuarioJaCadastradoException(cadastro.getCpf());
         }
@@ -131,7 +132,7 @@ public class AuthServiceImpl implements AuthService {
         novoCliente.setSenha(hashSenha(novoCliente.getSenha()));
         clienteRepository.save(novoCliente);
         logger.info("Cadastro de cliente concluído com sucesso. CPF: {}", cadastro.getCpf());
-        logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Cadastro realizado","Sucess","","Computador");
+        logService.criarLog(cadastro.getCpf(), "cliente","Cadastro realizado","Sucess","","Computador");
 
         return new TokenDTO(jwtService.gerarTokenAluno(novoCliente.getCpf()));
     }
@@ -141,7 +142,7 @@ public class AuthServiceImpl implements AuthService {
 
         if (cadastro.getCpf().length() != 11) {
             logger.error("CPF inválido para cadastro de funcionário: {}", cadastro.getCpf());
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"funcionario","Fazer cadastro","error","","Computador");
+            logService.criarLog(cadastro.getCpf(), "funcionario","Fazer cadastro","error","","Computador");
 
             throw new ImpossivelCadastrarException();
         }
@@ -149,7 +150,7 @@ public class AuthServiceImpl implements AuthService {
         Optional<FuncionarioEntity> entidade = funcionarioRepository.findById(cadastro.getCpf());
         if (entidade.isPresent()) {
             logger.warn("Funcionário já cadastrado com o CPF: {}", cadastro.getCpf());
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"funcionario","Fazer cadastro","error","","Computador");
+            logService.criarLog(cadastro.getCpf(), "funcionario","Fazer cadastro","error","","Computador");
 
             throw new UsuarioJaCadastradoException(cadastro.getCpf());
         }
@@ -158,7 +159,7 @@ public class AuthServiceImpl implements AuthService {
         novoFuncionario.setSenha(hashSenha(novoFuncionario.getSenha()));
         funcionarioRepository.save(novoFuncionario);
         logger.info("Cadastro de funcionário concluído com sucesso. CPF: {}", cadastro.getCpf());
-        logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"funcionario","Cadastro realizado","Sucess","","Computador");
+        logService.criarLog(cadastro.getCpf(), "funcionario","Cadastro realizado","Sucess","","Computador");
 
         return new TokenDTO(jwtService.gerarTokenAluno(novoFuncionario.getCpf()));
     }

@@ -26,9 +26,10 @@ public class AvaliacaoService {
     private RefeicaoRepository refeicaoRepository;
     private LogService logService;
 
-    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, RefeicaoRepository refeicaoRepository) {
+    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository,LogService logService, RefeicaoRepository refeicaoRepository) {
         this.avaliacaoRepository = avaliacaoRepository;
         this.refeicaoRepository = refeicaoRepository;
+        this.logService = logService;
     }
 
     @Transactional

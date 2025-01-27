@@ -26,8 +26,9 @@ public class QRCodeService {
     private final RefeicaoRepository refeicaoRepository;
     private LogService logService;
 
-    public QRCodeService(RefeicaoRepository refeicaoRepository) {
+    public QRCodeService(RefeicaoRepository refeicaoRepository, LogService logService) {
         this.refeicaoRepository = refeicaoRepository;
+        this.logService = logService;
     }
 
     public byte[] getQRCodeImage(RefeicaoEntity refeicao) throws WriterException, IOException {
