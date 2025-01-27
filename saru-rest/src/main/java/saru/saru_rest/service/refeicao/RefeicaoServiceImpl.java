@@ -1,15 +1,14 @@
 package saru.saru_rest.service.refeicao;
 
 import com.google.zxing.WriterException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.AlterarTurnoDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
 import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.entity.enums.Turno;
 import saru.saru_rest.exceptions.*;
-import saru.saru_rest.exceptions.DataNaoPossuiComprasException;
-import saru.saru_rest.exceptions.RefeicaoJaCompradaException;
-import saru.saru_rest.exceptions.SaldoInsuficienteException;
 import saru.saru_rest.repository.ClienteRepository;
 import saru.saru_rest.repository.RefeicaoRepository;
 import saru.saru_rest.service.qrcode.QRCodeService;
@@ -26,6 +25,8 @@ public class RefeicaoServiceImpl implements RefeicaoService {
     private final RefeicaoRepository refeicaoRepository;
     private final QRCodeService qrCodeService;
 
+    private static final Logger logger = LoggerFactory.getLogger(RefeicaoServiceImpl.class);
+
     public RefeicaoServiceImpl(ClienteRepository clienteRepository, RefeicaoRepository refeicaoRepository, QRCodeService qrCodeService) {
         this.clienteRepository = clienteRepository;
         this.refeicaoRepository = refeicaoRepository;
@@ -36,35 +37,38 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         float saldo = clienteRepository.findById(cpf).get().getSaldo();
 
         if(saldo < 2){
+            logger.warn("Saldo insuficiente para o cliente: {}. Refeição não comprada.", cpf);
             throw new SaldoInsuficienteException();
         }
 
-        if (!refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf,refeicao.getDataRefeicao(),refeicao.getTurno()).isEmpty()){
+        if (!refeicaoRepository.findByCpfClienteAndDataAndTurno(cpf, refeicao.getDataRefeicao(), refeicao.getTurno()).isEmpty()){
+            logger.warn("Refeição já comprada para o cliente: {} na data: {} e turno: {}.", cpf, refeicao.getDataRefeicao(), refeicao.getTurno());
             throw new RefeicaoJaCompradaException();
         }
 
-        RefeicaoEntity refeicaoEntity = new RefeicaoEntity(cpf,refeicao.getDataRefeicao(),refeicao.getTurno());
+        RefeicaoEntity refeicaoEntity = new RefeicaoEntity(cpf, refeicao.getDataRefeicao(), refeicao.getTurno());
         refeicaoRepository.save(refeicaoEntity);
+        logger.info("Refeição comprada com sucesso para o cliente: {}. Refeição ID: {}", cpf, refeicaoEntity.getIdRefeicao());
 
         return qrCodeService.getQRCodeImage(refeicaoEntity);
     }
 
-
     public String alterarTurno(String cpf, Turno turno){
-        List<RefeicaoEntity> refeicoes= refeicaoRepository.findByCpfCliente(cpf);
-        try{
+        List<RefeicaoEntity> refeicoes = refeicaoRepository.findByCpfCliente(cpf);
+        try {
             if (clienteRepository.existsById(cpf) && verificaTurno(refeicoes, turno) && verificaSemRefeicoesCompradas(refeicoes) && verificaTodasRefeicoesCompradas(refeicoes)) {
-                refeicoes.getFirst().setTurno(turno);
-                refeicoes.getFirst().generateNewToken();
-                refeicaoRepository.save(refeicoes.getFirst());
-
+                refeicoes.get(0).setTurno(turno);
+                refeicoes.get(0).generateNewToken();
+                refeicaoRepository.save(refeicoes.get(0));
+                logger.info("Turno alterado com sucesso para o cliente: {}. Novo turno: {}", cpf, turno);
                 return "Turno alterado com sucesso";
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Erro ao alterar turno para o cliente: {}. Erro: {}", cpf, e.getMessage());
         }
         return "Erro ao alterar turno";
     }
+
     public boolean verificaTurno(List<RefeicaoEntity> refeicoes, Turno turno) throws TurnoJaCompradoException{
         if (refeicoes.getFirst().getTurno().equals(turno)){
             throw new TurnoJaCompradoException();
@@ -80,16 +84,19 @@ public class RefeicaoServiceImpl implements RefeicaoService {
 
 
     public List<RefeicaoEntity> verRefeicoes(RefeicaoDTO dataRefeicao) throws DataNaoPossuiComprasException {
-        List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao.getDataRefeicao(),dataRefeicao.getTurno());
+        List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao.getDataRefeicao(), dataRefeicao.getTurno());
         try {
             if (verificaRefeiçoesDataExistem(refeicao)){
+                logger.info("Refeições encontradas para a data: {} e turno: {}.", dataRefeicao.getDataRefeicao(), dataRefeicao.getTurno());
                 return refeicao;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
+            logger.warn("Nenhuma refeição encontrada para a data: {} e turno: {}.", dataRefeicao.getDataRefeicao(), dataRefeicao.getTurno());
             return null;
         }
         return null;
     }
+    
     public List<RefeicaoEntity> verRefeicoes(Date dataRefeicao, Turno turno) throws DataNaoPossuiComprasException {
         List<RefeicaoEntity> refeicao = refeicaoRepository.findByDataAndTurno(dataRefeicao,turno);
         try {
