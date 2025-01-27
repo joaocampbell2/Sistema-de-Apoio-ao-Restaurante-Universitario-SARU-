@@ -14,6 +14,7 @@ import { MenuRefeicoesComponent } from './components/menu-refeicoes/menu-refeico
 import { MinhasRefeicoesComponent } from './components/minhas-refeicoes/minhas-refeicoes.component';
 import { AdicionarSaldoComponent } from './components/adicionar-saldo/adicionar-saldo.component';
 import { MenuFuncionarioComponent } from './components/menu-funcionario/menu-funcionario.component';
+import { ValidarRefeicaoComponent } from './components/validar-refeicao/validar-refeicao.component';
 
 export const routes: Routes = [
     {
@@ -88,8 +89,12 @@ export const routes: Routes = [
         component: MenuFuncionarioComponent
     },
     {
-        path: 'menu-funcionario',
-        component: MenuFuncionarioComponent
+        path:'validar-refeicao',
+        component:ValidarRefeicaoComponent
+    },
+    {
+        path:"validar-refeicao/:token",
+        component:ValidarRefeicaoComponent
     },
     {
         path: "**",

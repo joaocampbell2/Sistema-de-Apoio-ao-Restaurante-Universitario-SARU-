@@ -28,7 +28,7 @@ public class QRCodeService {
 
     public byte[] getQRCodeImage(RefeicaoEntity refeicao)throws WriterException, IOException{
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode("http://localhost:8080/refeicao/validarQrCode/"+ refeicao.getToken() ,BarcodeFormat.QR_CODE, 400,400);
+        BitMatrix bitMatrix = qrCodeWriter.encode("http://localhost:4200/#/validar-refeicao/"+ refeicao.getToken() ,BarcodeFormat.QR_CODE, 400,400);
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix,"PNG", pngOutputStream);
         return pngOutputStream.toByteArray();

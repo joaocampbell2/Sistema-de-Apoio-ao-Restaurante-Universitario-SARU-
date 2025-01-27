@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="title-circle">
+        Validar Refeição
+    </div>
+  
+    <div class="form-container">
+      <form [formGroup]="qrCodeForm" (ngSubmit)="validarToken()">
+        <div class="form-group">
+          <label for="token">Token:</label>
+          <input
+            id="token"
+            type="text"
+            class="form-control"
+            formControlName="token"
+            placeholder="Digite o token da refeição"
+          />
+          <div *ngIf="qrCodeForm.get('token')?.invalid && qrCodeForm.get('token')?.touched" class="text-danger">
+            Token é obrigatório.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="qrCodeForm.invalid">
+          Enviar
+        </button>
+      </form>
+    </div>
+  
+    <div *ngIf="mensagem" class="alert mt-3" [ngClass]="{ success: mensagem.startsWith('Refeição validada!'), error: mensagem.startsWith('Erro'), warning: mensagem.startsWith('Por favor') }">
+      {{ mensagem }}
+    </div>
+  </div>
+  
