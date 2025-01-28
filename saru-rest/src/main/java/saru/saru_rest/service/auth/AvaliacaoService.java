@@ -42,7 +42,6 @@ public class AvaliacaoService {
             logger.info("Refeição validada para avaliação do CPF: {}", cpf);
         } catch (Exception e) {
             logger.warn("Erro ao validar refeição para CPF: {}. Mensagem: {}", cpf, e.getMessage());
-            logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Erro ao enviar avaliacao","error","","Computador");
             throw e;
         }
 
@@ -54,7 +53,6 @@ public class AvaliacaoService {
 
         avaliacaoRepository.save(avaliacao);
         logger.info("Avaliação salva com sucesso para CPF: {}", cpf);
-        logService.criarLog((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),"cliente","Avaliacao enviada","Sucess","","Computador");
 
 
         return "Feedback enviado!";

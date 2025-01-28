@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import saru.saru_rest.dtos.AlterarTurnoDTO;
 import saru.saru_rest.dtos.RefeicaoDTO;
+import saru.saru_rest.entity.ClienteEntity;
 import saru.saru_rest.entity.RefeicaoEntity;
 import saru.saru_rest.entity.enums.Turno;
 import saru.saru_rest.exceptions.*;
@@ -38,7 +39,9 @@ public class RefeicaoServiceImpl implements RefeicaoService {
     }
 
     public byte[] comprarRefeicao(RefeicaoDTO refeicao, String cpf) throws SaldoInsuficienteException, RefeicaoJaCompradaException, IOException, WriterException {
-        float saldo = clienteRepository.findById(cpf).get().getSaldo();
+
+        ClienteEntity cliente = clienteRepository.findById(cpf).get();
+        float saldo = cliente.getSaldo();
 
         if(saldo < 2){
             logger.error("Saldo insuficiente para o cliente: {}. Refeição não comprada.", cpf);
@@ -56,6 +59,8 @@ public class RefeicaoServiceImpl implements RefeicaoService {
         refeicaoRepository.save(refeicaoEntity);
         logger.info("Refeição comprada com sucesso para o cliente: {}. Refeição ID: {}", cpf, refeicaoEntity.getIdRefeicao());
         logService.criarLog(cpf,"cliente","Refeicao comprada:" + refeicao,"sucess","","Computador");
+        cliente.setSaldo(cliente.getSaldo() - 2);
+        clienteRepository.save(cliente);
         return qrCodeService.getQRCodeImage(refeicaoEntity);
     }
 

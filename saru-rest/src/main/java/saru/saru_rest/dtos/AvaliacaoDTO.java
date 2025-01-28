@@ -16,8 +16,14 @@ public class AvaliacaoDTO {
         @JsonProperty(value="dataRefeicao")
         private Date data;
 
+    public AvaliacaoDTO(int nota, String feedback, Turno turno, Date data) {
+        this.nota = nota;
+        this.feedback = feedback;
+        this.turno = turno;
+        this.data = data;
+    }
 
-        // Getters e Setters
+    // Getters e Setters
         public int getNota() {
             return nota;
         }
