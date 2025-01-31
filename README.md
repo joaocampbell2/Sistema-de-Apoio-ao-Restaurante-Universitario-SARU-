@@ -69,6 +69,10 @@
 
 ![vazao total](https://github.com/user-attachments/assets/fb6f8fe7-6bd6-4267-97f2-ad2ea03a7fc9)
 
+#### Concorrencia:
+
+A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 3000 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
+
 
 #### Hipotese:
 
