@@ -65,7 +65,7 @@
 
 ![maxima](https://github.com/user-attachments/assets/020be8a8-4fee-4af8-b6fc-0ae2a505ac84)
 
-#### Vazão:
+#### Vazão(requisições em 2 minutos):
 
 ![vazao total](https://github.com/user-attachments/assets/fb6f8fe7-6bd6-4267-97f2-ad2ea03a7fc9)
 
