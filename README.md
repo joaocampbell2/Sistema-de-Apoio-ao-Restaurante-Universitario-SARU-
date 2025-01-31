@@ -53,6 +53,7 @@
 #### Testes de carga (SLA):
 
 [Script de teste](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/scipts-test/scenarios/login-test.js)
+
 [Resultados](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/tree/main/scipts-test/testes/login%231)
 
 #### Data da medição: 19/01/2025
