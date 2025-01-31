@@ -59,6 +59,8 @@
 #### Data da medição: 19/01/2025
 
 #### Testes de carga (SLA):
+
+#### Tempo de resposta:
 ![media e mediana](https://github.com/user-attachments/assets/a0a1fe7f-d162-48c0-8889-77c1a982040c)
 
 ![maxima](https://github.com/user-attachments/assets/020be8a8-4fee-4af8-b6fc-0ae2a505ac84)
