@@ -1,0 +1,34 @@
+100% das verificações passaram (115921 de 115921), indicando que todas as requisições retornaram status 200.
+Erros:
+
+0% de erros (0 de 115921), indicando que não houve falhas nas requisições.
+Duração das Requisições (http_req_duration):
+
+Média: 38.22ms
+Mediana: 7.55ms
+Máximo: 821.26ms
+p(90): 112ms
+p(95): 191.77ms
+Tempo de Espera (http_req_waiting):
+
+Média: 37.56ms
+Mediana: 7ms
+Máximo: 821.26ms
+p(90): 110.67ms
+p(95): 190.49ms
+Requisições por Segundo (http_reqs):
+
+115921 requisições no total, com uma taxa de 957.987156/s.
+Duração das Iterações (iteration_duration):
+
+Média: 1.04s
+Mediana: 1.01s
+Máximo: 1.83s
+p(90): 1.12s
+p(95): 1.2s
+Conclusão
+Com base nos resultados:
+
+Latência: A latência média (38.22ms) e a mediana (7.55ms) são relativamente baixas, indicando que o sistema responde rapidamente na maioria das vezes. No entanto, o valor máximo de 821.26ms sugere que houve alguns picos de latência, mas eles são raros (p(95) = 191.77ms).
+Vazão: A taxa de requisições por segundo (957.987156/s) é alta e consistente, e não houve falhas nas requisições.
+Concorrência: O teste foi executado com até 2000 usuários virtuais, e todas as iterações foram completadas sem interrupções.
