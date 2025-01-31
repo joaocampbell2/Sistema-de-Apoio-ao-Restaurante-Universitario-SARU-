@@ -65,9 +65,18 @@
 
 ![maxima](https://github.com/user-attachments/assets/020be8a8-4fee-4af8-b6fc-0ae2a505ac84)
 
+#### Vazão(requisições em 2 minutos):
+
+![vazao total](https://github.com/user-attachments/assets/fb6f8fe7-6bd6-4267-97f2-ad2ea03a7fc9)
+
+#### Concorrencia:
+
+A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 3000 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
+
+
 #### Hipotese:
 
-Os resultados demonstram que existe gargalo com altas cargas. Ao analisar o código, não encontramos nenhum tipo de loop ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Não consegui encontrar nenhum acesso desnecessário ao banco de dados, ou que pudesse ser contornado. Também é importante ter em mente que, no contexto do projeto e do Restaurante Universitario da UNIRIO, o resultado dos testes é satisfatorio, o sistema comporta a demanda necessária.
+Os resultados demonstram que existe gargalo com altas cargas. Ao analisar o código, não encontramos nenhum tipo de loop ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Não consegui encontrar nenhum acesso desnecessário ao banco de dados, ou que pudesse ser contornado. Também é importante ter em mente que, no contexto do projeto e do Restaurante Universitario da UNIRIO, o resultado dos testes é satisfatorio, o sistema comporta a demanda necessária. Portanto, não consigo visualizar nenhuma mudança além da que já foi feita na primeira entrega dos testes de carga(adição do cache)
 
 Melhorias: Adição de Cache para evitar o contato ao banco de dados muitas vezes
 
