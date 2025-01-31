@@ -46,7 +46,7 @@
 
 [ClienteRepository](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/repository/ClienteRepository.java)
 
-#### Descrição das configurações: I5 13400F, 16GB RAM, WINDOWS 11
+#### Descrição das configurações: Ryzen 5 4600g, 16GB RAM, WINDOWS 10
 
 #### Data da medição: 08/01/2025
 
