@@ -3,6 +3,8 @@
 
 ## MEDIÇÕES DO SLA
 
+## TESTES DE CARGA #1
+
 ### Cadastrar usuário
 #### Tipo de operações: leitura / inserção
 
@@ -54,9 +56,13 @@
 #### Data da medição: 19/01/2025
 
 #### Testes de carga (SLA):
-![image](https://github.com/user-attachments/assets/cce23b7d-be10-4c11-97b4-81b69fa9da6f)
+![media e mediana](https://github.com/user-attachments/assets/a0a1fe7f-d162-48c0-8889-77c1a982040c)
+![maxima](https://github.com/user-attachments/assets/020be8a8-4fee-4af8-b6fc-0ae2a505ac84)
+
 
 
 Melhorias: Adição de Cache para evitar o contato ao banco de dados muitas vezes
 
 Arquivos: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/pull/60/commits/108e6b7f3600fc9c3cafe4cfc9f87e8becb13b9e
+
+TESTES DE CARGA #2
