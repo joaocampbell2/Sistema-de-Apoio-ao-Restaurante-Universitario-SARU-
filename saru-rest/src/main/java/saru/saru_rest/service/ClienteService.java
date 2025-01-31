@@ -53,7 +53,7 @@ public class ClienteService {
         Optional<ClienteEntity> cliente = clienteRepository.findById(cpf);
         if (cliente.isPresent()){
             float saldo = cliente.get().getSaldo();
-            if(saldo >= 500 || (saldo + valor) > 500){
+            if(saldo >= 500000000 || (saldo + valor) > 500000000){ // ALTERADO TEMPORIARAMENTE PARA TESTES DE CARGA //
                 logger.warn("Saldo excedente detectado para o cliente com CPF {}. Saldo atual: {}, tentativa de adição: {}", cpf, saldo, valor);
                 logService.criarLog(cpf,"cliente","Erro ao adicionar saldo","error","","Computador");
                 throw new SaldoExcedenteException();
