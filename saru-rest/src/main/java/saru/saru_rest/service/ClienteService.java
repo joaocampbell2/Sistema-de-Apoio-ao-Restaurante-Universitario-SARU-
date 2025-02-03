@@ -29,7 +29,7 @@ public class ClienteService {
         logger.info("Iniciando processo de adição de saldo de valor {} para o cliente com CPF {}", valor, cpf);
         try {
             Optional<ClienteEntity> cliente = clienteRepository.findById(cpf);
-            if(cliente.isPresent() && verificaSaldoExcedente(cpf, valor)){
+            if(cliente.isPresent() && verificaSaldoExcedente(cpf, valor, cliente)){
                 cliente.get().setSaldo(valor + cliente.get().getSaldo());
                 clienteRepository.save(cliente.get());
                 logger.info("Saldo de {} adicionado com sucesso para o cliente com CPF {}", valor, cpf);
@@ -48,9 +48,8 @@ public class ClienteService {
         return null;
     }
 
-    public boolean verificaSaldoExcedente(String cpf, float valor) throws SaldoExcedenteException, CpfInexistenteException {
+    public boolean verificaSaldoExcedente(String cpf, float valor, Optional<ClienteEntity> cliente) throws SaldoExcedenteException, CpfInexistenteException {
         logger.info("Verificando se o cliente com CPF {} tem saldo excedente para adicionar valor {}", cpf, valor);
-        Optional<ClienteEntity> cliente = clienteRepository.findById(cpf);
         if (cliente.isPresent()){
             float saldo = cliente.get().getSaldo();
             if(saldo >= 500000000 || (saldo + valor) > 500000000){ // ALTERADO TEMPORIARAMENTE PARA TESTES DE CARGA //
