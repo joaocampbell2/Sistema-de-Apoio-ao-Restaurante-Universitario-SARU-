@@ -7,9 +7,9 @@ export let errorRate = new Rate('errors');
 
 export let options = {
     stages: [
-        { duration: '2m', target: 100 }
+//        { duration: '2m', target: 100 }
 //        { duration: '2m', target: 500 }
-//        { duration: '2m', target: 1000 }
+        { duration: '2m', target: 1000 }
 //        { duration: '2m', target: 2000 }
 //        { duration: '2m', target: 3000 }
 //        { duration: '2m', target: 4000 }
