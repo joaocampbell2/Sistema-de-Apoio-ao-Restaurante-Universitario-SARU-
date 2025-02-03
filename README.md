@@ -29,6 +29,18 @@
 
 [Resultados](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/tree/main/scipts-test/testes/adicionarSaldo%231)
 
+####Tempo de Resposta:
+
+![media e mediana](https://github.com/user-attachments/assets/7d324117-2ab0-48b3-bbb3-75a64ed5e623)
+
+#### Vazão(requisições em 2 minutos):
+
+
+#### Concorrencia:
+
+A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 3000 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
+
+
 #### Hipoteses
 
 Os resultados demonstram que existe gargalo com altas cargas.N ão existem loops ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Exisem acessos ao banco de dados desnecessarios na função, que ao serem contornados, podem gerar alguma melhora no desempenho do método.
