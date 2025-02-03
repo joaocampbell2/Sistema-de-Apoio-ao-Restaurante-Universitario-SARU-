@@ -44,7 +44,7 @@ A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes c
 
 #### Hipoteses
 
-Os resultados demonstram que existe gargalo com altas cargas.N ão existem loops ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Exisem acessos ao banco de dados desnecessarios na função, que ao serem contornados, podem gerar alguma melhora no desempenho do método.
+Os resultados demonstram que existe gargalo com altas cargas.N ão existem loops ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Exisem acessos ao banco de dados desnecessarios na função, que ao serem contornados, podem gerar alguma melhora no desempenho do método. Outro provavel motivo é limitação de hardware da maquina onde os testes foram realizados.
 
 ### Logar Usuário
 
