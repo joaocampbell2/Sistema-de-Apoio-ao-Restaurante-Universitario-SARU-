@@ -134,7 +134,7 @@ Arquivos: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Unive
 
 #### Concorrencia:
 
-A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 500 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
+A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 1000 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
 
 #### Melhorias:
 
