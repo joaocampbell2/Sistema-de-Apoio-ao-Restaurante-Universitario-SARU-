@@ -35,10 +35,11 @@
 
 #### Vazão(requisições em 2 minutos):
 
+![reqs](https://github.com/user-attachments/assets/a15d4b4d-893b-476a-8e13-516ceb4abf9d)
 
 #### Concorrencia:
 
-A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 3000 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
+A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 500 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
 
 
 #### Hipoteses
