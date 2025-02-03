@@ -98,4 +98,45 @@ Melhorias: Adição de Cache para evitar o contato ao banco de dados muitas veze
 
 Arquivos: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/pull/60/commits/108e6b7f3600fc9c3cafe4cfc9f87e8becb13b9e
 
-TESTES DE CARGA #2
+## TESTES DE CARGA #2
+
+### Adicionar saldo
+
+#### Tipo de operações: atualização
+
+#### Arquivos envolvidos:
+
+[ClienteController](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/controller/ClienteController.java)
+
+[ClienteService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/ClienteService.java)
+
+[ClienteRepository](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/repository/ClienteRepository.java)
+
+
+
+#### Data da medição: 03/02/2025
+
+#### Descrição das configurações: RYZEN 5 4600G, 16GB RAM, WINDOWS 10
+
+#### Testes de carga (SLA):
+
+[Script de teste](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/scipts-test/scenarios/adicionarSaldo-test.js)
+
+[Resultados](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/tree/main/scipts-test/testes/adicionarSaldo%231)
+
+#### Tempo de Resposta:
+
+![media e mediana](https://github.com/user-attachments/assets/7d324117-2ab0-48b3-bbb3-75a64ed5e623)
+
+#### Vazão(requisições em 2 minutos):
+
+![reqs](https://github.com/user-attachments/assets/a15d4b4d-893b-476a-8e13-516ceb4abf9d)
+
+#### Concorrencia:
+
+A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 500 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
+
+
+#### Hipoteses
+
+Os resultados demonstram que existe gargalo com altas cargas.N ão existem loops ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Exisem acessos ao banco de dados desnecessarios na função, que ao serem contornados, podem gerar alguma melhora no desempenho do método. Outro provavel motivo é limitação de hardware da maquina onde os testes foram realizados.
