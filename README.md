@@ -5,30 +5,33 @@
 
 ## TESTES DE CARGA #1
 
-### Cadastrar usuário
-#### Tipo de operações: leitura / inserção
+### Adicionar saldo
+
+#### Tipo de operações: atualização
 
 #### Arquivos envolvidos:
 
-[AuthController](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/controller/AuthController.java)
+[ClienteController](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/controller/ClienteController.java)
 
-[AuthService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/auth/AuthService.java)
-
-[AuthServiceImpl](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/auth/AuthServiceImpl.java)
-
-[JwtService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/security/JwtService.java)
+[ClienteService](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/service/ClienteService.java)
 
 [ClienteRepository](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/saru-rest/src/main/java/saru/saru_rest/repository/ClienteRepository.java)
 
 
-#### Data da medição: 08/01/2025
 
-#### Descrição das configurações: I5 13400F, 16GB RAM, WINDOWS 11
+#### Data da medição: 03/02/2025
+
+#### Descrição das configurações: RYZEN 5 4600G, 16GB RAM, WINDOWS 10
 
 #### Testes de carga (SLA):
 
-![alt text](image.png)
+[Script de teste](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/blob/main/scipts-test/scenarios/adicionarSaldo-test.js)
 
+[Resultados](https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/tree/main/scipts-test/testes/adicionarSaldo%231)
+
+#### Hipoteses
+
+Os resultados demonstram que existe gargalo com altas cargas.N ão existem loops ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Exisem acessos ao banco de dados desnecessarios na função, que ao serem contornados, podem gerar alguma melhora no desempenho do método.
 
 ### Logar Usuário
 
@@ -48,7 +51,7 @@
 
 #### Descrição das configurações: Ryzen 5 4600g, 16GB RAM, WINDOWS 10
 
-#### Data da medição: 08/01/2025
+#### Data da medição: 31/01/2025
 
 #### Testes de carga (SLA):
 
