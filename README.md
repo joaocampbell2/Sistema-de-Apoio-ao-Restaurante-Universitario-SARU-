@@ -128,6 +128,10 @@ Arquivos: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Unive
 
 ![media  mediana](https://github.com/user-attachments/assets/2f899b7d-3c7c-44b0-b2cc-6ea5bcf66164)
 
+COMPARAÇÃO COM MEDIÇÃO 1
+
+![comparacao](https://github.com/user-attachments/assets/54cd94ba-c8e3-48ec-a607-f4be33b6d907)
+
 #### Vazão(requisições em 2 minutos):
 
 ![reqs](https://github.com/user-attachments/assets/00d18b4c-b947-432f-808f-8bdc686e5740)
