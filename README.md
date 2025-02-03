@@ -126,17 +126,21 @@ Arquivos: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Unive
 
 #### Tempo de Resposta:
 
-![media e mediana](https://github.com/user-attachments/assets/7d324117-2ab0-48b3-bbb3-75a64ed5e623)
+![media  mediana](https://github.com/user-attachments/assets/2f899b7d-3c7c-44b0-b2cc-6ea5bcf66164)
 
 #### Vazão(requisições em 2 minutos):
 
-![reqs](https://github.com/user-attachments/assets/a15d4b4d-893b-476a-8e13-516ceb4abf9d)
+![reqs](https://github.com/user-attachments/assets/00d18b4c-b947-432f-808f-8bdc686e5740)
 
 #### Concorrencia:
 
 A concorrencia é demonstrada nos outros gráficos, no eixo debaixo. Os testes com até 500 usuários virtuais mostraram bom desempenho, a partir disso os gargalos começaram a ser mais intensos.
 
+#### Melhorias:
 
-#### Hipoteses
+Guardar o cliente em uma variável e passar a variável ao método de verificação, para evitar que o mesmo cliente seja buscado 2 vezes no banco de dados.
+Arquivo: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Universitario-SARU-/commit/6b2c489fb82c374f29fb24c5267cd7bab2b7ae19
 
-Os resultados demonstram que existe gargalo com altas cargas.N ão existem loops ou algo que pareça aumentar significativamente a complexidade da função, ou seja, provavelmente o gargalo é causado por conta dos acessos ao banco de dados. Exisem acessos ao banco de dados desnecessarios na função, que ao serem contornados, podem gerar alguma melhora no desempenho do método. Outro provavel motivo é limitação de hardware da maquina onde os testes foram realizados.
+#### Conclusão
+
+Os resultados demonstram que existe gargalo com altas cargas.Não existem loops ou algo que pareça aumentar significativamente a complexidade da função. A melhoria implementada causou melhora de desempenho quase insignificanete em baixas cargas e piora de desempenho consideravel em altas cargas. A função faz acesso ao banco de dados duas vezes nesse metódo(para achar o cliente pelo CPF e para salvar o novo saldo), isso causa o menor desempenho em relação ao login, por exemplo. Mesmo com os resultados que foram obtidos com o segundo teste de cargas, o volume de requisções com desempenho bom é satisfatorio no contexto do projeto.
