@@ -130,7 +130,7 @@ Arquivos: https://github.com/joaocampbell2/Sistema-de-Apoio-ao-Restaurante-Unive
 
 COMPARAÇÃO COM MEDIÇÃO 1
 
-![comparacao](https://github.com/user-attachments/assets/54cd94ba-c8e3-48ec-a607-f4be33b6d907)
+![comparacao](https://github.com/user-attachments/assets/f4cb311c-6074-4d5c-a264-fd51da14bab1)
 
 #### Vazão(requisições em 2 minutos):
 
